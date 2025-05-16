@@ -27,21 +27,15 @@ class Admin extends Model
     {
         parent::boot();
 
-        self::creating(function ($model) {
-            $getAdmin = self::orderBy('admin_id', 'desc')->first(); 
-            if ($getAdmin) {
-                $latestID = intval(substr($getAdmin->admin_Index, 3)); 
-                $nextID = $latestID + 1;
-            } else {
-                $nextID = 1;
-            }
+        static::creating(function ($model) {
+            $latestAdmin = self::orderBy('admin_id', 'desc')->first();
+            $nextID = $latestAdmin ? intval(substr($latestAdmin->admin_Index, 3)) + 1 : 1;
+            $model->admin_Index = 'ADM' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
 
-            $model->admin_Index = 'ADM' .sprintf("%04s",$nextID);
-             while(self::where('admin_id',$model->admin_id)->exists()){
+            while (self::where('admin_Index', $model->admin_Index)->exists()) {
                 $nextID++;
-                $model->admin_Index = 'ADM' .sprintf("%04s",$nextID);
-
-             }
+                $model->admin_Index = 'ADM' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
+            }
         });
     }
 }
