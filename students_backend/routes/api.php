@@ -23,6 +23,19 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Controller;
+
+
+Route::prefix('authController')->group(function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+});
+
+Route::prefix('controller')->group(function () {
+    Route::post('/lookup', [Controller::class, 'lookup']);
+});
 
 
 Route::middleware('auth:sanctum')->prefix('studentsGPA')->group(function () {
