@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 
-export default function AdminAddForm({ show, handleClose, onSubmit, initialData }) {
+export default function AdminForm({ show, handleClose, onSubmit, initialData }) {
   const [form, setForm] = useState({
     admin_fname: '',
     admin_lname: '',

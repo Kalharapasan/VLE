@@ -25,11 +25,10 @@ class DepartmentController extends Controller
         return response()->json(Department::all());
     }
 
-    // READ ONE
+    // READ ONE (with related faculty info)
     public function show($id)
     {
-        $department = Department::findOrFail($id);
-        return response()->json($department);
+        return response()->json(Department::with('faculty')->findOrFail($id));
     }
 
     // UPDATE

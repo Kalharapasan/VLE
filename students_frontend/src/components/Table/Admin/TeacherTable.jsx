@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Table, Form } from 'react-bootstrap';
-import AdminAddForm from '../../Frome/Admin/AdminForm';
+import AdminForm from '../../Frome/Admin/AdminForm.jsx';
 import AdminCard from '../../Card/Admin/AdminCard';
 import {
   getAdmins,
@@ -142,7 +142,7 @@ export default function AdminTable() {
         ))}
       </div>
 
-      <AdminAddForm
+      <AdminForm
         show={showForm}
         handleClose={() => {
           setShowForm(false);

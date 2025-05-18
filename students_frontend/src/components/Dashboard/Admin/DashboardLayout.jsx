@@ -6,12 +6,12 @@ import DashboardSummary from './DashboardSummary';
 import AdminTable from '../../Table/Admin/AdminTable';
 import StudentTable from '../../Table/Admin/StudentTable';
 import './DashboardLayout.css';
-import Department from '../../Table/Admin/Department';
-import Exam from '../../Table/Admin/Exam';
-import Faculty from '../../Table/Admin/Faculty';
-import Teacher from '../../Table/Admin/Teacher';
+import Department from '../../Table/Admin/DepartmentTable.jsx';
+import Exam from '../../Table/Admin/ExamTable.jsx';
+import Faculty from '../../Table/Admin/FacultyTable.jsx';
+import Teacher from '../../Table/Admin/TeacherTable.jsx';
 import TimeTable from '../../Table/Admin/TimeTable';
-import Subject from '../../Table/Admin/Subject';
+import Subject from '../../Table/Admin/SubjectTable.jsx';
 
 export default function DashboardLayout() {
   const [view, setView] = useState('dashboard');
