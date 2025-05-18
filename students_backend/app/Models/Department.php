@@ -16,6 +16,7 @@ class Department extends Model
         'department_name',
         'description',
         'faculties_id',
+        'img',
     ];
 
     protected static function boot()

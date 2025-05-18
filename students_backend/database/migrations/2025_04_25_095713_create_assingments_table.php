@@ -19,6 +19,7 @@ return new class extends Migration
             $table->dateTime('assingment_end_date');
             $table->string('document');
             $table->text('description');
+            $table->string('img')->nullable();
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')->references('subject_id')->on('subjects')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('teacher_id');

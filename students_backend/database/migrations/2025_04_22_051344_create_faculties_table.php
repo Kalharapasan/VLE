@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('faculties_Index');
             $table->string('faculties_name');
             $table->text('description');
+            $table->string('img')->nullable();
             $table->timestamps();
         });
     }

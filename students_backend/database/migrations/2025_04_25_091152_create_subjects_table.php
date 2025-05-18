@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('subject_Index');
             $table->string('subject_name');
             $table->text('description');
+            $table->string('img')->nullable();
             $table->timestamps();
         });
     }

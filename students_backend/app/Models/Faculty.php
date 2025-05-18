@@ -15,6 +15,7 @@ class Faculty extends Model
         'faculties_Index',
         'faculties_name',
         'description',
+        'img',
     ];
 
     protected static function boot()
