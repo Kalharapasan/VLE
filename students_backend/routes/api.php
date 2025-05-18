@@ -33,180 +33,165 @@ Route::prefix('authController')->group(function () {
     Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 });
 
-Route::prefix('controller')->group(function () {
-    Route::post('/lookup', [Controller::class, 'lookup']);
-});
+//Other Controller Api Routes
+Route::post('/lookup', [Controller::class, 'lookup']);
+
+// Students GPA API Routes
+Route::get('/studentsGPA', [StudentsGPAController::class, 'index']);
+Route::post('/studentsGPA', [StudentsGPAController::class, 'store']);
+Route::get('/studentsGPA/{id}', [StudentsGPAController::class, 'show']);
+Route::put('/studentsGPA/update/{id}', [StudentsGPAController::class, 'update']);
+Route::delete('/studentsGPA/{id}', [StudentsGPAController::class, 'destroy']);
+
+// Student Subject API Routes
+Route::get('/studentSubject', [StudentSubjectController::class, 'index']);
+Route::post('/studentSubject', [StudentSubjectController::class, 'store']);
+Route::get('/studentSubject/{id}', [StudentSubjectController::class, 'show']);
+Route::put('/studentSubject/update/{id}', [StudentSubjectController::class, 'update']);
+Route::delete('/studentSubject/{id}', [StudentSubjectController::class, 'destroy']);
+
+// Subject API Routes
+Route::get('/subject', [SubjectController::class, 'index']);
+Route::post('/subject', [SubjectController::class, 'store']);
+Route::get('/subject/{id}', [SubjectController::class, 'show']);
+Route::put('/subject/update/{id}', [SubjectController::class, 'update']);
+Route::delete('/subject/{id}', [SubjectController::class, 'destroy']);
+
+// Subject Course API Routes
+Route::get('/subjectCourse', [SubjectCourseController::class, 'index']);
+Route::post('/subjectCourse', [SubjectCourseController::class, 'store']);
+Route::get('/subjectCourse/{id}', [SubjectCourseController::class, 'show']);
+Route::put('/subjectCourse/update/{id}', [SubjectCourseController::class, 'update']);
+Route::delete('/subjectCourse/{id}', [SubjectCourseController::class, 'destroy']);
+
+// Submit Assignment API Routes
+Route::get('/submitAssignment', [SubmitAssingmentController::class, 'index']);
+Route::post('/submitAssignment', [SubmitAssingmentController::class, 'store']);
+Route::get('/submitAssignment/{id}', [SubmitAssingmentController::class, 'show']);
+Route::put('/submitAssignment/update/{id}', [SubmitAssingmentController::class, 'update']);
+Route::delete('/submitAssignment/{id}', [SubmitAssingmentController::class, 'destroy']);
+
+// Teacher Course API Routes
+Route::get('/teacherCourse', [TeacherCourseController::class, 'index']);
+Route::post('/teacherCourse', [TeacherCourseController::class, 'store']);
+Route::get('/teacherCourse/{id}', [TeacherCourseController::class, 'show']);
+Route::put('/teacherCourse/update/{id}', [TeacherCourseController::class, 'update']);
+Route::delete('/teacherCourse/{id}', [TeacherCourseController::class, 'destroy']);
+
+// Teacher Subject API Routes
+Route::get('/teacherSubject', [TeacherSubjectController::class, 'index']);
+Route::post('/teacherSubject', [TeacherSubjectController::class, 'store']);
+Route::get('/teacherSubject/{id}', [TeacherSubjectController::class, 'show']);
+Route::put('/teacherSubject/update/{id}', [TeacherSubjectController::class, 'update']);
+Route::delete('/teacherSubject/{id}', [TeacherSubjectController::class, 'destroy']);
+
+// Time Table API Routes
+Route::get('/timeTable', [TimeTableController::class, 'index']);
+Route::post('/timeTable', [TimeTableController::class, 'store']);
+Route::get('/timeTable/{id}', [TimeTableController::class, 'show']);
+Route::put('/timeTable/update/{id}', [TimeTableController::class, 'update']);
+Route::delete('/timeTable/{id}', [TimeTableController::class, 'destroy']);
+
+//Student Exam Marks Attendance API Routes
+Route::get('/studentExamMarks', [StudentExamMarksController::class, 'index']);
+Route::post('/studentExamMarks', [StudentExamMarksController::class, 'store']);
+Route::get('/studentExamMarks/{id}', [StudentExamMarksController::class, 'show']);
+Route::put('/studentExamMarks/update/{id}', [StudentExamMarksController::class, 'update']);
+Route::delete('/studentExamMarks/{id}', [StudentExamMarksController::class, 'destroy']);
+
+//Student Exam Attendance API Routes
+Route::get('/studentExam', [StudentExamController::class, 'index']);
+Route::post('/studentExam', [StudentExamController::class, 'store']);
+Route::get('/studentExam/{id}', [StudentExamController::class, 'show']);
+Route::put('/studentExam/update/{id}', [StudentExamController::class, 'update']);
+Route::delete('/studentExam/{id}', [StudentExamController::class, 'destroy']);
 
 
-Route::middleware('auth:sanctum')->prefix('studentsGPA')->group(function () {
-    Route::get('/', [StudentsGPAController::class, 'index']);
-    Route::post('/', [StudentsGPAController::class, 'store']);
-    Route::get('/{id}', [StudentsGPAController::class, 'show']);
-    Route::put('/update/{id}', [StudentsGPAController::class, 'update']);
-    Route::delete('/{id}', [StudentsGPAController::class, 'destroy']);
-});
+//Student Attendance API Routes
+Route::get('/attendance', [StudentCourseController::class, 'index']);
+Route::post('/attendance', [StudentCourseController::class, 'store']);
+Route::get('/attendance/{id}', [StudentCourseController::class, 'show']);
+Route::put('/attendance/update/{id}', [StudentCourseController::class, 'update']);
+Route::delete('/attendance/{id}', [StudentCourseController::class, 'destroy']);
 
-Route::middleware('auth:sanctum')->prefix('studentSubject')->group(function () {
-    Route::get('/', [StudentSubjectController::class, 'index']);
-    Route::post('/', [StudentSubjectController::class, 'store']);
-    Route::get('/{id}', [StudentSubjectController::class, 'show']);
-    Route::put('/update/{id}', [StudentSubjectController::class, 'update']);
-    Route::delete('/{id}', [StudentSubjectController::class, 'destroy']);
-});
 
-Route::middleware('auth:sanctum')->prefix('subject')->group(function () {
-    Route::get('/', [SubjectController::class, 'index']);
-    Route::post('/', [SubjectController::class, 'store']);
-    Route::get('/{id}', [SubjectController::class, 'show']);
-    Route::put('/update/{id}', [SubjectController::class, 'update']);
-    Route::delete('/{id}', [SubjectController::class, 'destroy']);
-});
+//Student Attendance API Routes
+Route::get('/attendance', [StudentAttendanceController::class, 'index']);
+Route::post('/attendance', [StudentAttendanceController::class, 'store']);
+Route::get('/attendance/{id}', [StudentAttendanceController::class, 'show']);
+Route::put('/attendance/update/{id}', [StudentAttendanceController::class, 'update']);
+Route::delete('/attendance/{id}', [StudentAttendanceController::class, 'destroy']);
 
-Route::middleware('auth:sanctum')->prefix('subjectCourse')->group(function () {
-    Route::get('/', [SubjectCourseController::class, 'index']);
-    Route::post('/', [SubjectCourseController::class, 'store']);
-    Route::get('/{id}', [SubjectCourseController::class, 'show']);
-    Route::put('/update/{id}', [SubjectCourseController::class, 'update']);
-    Route::delete('/{id}', [SubjectCourseController::class, 'destroy']);
-});
+//Studen Payment API Routes
+Route::get('/studenPayment', [StudenPaymentController::class, 'index']);
+Route::post('/studenPayment', [StudenPaymentController::class, 'store']);
+Route::get('/studenPayment/{id}', [StudenPaymentController::class, 'show']);
+Route::put('/studenPayment/update/{id}', [StudenPaymentController::class, 'update']);
+Route::delete('/studenPayment/{id}', [StudenPaymentController::class, 'destroy']);
 
-Route::middleware('auth:sanctum')->prefix('submitAssignment')->group(function () {
-    Route::get('/', [SubmitAssingmentController::class, 'index']);
-    Route::post('/', [SubmitAssingmentController::class, 'store']);
-    Route::get('/{id}', [SubmitAssingmentController::class, 'show']);
-    Route::put('/update/{id}', [SubmitAssingmentController::class, 'update']);
-    Route::delete('/{id}', [SubmitAssingmentController::class, 'destroy']);
-});
+// Exam  API Routes
+Route::get('/exam', [ExamController::class, 'index']);
+Route::post('/exam', [ExamController::class, 'store']);
+Route::get('/exam/{id}', [ExamController::class, 'show']);
+Route::put('/exam/update/{id}', [ExamController::class, 'update']);
+Route::delete('/exam/{id}', [ExamController::class, 'destroy']);
 
-Route::middleware('auth:sanctum')->prefix('teacherCourse')->group(function () {
-    Route::get('/', [TeacherCourseController::class, 'index']);
-    Route::post('/', [TeacherCourseController::class, 'store']);
-    Route::get('/{id}', [TeacherCourseController::class, 'show']);
-    Route::put('/update/{id}', [TeacherCourseController::class, 'update']);
-    Route::delete('/{id}', [TeacherCourseController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->prefix('teacherSubject')->group(function () {
-    Route::get('/', [TeacherSubjectController::class, 'index']);
-    Route::post('/', [TeacherSubjectController::class, 'store']);
-    Route::get('/{id}', [TeacherSubjectController::class, 'show']);
-    Route::put('/update/{id}', [TeacherSubjectController::class, 'update']);
-    Route::delete('/{id}', [TeacherSubjectController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->prefix('timeTable')->group(function () {
-    Route::get('/', [TimeTableController::class, 'index']);
-    Route::post('/', [TimeTableController::class, 'store']);
-    Route::get('/{id}', [TimeTableController::class, 'show']);
-    Route::put('/update/{id}', [TimeTableController::class, 'update']);
-    Route::delete('/{id}', [TimeTableController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->prefix('studentExamMarks')->group(function () {
-    Route::get('/', [StudentExamMarksController::class, 'index']);
-    Route::post('/', [StudentExamMarksController::class, 'store']);
-    Route::get('/{id}', [StudentExamMarksController::class, 'show']);
-    Route::put('/update/{id}', [StudentExamMarksController::class, 'update']);
-    Route::delete('/{id}', [StudentExamMarksController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->prefix('studentExam')->group(function () {
-    Route::get('/', [StudentExamController::class, 'index']);
-    Route::post('/', [StudentExamController::class, 'store']);
-    Route::get('/{id}', [StudentExamController::class, 'show']);
-    Route::put('/update/{id}', [StudentExamController::class, 'update']);
-    Route::delete('/{id}', [StudentExamController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->prefix('attendance')->group(function () {
-    Route::get('/', [StudentAttendanceController::class, 'index']);
-    Route::post('/', [StudentAttendanceController::class, 'store']);
-    Route::get('/{id}', [StudentAttendanceController::class, 'show']);
-    Route::put('/update/{id}', [StudentAttendanceController::class, 'update']);
-    Route::delete('/{id}', [StudentAttendanceController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->prefix('studenPayment')->group(function () {
-    Route::get('/', [StudenPaymentController::class, 'index']);
-    Route::post('/', [StudenPaymentController::class, 'store']);
-    Route::get('/{id}', [StudenPaymentController::class, 'show']);
-    Route::put('/update/{id}', [StudenPaymentController::class, 'update']);
-    Route::delete('/{id}', [StudenPaymentController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->prefix('exam')->group(function () {
-    Route::get('/', [ExamController::class, 'index']);
-    Route::post('/', [ExamController::class, 'store']);
-    Route::get('/{id}', [ExamController::class, 'show']);
-    Route::put('/update/{id}', [ExamController::class, 'update']);
-    Route::delete('/{id}', [ExamController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->prefix('assingmentMark')->group(function () {
-    Route::get('/', [AssingmentMarkController::class, 'index']);
-    Route::post('/', [AssingmentMarkController::class, 'store']);
-    Route::get('/{id}', [AssingmentMarkController::class, 'show']);
-    Route::put('/update/{id}', [AssingmentMarkController::class, 'update']);
-    Route::delete('/{id}', [AssingmentMarkController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->prefix('assingment')->group(function () {
-    Route::get('/', [AssingmentController::class, 'index']);
-    Route::post('/', [AssingmentController::class, 'store']);
-    Route::get('/{id}', [AssingmentController::class, 'show']);
-    Route::put('/update/{id}', [AssingmentController::class, 'update']);
-    Route::delete('/{id}', [AssingmentController::class, 'destroy']);
-});
+// Assingment Mark API Routes
+Route::get('/assingmentMark', [AssingmentMarkController::class, 'index']);
+Route::post('/assingmentMark', [AssingmentMarkController::class, 'store']);
+Route::get('/assingmentMark/{id}', [AssingmentMarkController::class, 'show']);
+Route::put('/assingmentMark/update/{id}', [AssingmentMarkController::class, 'update']);
+Route::delete('/assingmentMark/{id}', [AssingmentMarkController::class, 'destroy']);
 
 
 
-Route::prefix('admins')->group(function () {
-    Route::get('/admin', [AdminController::class, 'index']);
-    Route::post('/admin', [AdminController::class, 'store']);
-    Route::get('/admin/{id}', [AdminController::class, 'show']);
-    Route::put('/admin/update/{id}', [AdminController::class, 'update']);
-    Route::delete('/admin/{id}', [AdminController::class, 'destroy']);
-});
+// Assingment API Routes
+Route::get('/assingment', [AssingmentController::class, 'index']);
+Route::post('/assingment', [AssingmentController::class, 'store']);
+Route::get('/assingment/{id}', [AssingmentController::class, 'show']);
+Route::put('/assingment/update/{id}', [AssingmentController::class, 'update']);
+Route::delete('/assingment/{id}', [AssingmentController::class, 'destroy']);
 
 
-Route::middleware('auth:sanctum')->prefix('faculty')->group(function () {
-    Route::get('/', [FacultyController::class, 'index']);
-    Route::post('/', [FacultyController::class, 'store']);
-    Route::get('/{id}', [FacultyController::class, 'show']);
-    Route::put('/update/{id}', [FacultyController::class, 'update']);
-    Route::delete('/{id}', [FacultyController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->prefix('courses')->group(function () {
-    Route::get('/', [CourseController::class, 'index']);
-    Route::post('/', [CourseController::class, 'store']);
-    Route::get('/{id}', [CourseController::class, 'show']);
-    Route::put('/update/{id}', [CourseController::class, 'update']);
-    Route::delete('/{id}', [CourseController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->prefix('department')->group(function () {
-    Route::get('/', [DepartmentController::class, 'index']);
-    Route::post('/', [DepartmentController::class, 'store']);
-    Route::get('/{id}', [DepartmentController::class, 'show']);
-    Route::put('/update/{id}', [DepartmentController::class, 'update']);
-    Route::delete('/{id}', [DepartmentController::class, 'destroy']);
-});
-
-// routes/api.php
-Route::middleware('auth:sanctum')->prefix('student')->group(function () {
-    Route::get('/student', [StudentController::class, 'index']);
-    Route::post('/student', [StudentController::class, 'store']);
-    Route::get('/student/{id}', [StudentController::class, 'show']);
-    Route::put('/student/update/{id}', [StudentController::class, 'update']);
-    Route::delete('/student/{id}', [StudentController::class, 'destroy']);
-});
+// Admin API Routes
+Route::get('/admin', [AdminController::class, 'index']);
+Route::post('/admin', [AdminController::class, 'store']);
+Route::get('/admin/{id}', [AdminController::class, 'show']);
+Route::put('/admin/update/{id}', [AdminController::class, 'update']);
+Route::delete('/admin/{id}', [AdminController::class, 'destroy']);
 
 
-Route::middleware('auth:sanctum')->prefix('teacher')->group(function () {
-    Route::get('/', [TeacherController::class, 'index']);
-    Route::post('/', [TeacherController::class, 'store']);
-    Route::get('/{id}', [TeacherController::class, 'show']);
-    Route::put('/update/{id}', [TeacherController::class, 'update']);
-    Route::delete('/{id}', [TeacherController::class, 'destroy']);
-});
+// Faculty API Routes
+Route::get('/faculty', [FacultyController::class, 'index']);
+Route::post('/faculty', [FacultyController::class, 'store']);
+Route::get('/faculty/{id}', [FacultyController::class, 'show']);
+Route::put('/faculty/update/{id}', [FacultyController::class, 'update']);
+Route::delete('/faculty/{id}', [FacultyController::class, 'destroy']);
+
+// Course API Routes
+Route::get('/courses', [CourseController::class, 'index']);
+Route::post('/courses', [CourseController::class, 'store']);
+Route::get('/courses/{id}', [CourseController::class, 'show']);
+Route::put('/courses/update/{id}', [CourseController::class, 'update']);
+Route::delete('/courses/{id}', [CourseController::class, 'destroy']);
+
+// Department API Routes
+Route::get('/department', [DepartmentController::class, 'index']);
+Route::post('/department', [DepartmentController::class, 'store']);
+Route::get('/department/{id}', [DepartmentController::class, 'show']);
+Route::put('/department/update/{id}', [DepartmentController::class, 'update']);
+Route::delete('/department/{id}', [DepartmentController::class, 'destroy']);
+
+// Students API Routes
+Route::get('/student', [StudentController::class, 'index']);
+Route::post('/student', [StudentController::class, 'store']);
+Route::get('/student/{id}', [StudentController::class, 'show']);
+Route::put('/student/update/{id}', [StudentController::class, 'update']);
+Route::delete('/student/{id}', [StudentController::class, 'destroy']);
+
+// Teacher API Routes
+Route::get('/teacher', [TeacherController::class, 'index']);
+Route::post('/teacher', [TeacherController::class, 'store']);
+Route::get('/teacher/{id}', [TeacherController::class, 'show']);
+Route::put('/teacher/update/{id}', [TeacherController::class, 'update']);
+Route::delete('/teacher/{id}', [TeacherController::class, 'destroy']);

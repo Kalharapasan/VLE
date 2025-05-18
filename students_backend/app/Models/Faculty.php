@@ -21,20 +21,22 @@ class Faculty extends Model
     {
         parent::boot();
 
-        self::creating(function ($model) {
-            $getFaculty = self::orderBy('faculties_id', 'desc')->first(); // Fixed variable name to $getFaculty
-            if ($getFaculty) {
-                $latestID = intval(substr($getFaculty->faculties_Index, 4)); // Extract numeric part from faculties_Index
-                $nextID = $latestID + 1;
-            } else {
-                $nextID = 1;
-            }
+        static::creating(function ($faculty) {
+            $latestFaculty = self::orderBy('faculties_id', 'desc')->first();
+            $lastIndex = $latestFaculty ? intval(substr($latestFaculty->faculties_Index, 4)) : 0;
 
-            $model->faculties_Index = 'FACU' . str_pad($nextID, 4, '0', STR_PAD_LEFT); // Generate faculties_Index
-            while (self::where('faculties_Index', $model->faculties_Index)->exists()) { // Check for duplicate faculties_Index
-                $nextID++;
-                $model->faculties_Index = 'FACU' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
-            }
+            $attempts = 0;
+
+            do {
+                $nextIndex = $lastIndex + 1;
+                $faculty->faculties_Index = 'FACU' . str_pad($nextIndex, 4, '0', STR_PAD_LEFT);
+                $lastIndex = $nextIndex;
+                $attempts++;
+
+                if ($attempts > 100) {
+                    throw new \Exception('Failed to generate a unique faculties_Index after 100 attempts.');
+                }
+            } while (self::where('faculties_Index', $faculty->faculties_Index)->exists());
         });
     }
 }
