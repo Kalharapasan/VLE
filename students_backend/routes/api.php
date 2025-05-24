@@ -25,6 +25,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\StudentCourseController;
 
 
 Route::prefix('authController')->group(function () {
@@ -35,13 +36,30 @@ Route::prefix('authController')->group(function () {
 
 //Other Controller Api Routes
 Route::post('/lookup', [Controller::class, 'lookup']);
+Route::get('/faculties/index', [FacultyController::class, 'get_id']);
+Route::get('/department/index', [DepartmentController::class, 'get_id']);
+
+// Count Routes (keep one valid route per endpoint)
+Route::get('/admin/count', [AdminController::class, 'count']);
+Route::get('/student/count', [StudentController::class, 'count']);
+Route::get('/courses/count', [CourseController::class, 'count']);
+Route::get('/department/count', [DepartmentController::class, 'count']);
+Route::get('/exam/count', [ExamController::class, 'count']);
+Route::get('/faculty/count', [FacultyController::class, 'count']);
+Route::get('/teacher/count', [TeacherController::class, 'count']);
+Route::get('/timeTable/count', [TimeTableController::class, 'count']);
+Route::get('/subject/count', [SubjectController::class, 'count']);
 
 // Students GPA API Routes
-Route::get('/studentsGPA', [StudentsGPAController::class, 'index']);
-Route::post('/studentsGPA', [StudentsGPAController::class, 'store']);
-Route::get('/studentsGPA/{id}', [StudentsGPAController::class, 'show']);
-Route::put('/studentsGPA/update/{id}', [StudentsGPAController::class, 'update']);
-Route::delete('/studentsGPA/{id}', [StudentsGPAController::class, 'destroy']);
+Route::prefix('studentsGPA')->group(function () {
+    Route::get('/', [StudentsGPAController::class, 'index']);
+    Route::post('/', [StudentsGPAController::class, 'store']);
+    Route::get('/{id}', [StudentsGPAController::class, 'show']);
+    Route::put('/update/{id}', [StudentsGPAController::class, 'update']);
+    Route::delete('/{id}', [StudentsGPAController::class, 'destroy']);
+});
+
+
 
 // Student Subject API Routes
 Route::get('/studentSubject', [StudentSubjectController::class, 'index']);
@@ -51,11 +69,15 @@ Route::put('/studentSubject/update/{id}', [StudentSubjectController::class, 'upd
 Route::delete('/studentSubject/{id}', [StudentSubjectController::class, 'destroy']);
 
 // Subject API Routes
-Route::get('/subject', [SubjectController::class, 'index']);
-Route::post('/subject', [SubjectController::class, 'store']);
-Route::get('/subject/{id}', [SubjectController::class, 'show']);
-Route::put('/subject/update/{id}', [SubjectController::class, 'update']);
-Route::delete('/subject/{id}', [SubjectController::class, 'destroy']);
+Route::prefix('subject')->group(function () {
+    Route::get('/', [SubjectController::class, 'index']);
+    Route::post('/', [SubjectController::class, 'store']);
+    Route::get('/{id}', [SubjectController::class, 'show']);
+    Route::put('/update/{id}', [SubjectController::class, 'update']);
+    Route::delete('/{id}', [SubjectController::class, 'destroy']);
+
+});
+
 
 // Subject Course API Routes
 Route::get('/subjectCourse', [SubjectCourseController::class, 'index']);
@@ -86,11 +108,16 @@ Route::put('/teacherSubject/update/{id}', [TeacherSubjectController::class, 'upd
 Route::delete('/teacherSubject/{id}', [TeacherSubjectController::class, 'destroy']);
 
 // Time Table API Routes
-Route::get('/timeTable', [TimeTableController::class, 'index']);
-Route::post('/timeTable', [TimeTableController::class, 'store']);
-Route::get('/timeTable/{id}', [TimeTableController::class, 'show']);
-Route::put('/timeTable/update/{id}', [TimeTableController::class, 'update']);
-Route::delete('/timeTable/{id}', [TimeTableController::class, 'destroy']);
+Route::prefix('timeTable')->group(function () {
+    Route::get('/', [TimeTableController::class, 'index']);
+    Route::post('/', [TimeTableController::class, 'store']);
+    Route::get('/{id}', [TimeTableController::class, 'show']);
+    Route::put('/update/{id}', [TimeTableController::class, 'update']);
+    Route::delete('/{id}', [TimeTableController::class, 'destroy']);
+
+});
+
+
 
 //Student Exam Marks Attendance API Routes
 Route::get('/studentExamMarks', [StudentExamMarksController::class, 'index']);
@@ -130,68 +157,107 @@ Route::put('/studenPayment/update/{id}', [StudenPaymentController::class, 'updat
 Route::delete('/studenPayment/{id}', [StudenPaymentController::class, 'destroy']);
 
 // Exam  API Routes
-Route::get('/exam', [ExamController::class, 'index']);
-Route::post('/exam', [ExamController::class, 'store']);
-Route::get('/exam/{id}', [ExamController::class, 'show']);
-Route::put('/exam/update/{id}', [ExamController::class, 'update']);
-Route::delete('/exam/{id}', [ExamController::class, 'destroy']);
+Route::prefix('exam')->group(function () {
+    Route::get('/', [ExamController::class, 'index']);
+    Route::post('/', [ExamController::class, 'store']);
+    Route::get('/{id}', [ExamController::class, 'show']);
+    Route::put('/update/{id}', [ExamController::class, 'update']);
+    Route::delete('/{id}', [ExamController::class, 'destroy']);
+
+});
+
 
 // Assingment Mark API Routes
-Route::get('/assingmentMark', [AssingmentMarkController::class, 'index']);
-Route::post('/assingmentMark', [AssingmentMarkController::class, 'store']);
-Route::get('/assingmentMark/{id}', [AssingmentMarkController::class, 'show']);
-Route::put('/assingmentMark/update/{id}', [AssingmentMarkController::class, 'update']);
-Route::delete('/assingmentMark/{id}', [AssingmentMarkController::class, 'destroy']);
+Route::prefix('assingmentMark')->group(function () {
+    Route::get('/', [AssingmentMarkController::class, 'index']);
+    Route::post('/', [AssingmentMarkController::class, 'store']);
+    Route::get('/{id}', [AssingmentMarkController::class, 'show']);
+    Route::put('/update/{id}', [AssingmentMarkController::class, 'update']);
+    Route::delete('/{id}', [AssingmentMarkController::class, 'destroy']);
+});
+
 
 
 
 // Assingment API Routes
-Route::get('/assingment', [AssingmentController::class, 'index']);
-Route::post('/assingment', [AssingmentController::class, 'store']);
-Route::get('/assingment/{id}', [AssingmentController::class, 'show']);
-Route::put('/assingment/update/{id}', [AssingmentController::class, 'update']);
-Route::delete('/assingment/{id}', [AssingmentController::class, 'destroy']);
+Route::prefix('assingment')->group(function () {
+    Route::get('/', [AssingmentController::class, 'index']);
+    Route::post('/', [AssingmentController::class, 'store']);
+    Route::get('/{id}', [AssingmentController::class, 'show']);
+    Route::put('/update/{id}', [AssingmentController::class, 'update']);
+    Route::delete('/{id}', [AssingmentController::class, 'destroy']);
+
+});
 
 
 // Admin API Routes
-Route::get('/admin', [AdminController::class, 'index']);
-Route::post('/admin', [AdminController::class, 'store']);
-Route::get('/admin/{id}', [AdminController::class, 'show']);
-Route::put('/admin/update/{id}', [AdminController::class, 'update']);
-Route::delete('/admin/{id}', [AdminController::class, 'destroy']);
+Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'index']);
+    Route::post('/', [AdminController::class, 'store']);
+    Route::get('/{id}', [AdminController::class, 'show']);
+    Route::put('/update/{id}', [AdminController::class, 'update']);
+    Route::delete('/{id}', [AdminController::class, 'destroy']);
+
+    // Additional routes
+    Route::get('/names', [AdminController::class, 'names']);
+    Route::get('/emails', [AdminController::class, 'emails']);
+    Route::get('/attribute/{id}/{attribute}', [AdminController::class, 'getAttributeById']);
+});
+
+
 
 
 // Faculty API Routes
-Route::get('/faculty', [FacultyController::class, 'index']);
-Route::post('/faculty', [FacultyController::class, 'store']);
-Route::get('/faculty/{id}', [FacultyController::class, 'show']);
-Route::put('/faculty/update/{id}', [FacultyController::class, 'update']);
-Route::delete('/faculty/{id}', [FacultyController::class, 'destroy']);
+Route::prefix('faculty')->group(function () {
+    Route::get('/', [FacultyController::class, 'index']);
+    Route::post('/', [FacultyController::class, 'store']);
+    Route::get('/{id}', [FacultyController::class, 'show']);
+    Route::put('/update/{id}', [FacultyController::class, 'update']);
+    Route::delete('/{id}', [FacultyController::class, 'destroy']);
+
+});
+
+
+
 
 // Course API Routes
-Route::get('/courses', [CourseController::class, 'index']);
-Route::post('/courses', [CourseController::class, 'store']);
-Route::get('/courses/{id}', [CourseController::class, 'show']);
-Route::put('/courses/update/{id}', [CourseController::class, 'update']);
-Route::delete('/courses/{id}', [CourseController::class, 'destroy']);
+Route::prefix('courses')->group(function () {
+    Route::get('/', [CourseController::class, 'index']);
+    Route::post('/', [CourseController::class, 'store']);
+    Route::get('/{id}', [CourseController::class, 'show']);
+    Route::put('/update/{id}', [CourseController::class, 'update']);
+    Route::delete('/{id}', [CourseController::class, 'destroy']);
+    Route::get('/count', [CourseController::class, 'count']);
+});
 
 // Department API Routes
-Route::get('/department', [DepartmentController::class, 'index']);
-Route::post('/department', [DepartmentController::class, 'store']);
-Route::get('/department/{id}', [DepartmentController::class, 'show']);
-Route::put('/department/update/{id}', [DepartmentController::class, 'update']);
-Route::delete('/department/{id}', [DepartmentController::class, 'destroy']);
+Route::prefix('department')->group(function () {
+    Route::get('/', [DepartmentController::class, 'index']);
+    Route::post('/', [DepartmentController::class, 'store']);
+    Route::get('/{id}', [DepartmentController::class, 'show']);
+    Route::put('/update/{id}', [DepartmentController::class, 'update']);
+    Route::delete('/{id}', [DepartmentController::class, 'destroy']);
+    Route::get('/count', [DepartmentController::class, 'count']);
+});
+
 
 // Students API Routes
-Route::get('/student', [StudentController::class, 'index']);
-Route::post('/student', [StudentController::class, 'store']);
-Route::get('/student/{id}', [StudentController::class, 'show']);
-Route::put('/student/update/{id}', [StudentController::class, 'update']);
-Route::delete('/student/{id}', [StudentController::class, 'destroy']);
+Route::prefix('student')->group(function () {
+    Route::get('/', [StudentController::class, 'index']);
+    Route::post('/', [StudentController::class, 'store']);
+    Route::get('/{id}', [StudentController::class, 'show']);
+    Route::put('/update/{id}', [StudentController::class, 'update']);
+    Route::delete('/{id}', [StudentController::class, 'destroy']);
+    Route::get('/count', [StudentController::class, 'count']);
+});
 
 // Teacher API Routes
-Route::get('/teacher', [TeacherController::class, 'index']);
-Route::post('/teacher', [TeacherController::class, 'store']);
-Route::get('/teacher/{id}', [TeacherController::class, 'show']);
-Route::put('/teacher/update/{id}', [TeacherController::class, 'update']);
-Route::delete('/teacher/{id}', [TeacherController::class, 'destroy']);
+Route::prefix('teacher')->group(function () {
+    Route::get('/', [TeacherController::class, 'index']);
+    Route::post('/', [TeacherController::class, 'store']);
+    Route::get('/{id}', [TeacherController::class, 'show']);
+    Route::put('/update/{id}', [TeacherController::class, 'update']);
+    Route::delete('/{id}', [TeacherController::class, 'destroy']);
+    Route::get('/count', [TeacherController::class, 'count']);
+});
+

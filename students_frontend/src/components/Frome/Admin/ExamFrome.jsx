@@ -1,168 +1,129 @@
 import { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
+import { getDepartments, getFaculties } from '../../Service/Admin/ExamService.js';
 
 export default function ExamForm({ show, handleClose, onSubmit, initialData }) {
-    const [form, setForm] = useState({
-        admin_fname: '',
-        admin_lname: '',
-        admin_birthday: '',
-        admin_email: '',
-        admin_nic: '',
-        admin_gender: '',
-        admin_address: '',
-        admin_img: null,
-    });
+    const emptyForm = {
+        exam_name: '',
+        exam_start_date: '',
+        exam_end_date: '',
+        faculties_id: '',
+        department_id: '',
+    };
+
+    const [form, setForm] = useState(emptyForm);
+    const [departments, setDepartments] = useState([]);
+    const [faculties, setFaculties] = useState([]);
+
+    useEffect(() => {
+        getDepartments().then((res) => setDepartments(res.data)).catch(console.error);
+        getFaculties().then((res) => setFaculties(res.data)).catch(console.error);
+    }, []);
 
     useEffect(() => {
         if (initialData) {
             setForm({
-                admin_fname: initialData.admin_fname || '',
-                admin_lname: initialData.admin_lname || '',
-                admin_birthday: initialData.admin_birthday?.split('T')[0] || '',
-                admin_email: initialData.admin_email || '',
-                admin_nic: initialData.admin_nic || '',
-                admin_gender: initialData.admin_gender || '',
-                admin_address: initialData.admin_address || '',
-                admin_img: null, // Do not prefill file input
+                exam_name: initialData.exam_name || '',
+                exam_start_date: initialData.exam_start_date?.split('T')[0] || '',
+                exam_end_date: initialData.exam_end_date?.split('T')[0] || '',
+                faculties_id: initialData.faculties_id || '',
+                department_id: initialData.department_id || '',
             });
         } else {
-            setForm({
-                admin_fname: '',
-                admin_lname: '',
-                admin_birthday: '',
-                admin_email: '',
-                admin_nic: '',
-                admin_gender: '',
-                admin_address: '',
-                admin_img: null,
-            });
+            setForm(emptyForm);
         }
     }, [initialData]);
 
     const handleChange = (e) => {
-        const { name, value, files } = e.target;
-        setForm((prev) => ({
-            ...prev,
-            [name]: files ? files[0] : value,
-        }));
+        const { name, value } = e.target;
+        setForm((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = new FormData();
-        for (let key in form) {
-            if (form[key] !== null) {
-                data.append(key, form[key]);
-            }
-        }
-        onSubmit(data);
+        onSubmit(form); // handled as FormData in the parent
         handleClose();
     };
 
     return (
         <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
-                <Modal.Title>{initialData ? 'Update Admin' : 'Add Admin'}</Modal.Title>
+                <Modal.Title>{initialData ? 'Update Exam' : 'Add Exam'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form onSubmit={handleSubmit} encType="multipart/form-data">
+                <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
-                        <Form.Label>First Name</Form.Label>
+                        <Form.Label>Exam Name</Form.Label>
                         <Form.Control
-                            type="text"
-                            name="admin_fname"
-                            value={form.admin_fname}
+                            name="exam_name"
+                            value={form.exam_name}
                             onChange={handleChange}
                             required
                         />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="admin_lname"
-                            value={form.admin_lname}
-                            onChange={handleChange}
-                            required
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Birthday</Form.Label>
+                        <Form.Label>Start Date</Form.Label>
                         <Form.Control
                             type="date"
-                            name="admin_birthday"
-                            value={form.admin_birthday}
+                            name="exam_start_date"
+                            value={form.exam_start_date}
                             onChange={handleChange}
                             required
                         />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Form.Label>Email</Form.Label>
+                        <Form.Label>End Date</Form.Label>
                         <Form.Control
-                            type="email"
-                            name="admin_email"
-                            value={form.admin_email}
+                            type="date"
+                            name="exam_end_date"
+                            value={form.exam_end_date}
                             onChange={handleChange}
                             required
                         />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Form.Label>NIC</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="admin_nic"
-                            value={form.admin_nic}
-                            onChange={handleChange}
-                            required
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Gender</Form.Label>
+                        <Form.Label>Faculty</Form.Label>
                         <Form.Select
-                            name="admin_gender"
-                            value={form.admin_gender}
+                            name="faculties_id"
+                            value={form.faculties_id}
                             onChange={handleChange}
                             required
                         >
-                            <option value="">Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
+                            <option value="">Select Faculty</option>
+                            {faculties.map((f) => (
+                                <option key={f.faculties_id} value={f.faculties_id}>
+                                    {f.faculties_Index}
+                                </option>
+                            ))}
                         </Form.Select>
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Form.Label>Address</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="admin_address"
-                            value={form.admin_address}
+                        <Form.Label>Department</Form.Label>
+                        <Form.Select
+                            name="department_id"
+                            value={form.department_id}
                             onChange={handleChange}
                             required
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Profile Image</Form.Label>
-                        <Form.Control
-                            type="file"
-                            name="admin_img"
-                            accept="image/*"
-                            onChange={handleChange}
-                        />
+                        >
+                            <option value="">Select Department</option>
+                            {departments.map((d) => (
+                                <option key={d.department_id} value={d.department_id}>
+                                    {d.department_Index}
+                                </option>
+                            ))}
+                        </Form.Select>
                     </Form.Group>
 
                     <div className="d-flex justify-content-end">
                         <Button variant="secondary" onClick={handleClose} className="me-2">
                             Cancel
                         </Button>
-                        <Button variant="primary" type="submit">
-                            {initialData ? 'Update' : 'Add'} Admin
+                        <Button type="submit" variant="primary">
+                            {initialData ? 'Update' : 'Add'} Exam
                         </Button>
                     </div>
                 </Form>

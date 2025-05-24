@@ -24,7 +24,7 @@ class SubjectRequests extends FormRequest
         return [
             'subject_name' => 'required|string|max:255|unique:subjects,subject_name',
             'description'  => 'required|string',
-            'img'          => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB    
+            'img'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Max 2MB
         ];
     }
 }

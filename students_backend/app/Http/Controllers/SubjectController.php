@@ -49,4 +49,9 @@ class SubjectController extends Controller
 
          return response()->json(['message' => 'Subject deleted successfully']);
      }
+      public function count()
+    {
+        $count = Subject::count();
+        return response()->json(['subject_count' => $count]);
+    }
 }

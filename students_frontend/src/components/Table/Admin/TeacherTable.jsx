@@ -1,156 +1,154 @@
 import { useEffect, useState } from 'react';
 import { Button, Table, Form } from 'react-bootstrap';
-import AdminForm from '../../Frome/Admin/AdminForm.jsx';
-import AdminCard from '../../Card/Admin/AdminCard';
+import TeacherForm from '../../Frome/Admin/TeacherFrome';
+import TeacherCard from '../../Card/Admin/TeacherCard';
 import {
-  getAdmins,
-  createAdmin,
-  updateAdmin,
-  deleteAdmin,
-} from '../../Service/Admin/AdminService';
+  getTeachers,
+  createTeacher,
+  updateTeacher,
+  deleteTeacher,
+} from '../../Service/Admin/TeacherService';
 
-export default function AdminTable() {
-  const [admins, setAdmins] = useState([]);
+export default function TeacherTable() {
+  const [teachers, setTeachers] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [selectedAdmin, setSelectedAdmin] = useState(null);
+  const [selectedTeacher, setSelectedTeacher] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Fetch admin list
-  const fetchAdmins = async () => {
+  const fetchTeachers = async () => {
     try {
-      const res = await getAdmins();
-      setAdmins(res.data);
+      const res = await getTeachers();
+      setTeachers(res.data);
     } catch (err) {
-      console.error('Error fetching admins', err);
+      console.error('Error fetching teachers', err);
     }
   };
 
-  // Initial fetch
   useEffect(() => {
-    fetchAdmins();
+    fetchTeachers();
   }, []);
 
-  // Create new admin
   const handleCreate = async (formData) => {
     try {
-      await createAdmin(formData);
-      fetchAdmins();
+      await createTeacher(formData);
+      fetchTeachers();
     } catch (err) {
-      console.error('Error creating admin', err.response?.data || err.message);
+      console.error('Error creating teacher', err.response?.data || err.message);
     }
   };
 
-  // Update existing admin
   const handleUpdate = async (formData) => {
     try {
-      if (selectedAdmin) {
-        await updateAdmin(selectedAdmin.admin_id, formData);
-        fetchAdmins();
-        setSelectedAdmin(null);
+      if (selectedTeacher) {
+        await updateTeacher(selectedTeacher.teacher_id, formData);
+        fetchTeachers();
+        setSelectedTeacher(null);
       }
     } catch (err) {
-      console.error('Error updating admin', err.response?.data || err.message);
+      console.error('Error updating teacher', err.response?.data || err.message);
     }
   };
 
-  // Delete an admin
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this admin?')) {
+    if (window.confirm('Are you sure you want to delete this teacher?')) {
       try {
-        await deleteAdmin(id);
-        fetchAdmins();
+        await deleteTeacher(id);
+        fetchTeachers();
       } catch (err) {
-        console.error('Error deleting admin', err);
+        console.error('Error deleting teacher', err);
       }
     }
   };
 
-  // Search filter
-  const filteredAdmins = admins.filter(
-    (admin) =>
-      admin.admin_fname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      admin.admin_lname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      admin.admin_email.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredTeachers = teachers.filter(
+      (teacher) =>
+          teacher.teacher_fname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          teacher.teacher_lname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          teacher.teacher_email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="container mt-4">
-      <h2>Admin List</h2>
+      <div className="container mt-4">
+        <h2>Teacher List</h2>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <Button onClick={() => setShowForm(true)}>Add Teacher</Button>
+          <Form.Control
+              type="text"
+              placeholder="Search teachers..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{ width: '300px' }}
+          />
+        </div>
 
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <Button onClick={() => setShowForm(true)}>Add Admin</Button>
-        <Form.Control
-          type="text"
-          placeholder="Search admins..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ width: '300px' }}
-        />
-      </div>
-
-      <Table striped bordered hover>
-        <thead>
+        <Table striped bordered hover>
+          <thead>
           <tr>
             <th>#</th>
-            <th>Admin Index</th>
+            <th>Teacher Index</th>
             <th>Name</th>
             <th>Email</th>
             <th>NIC</th>
             <th>Actions</th>
           </tr>
-        </thead>
-        <tbody>
-          {filteredAdmins.map((admin, idx) => (
-            <tr key={admin.admin_id}>
-              <td>{idx + 1}</td>
-              <td>{admin.admin_Index}</td>
-              <td>
-                {admin.admin_fname} {admin.admin_lname}
-              </td>
-              <td>{admin.admin_email}</td>
-              <td>{admin.admin_nic}</td>
-              <td>
-                <Button
-                  size="sm"
-                  onClick={() => {
-                    setSelectedAdmin(admin);
-                    setShowForm(true);
-                  }}
-                  className="me-2"
-                >
-                  Edit
-                </Button>
-                <Button
-                  size="sm"
-                  variant="danger"
-                  onClick={() => handleDelete(admin.admin_id)}
-                >
-                  Delete
-                </Button>
-              </td>
-            </tr>
+          </thead>
+          <tbody>
+          {filteredTeachers.map((teacher, idx) => (
+              <tr key={teacher.teacher_id}>
+                <td>{idx + 1}</td>
+                <td>{teacher.teacher_Index}</td>
+                <td>{teacher.teacher_fname} {teacher.teacher_lname}</td>
+                <td>{teacher.teacher_email}</td>
+                <td>{teacher.teacher_nic}</td>
+                <td>
+                  <Button
+                      size="sm"
+                      onClick={() => {
+                        setSelectedTeacher(teacher);
+                        setShowForm(true);
+                      }}
+                      className="me-2"
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                      size="sm"
+                      variant="danger"
+                      onClick={() => handleDelete(teacher.teacher_id)}
+                  >
+                    Delete
+                  </Button>
+                </td>
+              </tr>
           ))}
-        </tbody>
-      </Table>
+          </tbody>
+        </Table>
 
-      <h4 className="mt-5">Admin </h4>
-      <div className="row">
-        {filteredAdmins.map((admin) => (
-          <div className="col-md-4" key={admin.admin_id}>
-            <AdminCard admin={admin} />
-          </div>
-        ))}
+        <h4 className="mt-5">Teacher Cards</h4>
+        <div className="row">
+          {filteredTeachers.map((teacher) => (
+              <div className="col-md-4" key={teacher.teacher_id}>
+                <TeacherCard
+                    teacher={teacher}
+                    onEdit={() => {
+                      setSelectedTeacher(teacher);
+                      setShowForm(true);
+                    }}
+                    onDelete={() => handleDelete(teacher.teacher_id)}
+                />
+              </div>
+          ))}
+        </div>
+
+        <TeacherForm
+            show={showForm}
+            handleClose={() => {
+              setShowForm(false);
+              setSelectedTeacher(null);
+            }}
+            onSubmit={selectedTeacher ? handleUpdate : handleCreate}
+            initialData={selectedTeacher}
+        />
       </div>
-
-      <AdminForm
-        show={showForm}
-        handleClose={() => {
-          setShowForm(false);
-          setSelectedAdmin(null);
-        }}
-        onSubmit={selectedAdmin ? handleUpdate : handleCreate}
-        initialData={selectedAdmin}
-      />
-    </div>
   );
 }

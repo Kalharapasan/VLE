@@ -49,4 +49,9 @@ class TimeTableController extends Controller
 
          return response()->json(['message' => 'TimeTable deleted successfully']);
      }
+     public function count()
+    {
+        $count = TimeTable::count();
+        return response()->json(['timeTable_count' => $count]);
+    }
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
+
     protected $primaryKey = 'student_id';
 
     protected $fillable = [
@@ -27,21 +28,26 @@ class Student extends Model
     {
         parent::boot();
 
-        self::creating(function ($model) {
-            $getPasspaper = self::orderBy('passpapers_id', 'desc')->first(); // Fixed variable name to $getPasspaper
-            if ($getPasspaper) {
-                $latestID = intval(substr($getPasspaper->passpapers_Index, 4)); // Extract numeric part from passpapers_Index
+        static::creating(function ($model) {
+            $latestStudent = self::orderBy('student_id', 'desc')->first();
+
+            if ($latestStudent && !empty($latestStudent->student_Index)) {
+                $latestID = intval(substr($latestStudent->student_Index, 4));
                 $nextID = $latestID + 1;
             } else {
                 $nextID = 1;
             }
 
-            $model->passpapers_Index = 'PASS' . str_pad($nextID, 4, '0', STR_PAD_LEFT); // Generate passpapers_Index
-            while (self::where('passpapers_Index', $model->passpapers_Index)->exists()) { // Check for duplicate passpapers_Index
+            $newIndex = 'STUD' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
+
+            // Ensure uniqueness of student_Index
+            while (self::where('student_Index', $newIndex)->exists()) {
                 $nextID++;
-                $model->passpapers_Index = 'PASS' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
+                $newIndex = 'STUD' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
             }
+
+            $model->student_Index = $newIndex;
         });
     }
-
 }
+

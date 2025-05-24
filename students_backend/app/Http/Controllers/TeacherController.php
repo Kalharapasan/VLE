@@ -49,4 +49,9 @@ class TeacherController extends Controller
 
          return response()->json(['message' => 'Teacher deleted successfully']);
      }
+      public function count()
+    {
+        $count = Teacher::count();
+        return response()->json(['teacher_count' => $count]);
+    }
 }

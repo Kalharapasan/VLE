@@ -1,11 +1,11 @@
-// src/components/Form/FacultyForm.jsx
 import { useState, useEffect } from 'react';
-import { Form, Button, Modal } from 'react-bootstrap';
+import { Modal, Form, Button } from 'react-bootstrap';
 
 export default function FacultyForm({ show, handleClose, onSubmit, initialData }) {
     const [form, setForm] = useState({
         faculties_name: '',
-        description: ''
+        description: '',
+        img: null,
     });
 
     useEffect(() => {
@@ -13,22 +13,30 @@ export default function FacultyForm({ show, handleClose, onSubmit, initialData }
             setForm({
                 faculties_name: initialData.faculties_name || '',
                 description: initialData.description || '',
+                img: null, // do not prefill file input
             });
         } else {
-            setForm({ faculties_name: '', description: '' });
+            setForm({
+                faculties_name: '',
+                description: '',
+                img: null,
+            });
         }
     }, [initialData]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
+        const { name, value, files } = e.target;
+        setForm((prev) => ({
+            ...prev,
+            [name]: files ? files[0] : value,
+        }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = new FormData();
         for (let key in form) {
-            data.append(key, form[key]);
+            if (form[key] !== null) data.append(key, form[key]);
         }
         onSubmit(data);
         handleClose();
@@ -51,7 +59,6 @@ export default function FacultyForm({ show, handleClose, onSubmit, initialData }
                             required
                         />
                     </Form.Group>
-
                     <Form.Group className="mb-3">
                         <Form.Label>Description</Form.Label>
                         <Form.Control
@@ -63,7 +70,10 @@ export default function FacultyForm({ show, handleClose, onSubmit, initialData }
                             required
                         />
                     </Form.Group>
-
+                    <Form.Group className="mb-3">
+                        <Form.Label>Image</Form.Label>
+                        <Form.Control type="file" name="img" accept="image/*" onChange={handleChange} />
+                    </Form.Group>
                     <div className="d-flex justify-content-end">
                         <Button variant="secondary" onClick={handleClose} className="me-2">Cancel</Button>
                         <Button variant="primary" type="submit">{initialData ? 'Update' : 'Add'} Faculty</Button>

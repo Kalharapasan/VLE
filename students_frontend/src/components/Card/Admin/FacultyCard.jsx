@@ -1,42 +1,27 @@
-import { Card, Button, ButtonGroup } from 'react-bootstrap';
-import { deleteFaculty } from '../../Service/Admin/FacultyService';
-import { useState } from 'react';
+import { Card, Button } from 'react-bootstrap';
 
 export default function FacultyCard({ faculty, onEdit, onDelete }) {
-    const { id, faculties_Index, faculties_name, description } = faculty;
-    const [loading, setLoading] = useState(false);
-
-    const handleDelete = async () => {
-        if (!window.confirm(`Are you sure you want to delete ${faculties_name}?`)) return;
-        try {
-            setLoading(true);
-            await deleteFaculty(id);
-            if (onDelete) onDelete(id);
-        } catch (error) {
-            console.error('Failed to delete faculty:', error);
-            alert('Could not delete faculty.');
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleEdit = () => {
-        if (onEdit) onEdit(faculty);
-    };
+    const { faculties_name, description, img } = faculty;
 
     return (
         <Card className="mb-4 shadow-sm">
+            {img ? (
+                <Card.Img
+                    variant="top"
+                    src={`http://localhost:8000/storage/${img}`}
+                    alt={faculties_name}
+                    style={{ height: '200px', objectFit: 'cover' }}
+                />
+            ) : (
+                <div style={{ height: '200px', backgroundColor: '#eee' }} />
+            )}
             <Card.Body>
-                <Card.Title>{faculties_Index}: {faculties_name}</Card.Title>
+                <Card.Title>{faculties_name}</Card.Title>
                 <Card.Text>{description}</Card.Text>
-                <ButtonGroup>
-                    <Button variant="outline-primary" onClick={handleEdit} disabled={loading}>
-                        Edit
-                    </Button>
-                    <Button variant="outline-danger" onClick={handleDelete} disabled={loading}>
-                        {loading ? 'Deleting...' : 'Delete'}
-                    </Button>
-                </ButtonGroup>
+                <div className="d-flex justify-content-end gap-2 mt-3">
+                    <Button size="sm" onClick={onEdit}>Edit</Button>
+                    <Button size="sm" variant="danger" onClick={onDelete}>Delete</Button>
+                </div>
             </Card.Body>
         </Card>
     );

@@ -51,4 +51,9 @@ class StudentController extends Controller
 
         return response()->json(['message' => 'Student deleted successfully']);
     }
+      public function count()
+    {
+        $count = Student::count();
+        return response()->json(['student_count' => $count]);
+    }
 }

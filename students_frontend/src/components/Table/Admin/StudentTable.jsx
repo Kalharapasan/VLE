@@ -1,52 +1,51 @@
-// src/components/Table/StudentTable.js
-import { useState, useEffect } from 'react';
-import {
-  Table, Button, InputGroup, FormControl, Row, Col, Card
-} from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Button, Table, Form } from 'react-bootstrap';
+import StudentForm from '../../Frome/Admin/StudentsFrome.jsx';
+import StudentCard from '../../Card/Admin/StudentCard.jsx';
 import {
   getStudents,
   createStudent,
   updateStudent,
   deleteStudent,
-} from '../../Service/Admin/StudentService';
-import StudentForm from "../../Frome/Admin/StudentsFrome";
-
-
+} from '../../Service/Admin/StudentService.js';
 
 export default function StudentTable() {
   const [students, setStudents] = useState([]);
-  const [search, setSearch] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
-
-  useEffect(() => {
-    fetchStudents();
-  }, []);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchStudents = async () => {
     try {
       const res = await getStudents();
       setStudents(res.data);
     } catch (err) {
-      console.error('Error fetching students', err);
+      console.error('Error fetching students:', err);
     }
   };
 
-  const handleCreate = async (data) => {
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const handleCreate = async (formData) => {
     try {
-      await createStudent(data);
+      await createStudent(formData);
       fetchStudents();
     } catch (err) {
-      console.error('Error creating student', err.response?.data || err.message);
+      console.error('Error creating student:', err.response?.data || err.message);
     }
   };
 
-  const handleUpdate = async (data) => {
+  const handleUpdate = async (formData) => {
     try {
-      await updateStudent(selectedStudent.student_id, data);
-      fetchStudents();
+      if (selectedStudent) {
+        await updateStudent(selectedStudent.student_id, formData);
+        fetchStudents();
+        setSelectedStudent(null);
+      }
     } catch (err) {
-      console.error('Error updating student', err.response?.data || err.message);
+      console.error('Error updating student:', err.response?.data || err.message);
     }
   };
 
@@ -56,88 +55,102 @@ export default function StudentTable() {
         await deleteStudent(id);
         fetchStudents();
       } catch (err) {
-        console.error('Error deleting student', err);
+        console.error('Error deleting student:', err);
       }
     }
   };
 
-  const filtered = students.filter((s) =>
-    Object.values(s).join(' ').toLowerCase().includes(search.toLowerCase())
+  const filteredStudents = students.filter((student) =>
+      `${student.student_fname} ${student.student_lname} ${student.student_email}`
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="container mt-4">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h4>Student List</h4>
-        <InputGroup style={{ maxWidth: '300px' }}>
-          <FormControl
-            placeholder="Search students..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </InputGroup>
-        <Button onClick={() => { setSelectedStudent(null); setShowForm(true); }}>
-          ➕ Add Student
-        </Button>
-      </div>
+      <div className="container mt-4">
+        <h2>Student List</h2>
 
-      <Table striped bordered hover responsive>
-        <thead>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <Button onClick={() => setShowForm(true)}>Add Student</Button>
+          <Form.Control
+              type="text"
+              placeholder="Search students..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{ width: '300px' }}
+          />
+        </div>
+
+        <Table striped bordered hover>
+          <thead>
           <tr>
             <th>#</th>
             <th>Full Name</th>
             <th>Email</th>
             <th>NIC</th>
+            <th>Birthday</th>
             <th>Gender</th>
             <th>Actions</th>
           </tr>
-        </thead>
-        <tbody>
-          {filtered.map((s, idx) => (
-            <tr key={s.student_id}>
-              <td>{idx + 1}</td>
-              <td>{s.student_fname} {s.student_lname}</td>
-              <td>{s.student_email}</td>
-              <td>{s.student_nic}</td>
-              <td>{s.student_gender}</td>
-              <td>
-                <Button size="sm" variant="warning" onClick={() => { setSelectedStudent(s); setShowForm(true); }} className="me-2">
-                  Edit
-                </Button>
-                <Button size="sm" variant="danger" onClick={() => handleDelete(s.student_id)}>
-                  Delete
-                </Button>
-              </td>
-            </tr>
+          </thead>
+          <tbody>
+          {filteredStudents.map((student, idx) => (
+              <tr key={student.student_id}>
+                <td>{idx + 1}</td>
+                <td>{student.student_fname} {student.student_lname}</td>
+                <td>{student.student_email}</td>
+                <td>{student.student_nic}</td>
+                <td>{student.student_birthday}</td>
+                <td>{student.student_gender}</td>
+                <td>
+                  <Button
+                      size="sm"
+                      className="me-2"
+                      onClick={() => {
+                        setSelectedStudent(student);
+                        setShowForm(true);
+                      }}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                      size="sm"
+                      variant="danger"
+                      onClick={() => handleDelete(student.student_id)}
+                  >
+                    Delete
+                  </Button>
+                </td>
+              </tr>
           ))}
-        </tbody>
-      </Table>
+          </tbody>
+        </Table>
 
-      {/* Student Cards */}
-      <h5 className="mt-4">Student </h5>
-      <Row>
-        {filtered.map((s) => (
-          <Col md={4} key={s.student_id} className="mb-3">
-            <Card className="shadow-sm">
-              <Card.Body>
-                <Card.Title>{s.student_fname} {s.student_lname}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">{s.student_email}</Card.Subtitle>
-                <Card.Text>
-                  NIC: {s.student_nic}<br />
-                  Gender: {s.student_gender}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+        <h4 className="mt-5">Student Cards</h4>
+        <div className="row">
+          {filteredStudents.map((student) => (
+              <div className="col-md-4" key={student.student_id}>
+                <StudentCard
+                    student={student}
+                    onEdit={() => {
+                      setSelectedStudent(student);
+                      setShowForm(true);
+                    }}
+                    onDelete={() => handleDelete(student.student_id)}
+                />
+              </div>
+          ))}
+        </div>
 
-      <StudentForm
-        show={showForm}
-        handleClose={() => { setShowForm(false); setSelectedStudent(null); }}
-        initialData={selectedStudent}
-        onSubmit={selectedStudent ? handleUpdate : handleCreate}
-      />
-    </div>
+        <StudentForm
+            show={showForm}
+            handleClose={() => {
+              setShowForm(false);
+              setSelectedStudent(null);
+            }}
+            onSubmit={selectedStudent ? handleUpdate : handleCreate}
+            initialData={selectedStudent}
+        />
+      </div>
   );
 }

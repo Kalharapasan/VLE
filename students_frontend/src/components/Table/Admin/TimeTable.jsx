@@ -1,156 +1,118 @@
+// src/Table/Admin/TimeTableTable.jsx
 import { useEffect, useState } from 'react';
 import { Button, Table, Form } from 'react-bootstrap';
-import AdminForm from '../../Frome/Admin/AdminForm.jsx';
-import AdminCard from '../../Card/Admin/AdminCard';
+import TimeTableForm from '../../Frome/Admin/TimeTableFrome.jsx';
+import TimeTableCard from '../../Card/Admin/TitmeTableCard.jsx';
 import {
-  getAdmins,
-  createAdmin,
-  updateAdmin,
-  deleteAdmin,
-} from '../../Service/Admin/AdminService';
+  getTimeTables,
+  createTimeTable,
+  updateTimeTable,
+  deleteTimeTable,
+} from '../../Service/Admin/TimeTableService.js';
 
-export default function AdminTable() {
-  const [admins, setAdmins] = useState([]);
+export default function TimeTableTable() {
+  const [timetables, setTimetables] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [selectedAdmin, setSelectedAdmin] = useState(null);
+  const [selected, setSelected] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Fetch admin list
-  const fetchAdmins = async () => {
+  const fetchData = async () => {
     try {
-      const res = await getAdmins();
-      setAdmins(res.data);
+      const res = await getTimeTables();
+      setTimetables(res.data);
     } catch (err) {
-      console.error('Error fetching admins', err);
+      console.error('Fetch error:', err);
     }
   };
 
-  // Initial fetch
   useEffect(() => {
-    fetchAdmins();
+    fetchData();
   }, []);
 
-  // Create new admin
-  const handleCreate = async (formData) => {
-    try {
-      await createAdmin(formData);
-      fetchAdmins();
-    } catch (err) {
-      console.error('Error creating admin', err.response?.data || err.message);
+  const handleCreate = async (data) => {
+    await createTimeTable(data);
+    fetchData();
+  };
+
+  const handleUpdate = async (data) => {
+    if (selected) {
+      await updateTimeTable(selected.timetable_id, data);
+      setSelected(null);
+      fetchData();
     }
   };
 
-  // Update existing admin
-  const handleUpdate = async (formData) => {
-    try {
-      if (selectedAdmin) {
-        await updateAdmin(selectedAdmin.admin_id, formData);
-        fetchAdmins();
-        setSelectedAdmin(null);
-      }
-    } catch (err) {
-      console.error('Error updating admin', err.response?.data || err.message);
-    }
-  };
-
-  // Delete an admin
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this admin?')) {
-      try {
-        await deleteAdmin(id);
-        fetchAdmins();
-      } catch (err) {
-        console.error('Error deleting admin', err);
-      }
+    if (window.confirm('Delete this timetable?')) {
+      await deleteTimeTable(id);
+      fetchData();
     }
   };
 
-  // Search filter
-  const filteredAdmins = admins.filter(
-    (admin) =>
-      admin.admin_fname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      admin.admin_lname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      admin.admin_email.toLowerCase().includes(searchTerm.toLowerCase())
+  const filtered = timetables.filter(t =>
+      `${t.timetable_Index} ${t.year} ${t.accedamic_year}`.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="container mt-4">
-      <h2>Admin List</h2>
+      <div className="container mt-4">
+        <h2>TimeTables</h2>
+        <div className="d-flex justify-content-between mb-3">
+          <Button onClick={() => setShowForm(true)}>Add TimeTable</Button>
+          <Form.Control
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{ width: '300px' }}
+          />
+        </div>
 
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <Button onClick={() => setShowForm(true)}>Add Admin</Button>
-        <Form.Control
-          type="text"
-          placeholder="Search admins..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ width: '300px' }}
-        />
-      </div>
-
-      <Table striped bordered hover>
-        <thead>
+        <Table striped bordered hover>
+          <thead>
           <tr>
             <th>#</th>
-            <th>Admin Index</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>NIC</th>
+            <th>Index</th>
+            <th>Year</th>
+            <th>Academic</th>
+            <th>Semester</th>
             <th>Actions</th>
           </tr>
-        </thead>
-        <tbody>
-          {filteredAdmins.map((admin, idx) => (
-            <tr key={admin.admin_id}>
-              <td>{idx + 1}</td>
-              <td>{admin.admin_Index}</td>
-              <td>
-                {admin.admin_fname} {admin.admin_lname}
-              </td>
-              <td>{admin.admin_email}</td>
-              <td>{admin.admin_nic}</td>
-              <td>
-                <Button
-                  size="sm"
-                  onClick={() => {
-                    setSelectedAdmin(admin);
-                    setShowForm(true);
-                  }}
-                  className="me-2"
-                >
-                  Edit
-                </Button>
-                <Button
-                  size="sm"
-                  variant="danger"
-                  onClick={() => handleDelete(admin.admin_id)}
-                >
-                  Delete
-                </Button>
-              </td>
-            </tr>
+          </thead>
+          <tbody>
+          {filtered.map((tt, i) => (
+              <tr key={tt.timetable_id}>
+                <td>{i + 1}</td>
+                <td>{tt.timetable_Index}</td>
+                <td>{tt.year}</td>
+                <td>{tt.accedamic_year}</td>
+                <td>{tt.semester}</td>
+                <td>
+                  <Button size="sm" className="me-2" onClick={() => { setSelected(tt); setShowForm(true); }}>Edit</Button>
+                  <Button size="sm" variant="danger" onClick={() => handleDelete(tt.timetable_id)}>Delete</Button>
+                </td>
+              </tr>
           ))}
-        </tbody>
-      </Table>
+          </tbody>
+        </Table>
 
-      <h4 className="mt-5">Admin </h4>
-      <div className="row">
-        {filteredAdmins.map((admin) => (
-          <div className="col-md-4" key={admin.admin_id}>
-            <AdminCard admin={admin} />
-          </div>
-        ))}
+        <h4 className="mt-5">Cards View</h4>
+        <div className="row">
+          {filtered.map(tt => (
+              <div className="col-md-4" key={tt.timetable_id}>
+                <TimeTableCard timetable={tt} />
+              </div>
+          ))}
+        </div>
+
+        <TimeTableForm
+            show={showForm}
+            handleClose={() => {
+              setShowForm(false);
+              setSelected(null);
+            }}
+            onSubmit={selected ? handleUpdate : handleCreate}
+            initialData={selected}
+        />
       </div>
-
-      <AdminForm
-        show={showForm}
-        handleClose={() => {
-          setShowForm(false);
-          setSelectedAdmin(null);
-        }}
-        onSubmit={selectedAdmin ? handleUpdate : handleCreate}
-        initialData={selectedAdmin}
-      />
-    </div>
   );
 }

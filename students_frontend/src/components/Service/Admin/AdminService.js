@@ -8,8 +8,15 @@ export const createAdmin = (data) =>
     axios.post(`${API_URL}/admin`, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
     });
-export const updateAdmin = (id, data) =>
-    axios.put(`${API_URL}/admin/update/${id}`, data, {
+
+// ✅ Fix: Convert PUT to POST + _method=PUT for multipart/form-data
+
+export const updateAdmin = (id, data) => {
+    data.append('_method', 'PUT');
+    return axios.post(`${API_URL}/admin/update/${id}`, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
     });
+};
+
+
 export const deleteAdmin = (id) => axios.delete(`${API_URL}/admin/${id}`);

@@ -23,6 +23,11 @@ class Admin extends Model
         'admin_img',
     ];
 
+    // Cast birthday field to a Date object
+    protected $casts = [
+        'admin_birthday' => 'date',
+    ];
+
     protected static function boot()
     {
         parent::boot();

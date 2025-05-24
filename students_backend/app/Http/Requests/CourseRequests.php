@@ -20,7 +20,7 @@ class CourseRequests extends FormRequest
         return [
             'course_name' => 'required|string|max:255',
             'description' => 'required|string',
-            'img'          => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB    
+            'img'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Max 2MB
             'faculties_id' => 'required|exists:faculties,faculties_id',
             'department_id' => 'required|exists:departments,department_id',
         ];

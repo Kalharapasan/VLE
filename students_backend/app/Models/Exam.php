@@ -27,14 +27,14 @@ class Exam extends Model
         self::creating(function ($model) {
             $getExam = self::orderBy('exam_id', 'desc')->first();
             if ($getExam) {
-                $latestID = intval(substr($getExam->exam_Index, 4)); 
+                $latestID = intval(substr($getExam->exam_Index, 4));
                 $nextID = $latestID + 1;
             } else {
                 $nextID = 1;
             }
 
-            $model->exam_Index = 'EXAM' . str_pad($nextID, 4, '0', STR_PAD_LEFT); 
-            while (self::where('exam_Index', $model->exam_Index)->exists()) { 
+            $model->exam_Index = 'EXAM' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
+            while (self::where('exam_Index', $model->exam_Index)->exists()) {
                 $nextID++;
                 $model->exam_Index = 'EXAM' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
             }
