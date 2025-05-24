@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('course_Index');
             $table->string('course_name');
             $table->text('description');
+            $table->string('img')->nullable();
             $table->unsignedBigInteger('faculties_id');
             $table->unsignedBigInteger('department_id');
             $table->foreign('faculties_id')->references('faculties_id')->on('faculties')->onUpdate('cascade')->onDelete('cascade');

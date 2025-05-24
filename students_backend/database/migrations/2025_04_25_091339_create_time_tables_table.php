@@ -17,12 +17,16 @@ return new class extends Migration
             $table->string('year');
             $table->string('accedamic_year');
             $table->string('semester');
+            $table->unsignedBigInteger('faculties_id');
+            $table->unsignedBigInteger('department_id');
             $table->string('monday');
             $table->string('tuday');
             $table->string('wenday');
             $table->string('theday');
             $table->string('friday');
             $table->timestamps();
+            $table->foreign('faculties_id')->references('faculties_id')->on('faculties')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('department_id')->references('department_id')->on('departments')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

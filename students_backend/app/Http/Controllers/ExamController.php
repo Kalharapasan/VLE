@@ -4,49 +4,51 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ExamRequests;
 use App\Models\Exam;
+use Illuminate\Http\Request;
 
 class ExamController extends Controller
 {
-     // CREATE
-     public function store(ExamRequests $request)
-     {
-         try {
-             $exam = Exam::create($request->validated());
 
-             return response()->json(['message' => 'Exam added successfully', 'exam' => $exam]);
-         } catch (\Exception $e) {
-             return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
-         }
-     }
+    public function store(ExamRequests $request)
+    {
+        try {
+            $exam = Exam::create($request->validated());
 
-     // READ ALL
-     public function index()
-     {
-         return response()->json(Exam::all());
-     }
+            return response()->json(['message' => 'Exam added successfully', 'exam' => $exam]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
+        }
+    }
 
-     // READ ONE
-     public function show($id)
-     {
-         $exam = Exam::findOrFail($id);
-         return response()->json($exam);
-     }
+    public function index()
+    {
+        return response()->json(Exam::all());
+    }
 
-     // UPDATE
-     public function update(ExamRequests $request, $id)
-     {
-         $exam = Exam::findOrFail($id);
-         $exam->update($request->validated());
+    public function show($id)
+    {
+        $exam = Exam::findOrFail($id);
+        return response()->json($exam);
+    }
 
-         return response()->json(['message' => 'Exam updated successfully', 'faculty' => $exam]);
-     }
+    public function update(ExamRequests $request, $id)
+    {
+        $exam = Exam::findOrFail($id);
+        $exam->update($request->validated());
 
-     // DELETE
-     public function destroy($id)
-     {
-         $exam = Exam::findOrFail($id);
-         $exam->delete();
+        return response()->json(['message' => 'Exam updated successfully', 'exam' => $exam]);
+    }
 
-         return response()->json(['message' => 'Exam deleted successfully']);
-     }
+    public function destroy($id)
+    {
+        $exam = Exam::findOrFail($id);
+        $exam->delete();
+
+        return response()->json(['message' => 'Exam deleted successfully']);
+    }
+    public function count()
+    {
+        $count = Exam::count();
+        return response()->json(['exam_count' => $count]);
+    }
 }

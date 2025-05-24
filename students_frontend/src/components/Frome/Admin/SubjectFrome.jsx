@@ -1,40 +1,25 @@
 import { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 
-export default function SubjectFrome({ show, handleClose, onSubmit, initialData }) {
+export default function SubjectForm({ show, handleClose, onSubmit, initialData }) {
     const [form, setForm] = useState({
-        admin_fname: '',
-        admin_lname: '',
-        admin_birthday: '',
-        admin_email: '',
-        admin_nic: '',
-        admin_gender: '',
-        admin_address: '',
-        admin_img: null,
+        subject_name: '',
+        description: '',
+        img: null,
     });
 
     useEffect(() => {
         if (initialData) {
             setForm({
-                admin_fname: initialData.admin_fname || '',
-                admin_lname: initialData.admin_lname || '',
-                admin_birthday: initialData.admin_birthday?.split('T')[0] || '',
-                admin_email: initialData.admin_email || '',
-                admin_nic: initialData.admin_nic || '',
-                admin_gender: initialData.admin_gender || '',
-                admin_address: initialData.admin_address || '',
-                admin_img: null, // Do not prefill file input
+                subject_name: initialData.subject_name || '',
+                description: initialData.description || '',
+                img: null,
             });
         } else {
             setForm({
-                admin_fname: '',
-                admin_lname: '',
-                admin_birthday: '',
-                admin_email: '',
-                admin_nic: '',
-                admin_gender: '',
-                admin_address: '',
-                admin_img: null,
+                subject_name: '',
+                description: '',
+                img: null,
             });
         }
     }, [initialData]);
@@ -62,96 +47,38 @@ export default function SubjectFrome({ show, handleClose, onSubmit, initialData 
     return (
         <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
-                <Modal.Title>{initialData ? 'Update Admin' : 'Add Admin'}</Modal.Title>
+                <Modal.Title>{initialData ? 'Update Subject' : 'Add Subject'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit} encType="multipart/form-data">
                     <Form.Group className="mb-3">
-                        <Form.Label>First Name</Form.Label>
+                        <Form.Label>Subject Name</Form.Label>
                         <Form.Control
                             type="text"
-                            name="admin_fname"
-                            value={form.admin_fname}
+                            name="subject_name"
+                            value={form.subject_name}
                             onChange={handleChange}
                             required
                         />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Form.Label>Last Name</Form.Label>
+                        <Form.Label>Description</Form.Label>
                         <Form.Control
-                            type="text"
-                            name="admin_lname"
-                            value={form.admin_lname}
+                            as="textarea"
+                            rows={3}
+                            name="description"
+                            value={form.description}
                             onChange={handleChange}
                             required
                         />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Form.Label>Birthday</Form.Label>
-                        <Form.Control
-                            type="date"
-                            name="admin_birthday"
-                            value={form.admin_birthday}
-                            onChange={handleChange}
-                            required
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                            type="email"
-                            name="admin_email"
-                            value={form.admin_email}
-                            onChange={handleChange}
-                            required
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>NIC</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="admin_nic"
-                            value={form.admin_nic}
-                            onChange={handleChange}
-                            required
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Gender</Form.Label>
-                        <Form.Select
-                            name="admin_gender"
-                            value={form.admin_gender}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="">Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
-                        </Form.Select>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Address</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="admin_address"
-                            value={form.admin_address}
-                            onChange={handleChange}
-                            required
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Profile Image</Form.Label>
+                        <Form.Label>Image</Form.Label>
                         <Form.Control
                             type="file"
-                            name="admin_img"
+                            name="img"
                             accept="image/*"
                             onChange={handleChange}
                         />
@@ -162,7 +89,7 @@ export default function SubjectFrome({ show, handleClose, onSubmit, initialData 
                             Cancel
                         </Button>
                         <Button variant="primary" type="submit">
-                            {initialData ? 'Update' : 'Add'} Admin
+                            {initialData ? 'Update' : 'Add'} Subject
                         </Button>
                     </div>
                 </Form>

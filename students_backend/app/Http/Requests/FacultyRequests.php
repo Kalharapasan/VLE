@@ -23,7 +23,8 @@ class FacultyRequests extends FormRequest
     {
         return [
             'faculties_name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
+            'img'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Max 2MB
         ];
     }
 }

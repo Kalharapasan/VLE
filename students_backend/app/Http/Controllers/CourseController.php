@@ -44,9 +44,15 @@ class CourseController extends Controller
     // DELETE
     public function destroy($id)
     {
-        $course = course::findOrFail($id);
+        $course = Course::findOrFail($id);
         $course->delete();
 
         return response()->json(['message' => 'Course deleted successfully']);
+    }
+
+      public function count()
+    {
+        $count = Course::count();
+        return response()->json(['course_count' => $count]);
     }
 }

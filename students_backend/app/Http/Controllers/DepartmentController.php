@@ -48,4 +48,14 @@ class DepartmentController extends Controller
 
         return response()->json(['message' => 'Department deleted successfully']);
     }
+    public function get_id()
+    {
+        return Department::select('department_id', 'department_Index')->get();
+    }
+
+    public function count()
+    {
+        $count = Department::count();
+        return response()->json(['department_count' => $count]);
+    }
 }

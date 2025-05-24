@@ -14,6 +14,8 @@ class TimeTable extends Model
         'year',
         'accedamic_year',
         'semester',
+        'faculties_id',
+        'department_id',
         'monday',
         'tuday',
         'wenday',
@@ -25,16 +27,16 @@ class TimeTable extends Model
         parent::boot();
 
         self::creating(function ($model) {
-            $getTimeTable = self::orderBy('timetable_id', 'desc')->first(); 
+            $getTimeTable = self::orderBy('timetable_id', 'desc')->first();
             if ($getTimeTable) {
-                $latestID = intval(substr($getTimeTable->timetable_Index, 4)); 
+                $latestID = intval(substr($getTimeTable->timetable_Index, 4));
                 $nextID = $latestID + 1;
             } else {
                 $nextID = 1;
             }
 
-            $model->timetable_Index = 'TIME' . str_pad($nextID, 4, '0', STR_PAD_LEFT); 
-            while (self::where('timetable_Index', $model->timetable_Index)->exists()) { 
+            $model->timetable_Index = 'TIME' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
+            while (self::where('timetable_Index', $model->timetable_Index)->exists()) {
                 $nextID++;
                 $model->timetable_Index = 'TIME' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
             }

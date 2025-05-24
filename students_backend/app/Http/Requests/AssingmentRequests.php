@@ -28,6 +28,7 @@ class AssingmentRequests extends FormRequest
             'assingment_start_date'   => 'required|date',
             'assingment_end_date'     => 'required|date|after_or_equal:assingment_start_date',
             'document'                => 'required|file|mimes:pdf,doc,docx|max:5120', // Max 5MB
+            'img'                    => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Max 2MB
             'description'             => 'required|string',
             'subject_id'              => 'required|exists:subjects,subject_id',
             'teacher_id'              => 'required|exists:teachers,teacher_id',

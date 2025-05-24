@@ -1,45 +1,48 @@
-import { Card, Button, ButtonGroup } from 'react-bootstrap';
-import { deleteDepartment } from './api'; // Adjust path to your API module
-import { useState } from 'react';
+import { Card, Button } from 'react-bootstrap';
 
 export default function DepartmentCard({ department, onEdit, onDelete }) {
-    const [loading, setLoading] = useState(false);
-
-    const handleDelete = async () => {
-        if (!window.confirm(`Are you sure you want to delete ${department.department_name}?`)) return;
-        try {
-            setLoading(true);
-            await deleteDepartment(department.id); // Assuming department has an 'id' field
-            if (onDelete) onDelete(department.id);
-        } catch (error) {
-            console.error('Delete failed', error);
-            alert('Failed to delete department');
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleEdit = () => {
-        if (onEdit) onEdit(department);
-    };
+    const {
+        department_Index,
+        department_name,
+        description,
+        faculties_id,
+        img
+    } = department;
 
     return (
-        <Card className="mb-3">
+        <Card className="mb-4 shadow-sm">
+            {img ? (
+                <Card.Img
+                    variant="top"
+                    src={`http://localhost:8000/storage/${img}`}
+                    style={{ height: '200px', objectFit: 'cover' }}
+                />
+            ) : (
+                <div style={{ height: '200px', backgroundColor: '#eee' }} />
+            )}
             <Card.Body>
-                <Card.Title>{department.department_name}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">{department.department_Index}</Card.Subtitle>
+                <Card.Title>{department_name}</Card.Title>
                 <Card.Text>
-                    <strong>Description:</strong> {department.description}<br />
-                    <strong>Faculty:</strong> {department.faculty?.faculty_name}
+                    <strong>Department Name:</strong> {department_name} <br />
+                    <strong>Department Index:</strong> {department_Index} <br />
+                    <strong>Faculties Id:</strong> {faculties_id} <br />
+                    <strong>Description:</strong> {description} <br />
                 </Card.Text>
-                <ButtonGroup>
-                    <Button variant="outline-primary" onClick={handleEdit} disabled={loading}>
+                <div className="d-flex justify-content-end gap-2 mt-3">
+                    <Button
+                        size="sm"
+                        onClick={onEdit}
+                    >
                         Edit
                     </Button>
-                    <Button variant="outline-danger" onClick={handleDelete} disabled={loading}>
-                        {loading ? 'Deleting...' : 'Delete'}
+                    <Button
+                        size="sm"
+                        variant="danger"
+                        onClick={onDelete}
+                    >
+                        Delete
                     </Button>
-                </ButtonGroup>
+                </div>
             </Card.Body>
         </Card>
     );

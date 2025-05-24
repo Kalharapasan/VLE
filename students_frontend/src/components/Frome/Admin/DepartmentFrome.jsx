@@ -7,16 +7,25 @@ export default function DepartmentForm({ show, handleClose, onSubmit, initialDat
         department_name: '',
         description: '',
         faculties_id: '',
+        img: null,
     });
 
     const [faculties, setFaculties] = useState([]);
+    const [preview, setPreview] = useState(null);
 
     useEffect(() => {
         fetchFaculties();
         if (initialData) {
-            setForm(initialData);
+            setForm({
+                department_name: initialData.department_name || '',
+                description: initialData.description || '',
+                faculties_id: initialData.faculties_id || '',
+                img: null,
+            });
+            setPreview(initialData.img ? initialData.img : null);
         } else {
-            setForm({ department_name: '', description: '', faculties_id: '' });
+            setForm({ department_name: '', description: '', faculties_id: '', img: null });
+            setPreview(null);
         }
     }, [initialData]);
 
@@ -34,11 +43,33 @@ export default function DepartmentForm({ show, handleClose, onSubmit, initialDat
         setForm((prev) => ({ ...prev, [name]: value }));
     };
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setForm((prev) => ({ ...prev, img: file }));
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(form);
+
+        const formData = new FormData();
+        formData.append('department_name', form.department_name);
+        formData.append('description', form.description);
+        formData.append('faculties_id', form.faculties_id);
+        if (form.img) {
+            formData.append('img', form.img);
+        }
+
+        onSubmit(formData); // Make sure the API call handles FormData
         handleClose();
     };
+
 
     return (
         <Modal show={show} onHide={handleClose}>
@@ -80,10 +111,22 @@ export default function DepartmentForm({ show, handleClose, onSubmit, initialDat
                             <option value="">Select Faculty</option>
                             {faculties.map((faculty) => (
                                 <option key={faculty.faculties_id} value={faculty.faculties_id}>
-                                    {faculty.faculty_name}
+                                    {faculty.faculties_Index}
                                 </option>
                             ))}
                         </Form.Select>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Department Image</Form.Label>
+                        <Form.Control type="file" accept="image/*" onChange={handleFileChange} />
+                        {preview && (
+                            <img
+                                src={preview}
+                                alt="Preview"
+                                style={{ width: '100%', marginTop: 10, borderRadius: 8 }}
+                            />
+                        )}
                     </Form.Group>
 
                     <div className="d-flex justify-content-end">

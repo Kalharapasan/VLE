@@ -19,6 +19,15 @@ class FacultyController extends Controller
         }
     }
 
+
+
+    public function get_id()
+    {
+        return Faculty::select('faculties_id', 'faculties_Index')->get();
+    }
+
+
+
     // READ ALL
     public function index()
     {
@@ -48,5 +57,10 @@ class FacultyController extends Controller
         $faculty->delete();
 
         return response()->json(['message' => 'Faculty deleted successfully']);
+    }
+    public function count()
+    {
+        $count = Faculty::count();
+        return response()->json(['faculty_count' => $count]);
     }
 }

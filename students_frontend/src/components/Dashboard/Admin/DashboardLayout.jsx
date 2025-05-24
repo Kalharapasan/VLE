@@ -12,6 +12,7 @@ import Faculty from '../../Table/Admin/FacultyTable.jsx';
 import Teacher from '../../Table/Admin/TeacherTable.jsx';
 import TimeTable from '../../Table/Admin/TimeTable';
 import Subject from '../../Table/Admin/SubjectTable.jsx';
+import Course from '../../Table/Admin/CourseTable'
 
 export default function DashboardLayout() {
   const [view, setView] = useState('dashboard');
@@ -50,14 +51,15 @@ export default function DashboardLayout() {
 
         {view === 'dashboard' && <DashboardSummary />}
         {view === 'admin' && <AdminTable />}
-        {view === 'student' && <StudentTable />}
-        {view === 'department' && <Department />}
-        {view === 'exam' && <Exam />}
         {view === 'faculty' && <Faculty />}
+        {view === 'department' && <Department />}
+        {view === 'course' && <Course />}
+        {view === 'student' && <StudentTable />}
         {view === 'teacher' && <Teacher />}
+        {view === 'exam' && <Exam />}
         {view === 'timetable' && <TimeTable />}
         {view === 'subject' && <Subject />}
-        {view === 'course' && <p>Course management coming soon...</p>}
+
       </div>
     </div>
   );

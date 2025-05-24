@@ -14,32 +14,35 @@ export default function Sidebar({ view, setView, darkMode }) {
           Dashboard
         </Nav.Link>
         <Nav.Link onClick={() => setView('admin')} className={linkClass('admin')}>
-          Admin
+          Admins
         </Nav.Link>
-        <Nav.Link onClick={() => setView('student')} className={linkClass('student')}>
-          Student
+        <Nav.Link onClick={() => setView('faculty')} className={linkClass('faculty')}>
+          Facultys
+        </Nav.Link>
+        <Nav.Link onClick={() => setView('department')} className={linkClass('department')}>
+          Departments
         </Nav.Link>
         <Nav.Link onClick={() => setView('course')} className={linkClass('course')}>
           Courses
         </Nav.Link>
-        <Nav.Link onClick={() => setView('department')} className={linkClass('department')}>
-          Department
-        </Nav.Link>
-        <Nav.Link onClick={() => setView('exam')} className={linkClass('exam')}>
-          Exam
-        </Nav.Link>
-        <Nav.Link onClick={() => setView('faculty')} className={linkClass('faculty')}>
-          Faculty
-        </Nav.Link>
         <Nav.Link onClick={() => setView('teacher')} className={linkClass('teacher')}>
-          Teacher
-        </Nav.Link>
-        <Nav.Link onClick={() => setView('timetable')} className={linkClass('timetable')}>
-          TimeTable
+          Teachers
         </Nav.Link>
         <Nav.Link onClick={() => setView('subject')} className={linkClass('subject')}>
           Subject
         </Nav.Link>
+        <Nav.Link onClick={() => setView('student')} className={linkClass('student')}>
+          Students
+        </Nav.Link>
+        <Nav.Link onClick={() => setView('exam')} className={linkClass('exam')}>
+          Exams
+        </Nav.Link>
+
+
+        <Nav.Link onClick={() => setView('timetable')} className={linkClass('timetable')}>
+          TimeTable
+        </Nav.Link>
+
       </Nav>
     </div>
   );

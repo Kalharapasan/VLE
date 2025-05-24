@@ -17,6 +17,7 @@ class Course extends Model
         'description',
         'faculties_id',
         'department_id',
+        'img',
     ];
 
     protected static function boot()

@@ -15,6 +15,7 @@ class Subject extends Model
         'subject_Index',
         'subject_name',
         'description',
+        'img',
     ];
 
     protected static function boot()

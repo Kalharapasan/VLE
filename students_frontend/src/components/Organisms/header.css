@@ -1,0 +1,38 @@
+/* header.css */
+
+.bg-dark-mode {
+    background-color: #1f1f2e !important;
+    border-bottom: 1px solid #2e2e3e;
+}
+
+.bg-light-mode {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.nav-link-custom {
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+}
+
+.navbar-dark .nav-link-custom {
+    color: #f8f9fa;
+}
+
+.navbar-light .nav-link-custom {
+    color: #212529;
+}
+
+.nav-link-custom:hover {
+    color: #fff !important;
+    background-color: #0d6efd;
+    text-decoration: none;
+}
+
+.navbar-brand {
+    color: #0d6efd !important;
+    display: flex;
+    align-items: center;
+}

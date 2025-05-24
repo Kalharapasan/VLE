@@ -20,6 +20,7 @@ class Assingment extends Model
         'description',
         'subject_id',
         'teacher_id',
+        'img',
     ];
 
     protected static function boot()

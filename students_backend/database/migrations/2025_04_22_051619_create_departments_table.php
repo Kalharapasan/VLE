@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('department_Index');
             $table->string('department_name');
             $table->text('description');
+            $table->string('img')->nullable();
             $table->unsignedBigInteger('faculties_id');
             $table->timestamps();
             $table->foreign('faculties_id')->references('faculties_id')->on('faculties')->onUpdate('cascade')->onDelete('cascade');
