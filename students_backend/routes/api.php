@@ -29,6 +29,23 @@ Route::prefix('authController')->group(function () {
     Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 });
 
+//Other Controller Api Routes
+Route::post('/lookup', [Controller::class, 'lookup']);
+Route::get('/faculties/index', [FacultyController::class, 'get_id']);
+Route::get('/department/index', [DepartmentController::class, 'get_id']);
+
+
+// Count Routes (keep one valid route per endpoint)
+Route::get('/admin/count', [AdminController::class, 'count']);
+Route::get('/student/count', [StudentController::class, 'count']);
+Route::get('/courses/count', [CourseController::class, 'count']);
+Route::get('/department/count', [DepartmentController::class, 'count']);
+Route::get('/exam/count', [ExamController::class, 'count']);
+Route::get('/faculty/count', [FacultyController::class, 'count']);
+Route::get('/teacher/count', [TeacherController::class, 'count']);
+Route::get('/timeTable/count', [TimeTableController::class, 'count']);
+Route::get('/subject/count', [SubjectController::class, 'count']);
+
 // Admin API Routes
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index']);
@@ -62,7 +79,7 @@ Route::prefix('courses')->group(function () {
     Route::get('/{id}', [CourseController::class, 'show']);
     Route::put('/update/{id}', [CourseController::class, 'update']);
     Route::delete('/{id}', [CourseController::class, 'destroy']);
-    Route::get('/count', [CourseController::class, 'count']);
+
 });
 
 // Department API Routes
@@ -72,7 +89,7 @@ Route::prefix('department')->group(function () {
     Route::get('/{id}', [DepartmentController::class, 'show']);
     Route::put('/update/{id}', [DepartmentController::class, 'update']);
     Route::delete('/{id}', [DepartmentController::class, 'destroy']);
-    Route::get('/count', [DepartmentController::class, 'count']);
+
 });
 
 
@@ -83,7 +100,7 @@ Route::prefix('student')->group(function () {
     Route::get('/{id}', [StudentController::class, 'show']);
     Route::put('/update/{id}', [StudentController::class, 'update']);
     Route::delete('/{id}', [StudentController::class, 'destroy']);
-    Route::get('/count', [StudentController::class, 'count']);
+
 });
 
 // Teacher API Routes
@@ -93,24 +110,10 @@ Route::prefix('teacher')->group(function () {
     Route::get('/{id}', [TeacherController::class, 'show']);
     Route::put('/update/{id}', [TeacherController::class, 'update']);
     Route::delete('/{id}', [TeacherController::class, 'destroy']);
-    Route::get('/count', [TeacherController::class, 'count']);
+
 });
 
-//Other Controller Api Routes
-Route::post('/lookup', [Controller::class, 'lookup']);
-Route::get('/faculties/index', [FacultyController::class, 'get_id']);
-Route::get('/department/index', [DepartmentController::class, 'get_id']);
 
-// Count Routes (keep one valid route per endpoint)
-Route::get('/admin/count', [AdminController::class, 'count']);
-Route::get('/student/count', [StudentController::class, 'count']);
-Route::get('/courses/count', [CourseController::class, 'count']);
-Route::get('/department/count', [DepartmentController::class, 'count']);
-Route::get('/exam/count', [ExamController::class, 'count']);
-Route::get('/faculty/count', [FacultyController::class, 'count']);
-Route::get('/teacher/count', [TeacherController::class, 'count']);
-Route::get('/timeTable/count', [TimeTableController::class, 'count']);
-Route::get('/subject/count', [SubjectController::class, 'count']);
 
 // Students GPA API Routes
 Route::prefix('studentsGPA')->group(function () {
@@ -212,7 +215,7 @@ Route::prefix('studentExam')->group(function () {
 
 
 //Student Attendance API Routes
-Route::prefix('student/course')->group(function () {
+Route::prefix('studentCourse')->group(function () {
     Route::get('/', [StudentCourseController::class, 'index']);
     Route::post('/', [StudentCourseController::class, 'store']);
     Route::get('/{id}', [StudentCourseController::class, 'show']);
@@ -250,5 +253,3 @@ Route::prefix('exam')->group(function () {
     Route::delete('/{id}', [ExamController::class, 'destroy']);
 
 });
-
-?>
