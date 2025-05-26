@@ -1,38 +1,71 @@
-/* header.css */
-
-.bg-dark-mode {
-    background-color: #1f1f2e !important;
-    border-bottom: 1px solid #2e2e3e;
+/* Blue Navbar Styles */
+.navbar-blue {
+    background-color: #0d6efd !important; /* Bootstrap primary blue */
+    border-bottom: 1px solid #084298;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease;
 }
 
-.bg-light-mode {
-    background-color: #ffffff !important;
-    border-bottom: 1px solid #e0e0e0;
+/* Brand Styling */
+.navbar-brand {
+    color: #ffffff !important;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.25rem;
+    transition: color 0.3s ease;
 }
 
+/* Nav Link Styling */
 .nav-link-custom {
     font-weight: 500;
-    transition: all 0.3s ease;
-    border-radius: 8px;
+    color: #ffffff !important;
+    border-radius: 0.5rem;
     padding: 0.5rem 0.75rem;
-}
-
-.navbar-dark .nav-link-custom {
-    color: #f8f9fa;
-}
-
-.navbar-light .nav-link-custom {
-    color: #212529;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-link-custom:hover {
-    color: #fff !important;
-    background-color: #0d6efd;
+    background-color: #084298;
+    color: #ffffff !important;
     text-decoration: none;
 }
 
-.navbar-brand {
-    color: #0d6efd !important;
-    display: flex;
-    align-items: center;
+/* Dropdown Menu Styling */
+.dropdown-menu {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+}
+
+/* Dropdown item hover */
+.dropdown-item:hover {
+    background-color: #e9ecef;
+    color: #0d6efd;
+}
+
+/* Button Styling (Login/Register) */
+.btn-outline-light {
+    border: 1px solid #ffffff;
+    color: #ffffff;
+}
+
+.btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #0d6efd;
+}
+
+.btn-light {
+    background-color: #ffffff;
+    color: #0d6efd;
+}
+
+.btn-light:hover {
+    background-color: #e2e6ea;
+}
+.nav-link-custom {
+    font-weight: 500;
+}
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #f1c40f;
 }
