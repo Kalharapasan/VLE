@@ -1,49 +1,62 @@
 // src/components/Dashboard/Sidebar.jsx
 import React from 'react';
 import { Nav } from 'react-bootstrap';
+import './Sidebar.css';
 
-export default function Sidebar({ view, setView, darkMode }) {
-  const linkClass = (name) =>
-    `mb-2 nav-link ${view === name ? 'fw-bold active-link' : ''} ${darkMode ? 'text-white' : 'text-dark'}`;
-
-  return (
-    <div className={`p-3 sidebar ${darkMode ? 'bg-secondary' : 'bg-white'} border-end`} style={{ minWidth: '220px' }}>
-      <h5 className="mb-4">Dashboard</h5>
-      <Nav className="flex-column">
-        <Nav.Link onClick={() => setView('dashboard')} className={linkClass('dashboard')}>
-          Dashboard
-        </Nav.Link>
-        <Nav.Link onClick={() => setView('admin')} className={linkClass('admin')}>
-          Admins
-        </Nav.Link>
-        <Nav.Link onClick={() => setView('faculty')} className={linkClass('faculty')}>
-          Facultys
-        </Nav.Link>
-        <Nav.Link onClick={() => setView('department')} className={linkClass('department')}>
-          Departments
-        </Nav.Link>
-        <Nav.Link onClick={() => setView('course')} className={linkClass('course')}>
-          Courses
-        </Nav.Link>
-        <Nav.Link onClick={() => setView('teacher')} className={linkClass('teacher')}>
-          Teachers
-        </Nav.Link>
-        <Nav.Link onClick={() => setView('subject')} className={linkClass('subject')}>
-          Subject
-        </Nav.Link>
-        <Nav.Link onClick={() => setView('student')} className={linkClass('student')}>
-          Students
-        </Nav.Link>
-        <Nav.Link onClick={() => setView('exam')} className={linkClass('exam')}>
-          Exams
-        </Nav.Link>
+// FontAwesome icons
+import {
+    FaTachometerAlt,
+    FaUserShield,
+    FaUniversity,
+    FaBuilding,
+    FaBook,
+    FaChalkboardTeacher,
+    FaClipboardList,
+    FaUserGraduate,
+    FaClock,
+    FaTable // 👈 ADD THIS!
+} from 'react-icons/fa';
 
 
-        <Nav.Link onClick={() => setView('timetable')} className={linkClass('timetable')}>
-          TimeTable
-        </Nav.Link>
+export default function Sidebar({ view, setView }) {
+    const linkClass = (name) =>
+        `sidebar-link nav-link ${view === name ? 'active' : ''}`;
 
-      </Nav>
-    </div>
-  );
+    return (
+        <div className="sidebar-wrapper">
+            <div className="sidebar-title">Admin Dashboard</div>
+            <Nav className="flex-column">
+                <Nav.Link onClick={() => setView('dashboard')} className={linkClass('dashboard')}>
+                    <FaTachometerAlt /> Dashboard
+                </Nav.Link>
+                <Nav.Link onClick={() => setView('admin')} className={linkClass('admin')}>
+                    <FaUserShield /> Admins
+                </Nav.Link>
+                <Nav.Link onClick={() => setView('faculty')} className={linkClass('faculty')}>
+                    <FaUniversity /> Facultys
+                </Nav.Link>
+                <Nav.Link onClick={() => setView('department')} className={linkClass('department')}>
+                    <FaBuilding /> Departments
+                </Nav.Link>
+                <Nav.Link onClick={() => setView('course')} className={linkClass('course')}>
+                    <FaBook /> Courses
+                </Nav.Link>
+                <Nav.Link onClick={() => setView('teacher')} className={linkClass('teacher')}>
+                    <FaChalkboardTeacher /> Teachers
+                </Nav.Link>
+                <Nav.Link onClick={() => setView('subject')} className={linkClass('subject')}>
+                    <FaClipboardList /> Subject
+                </Nav.Link>
+                <Nav.Link onClick={() => setView('student')} className={linkClass('student')}>
+                    <FaUserGraduate /> Students
+                </Nav.Link>
+                <Nav.Link onClick={() => setView('exam')} className={linkClass('exam')}>
+                    <FaClock /> Exams
+                </Nav.Link>
+                <Nav.Link onClick={() => setView('timetable')} className={linkClass('timetable')}>
+                    <FaTable /> TimeTable
+                </Nav.Link>
+            </Nav>
+        </div>
+    );
 }

@@ -1,0 +1,51 @@
+/* src/components/Dashboard/Sidebar.css */
+
+.sidebar-wrapper {
+    min-width: 230px;
+    background-color: #ffffff;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+    padding-top: 1rem;
+}
+
+.sidebar-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    padding-left: 1rem;
+}
+
+.sidebar-link {
+    padding: 0.75rem 1.2rem;
+    border-radius: 0.6rem;
+    transition: all 0.2s ease-in-out;
+    color: #333 !important;
+    font-size: 0.96rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.sidebar-link:hover {
+    background-color: #f1f1f1;
+    color: #0d6efd !important;
+}
+
+.sidebar-link.active {
+    background-color: #0d6efd;
+    color: white !important;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-link.active:hover {
+    background-color: #0c5ae0;
+}
+
+.nav-link {
+    margin-bottom: 4px;
+}

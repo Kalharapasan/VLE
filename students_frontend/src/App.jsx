@@ -4,7 +4,7 @@ import LoginLayout from './components/Layouts/LoginLayout';
 
 import Home from './components/Pages/HomePage';
 import About from './components/Pages/AboutPage';
-import Contact from './components/Pages/ContactPagr.jsx';
+import Contact from './components/Pages/ContactPage';
 import AdminDashboard from './components/Dashboard/Admin/DashboardLayout.jsx';
 import StudentDashboard from './components/Dashboard/Student/DashboardLayoutStudent.jsx';
 import TeacherDashboard from './components/Dashboard/Teacher/DashboardLayout.jsx';

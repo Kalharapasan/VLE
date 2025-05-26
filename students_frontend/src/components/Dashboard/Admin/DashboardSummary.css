@@ -1,42 +1,56 @@
 /* dashboard.css */
 
-/* Card base styles */
+/* ====== CARD BASE STYLES ====== */
 .dashboard-card {
     border-radius: 1rem;
     min-height: 160px;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: default;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
 }
 
-/* Hover effect */
+/* ====== HOVER EFFECT ====== */
 .dashboard-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transform: scale(1.03);
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15);
 }
 
-/* Dark mode specific override */
-.dashboard-card.dark {
-    background-color: #1e1e2f;
-    color: #f1f1f1;
-    border-color: #444 !important;
-}
 
-/* Icon title alignment */
+
+/* ====== ICON + TITLE ALIGNMENT ====== */
 .dashboard-card .card-title {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     font-size: 1.1rem;
+    font-weight: 600;
 }
 
-/* Count number styling */
+/* ====== COUNT NUMBER ====== */
 .dashboard-card h3 {
     font-size: 2rem;
     margin: 0.5rem 0;
+    font-weight: 700;
 }
 
-/* Responsive spacing */
+/* ====== DESCRIPTION TEXT ====== */
+.dashboard-card .card-text {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* ====== RESPONSIVE GRID GAPS ====== */
 .dashboard-summary-row {
-    row-gap: 1rem;
+    row-gap: 1.5rem;
+    column-gap: 1rem;
+}
+
+/* ====== OPTIONAL EXTRA SHADOW EFFECT ====== */
+.hover-shadow:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transform: scale(1.02);
+    transition: 0.3s ease-in-out;
 }
