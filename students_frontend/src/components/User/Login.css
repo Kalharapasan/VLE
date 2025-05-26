@@ -1,0 +1,112 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 70px); /* adjust based on navbar */
+  background-color: #f0f2f5;
+  padding: 20px;
+}
+
+.login-container {
+  display: flex;
+  max-width: 900px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Each half takes 50% */
+.login-left,
+.login-right {
+  width: 50%;
+}
+
+/* Left image section */
+.login-left {
+  background: linear-gradient(to bottom right, #9fc5f8, #6fa8dc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.login-left img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Right form section */
+.login-right {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-right h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #0d6efd;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-form button:hover {
+  background-color: #084fbd;
+}
+
+.login-form p {
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.login-form a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-left,
+  .login-right {
+    width: 100%;
+  }
+
+  .login-left {
+    padding: 20px;
+  }
+
+  .login-right {
+    padding: 30px 20px;
+  }
+}

@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-const HomePage = () => {
+const ContactPagr = () => {
     return (
         <div className="container py-5">
             <h1 className="mb-4">Welcome to the Student Learning System</h1>
@@ -10,4 +10,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default ContactPagr;
