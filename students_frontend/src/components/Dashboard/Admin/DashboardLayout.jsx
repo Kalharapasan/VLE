@@ -12,7 +12,7 @@ import Faculty from '../../Table/Admin/FacultyTable.jsx';
 import Teacher from '../../Table/Admin/TeacherTable.jsx';
 import TimeTable from '../../Table/Admin/TimeTable';
 import Subject from '../../Table/Admin/SubjectTable.jsx';
-import Course from '../../Table/Admin/CourseTable';
+import Course from '../../Table/Admin/CourseTable';  //for course Table
 
 export default function DashboardLayout() {
   const [view, setView] = useState('dashboard');
