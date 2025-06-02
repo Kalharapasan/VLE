@@ -9,5 +9,5 @@ const AboutPage = () => {
         </div>
     );
 };
-
+// No comment //
 export default AboutPage;
