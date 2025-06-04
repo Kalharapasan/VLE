@@ -1,0 +1,20 @@
+.full-height {
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.content-area {
+    flex-grow: 1;
+    padding: 30px;
+}

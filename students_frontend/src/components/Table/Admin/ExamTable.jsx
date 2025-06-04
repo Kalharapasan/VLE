@@ -140,7 +140,7 @@ export default function ExamTable() {
           </tbody>
         </Table>
 
-        <h4 className="mt-5">Exam Cards</h4>
+        <h4 className="mt-5">Exam </h4>
         <div className="row">
           {filteredExams.map((exam) => (
               <div className="col-md-4" key={exam.exam_id}>

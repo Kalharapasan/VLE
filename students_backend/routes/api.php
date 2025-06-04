@@ -23,6 +23,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\StudentCourseController;
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/teacher/profile', [TeacherController::class, 'profile']);
+    Route::put('/teacher/profile', [TeacherController::class, 'updateProfile']);
+});
+
+
 // Count Routes (keep one valid route per endpoint)
 Route::get('/admin/count', [AdminController::class, 'count']);
 Route::get('/student/count', [StudentController::class, 'count']);
@@ -33,6 +39,11 @@ Route::get('/faculty/count', [FacultyController::class, 'count']);
 Route::get('/teacher/count', [TeacherController::class, 'count']);
 Route::get('/timeTable/count', [TimeTableController::class, 'count']);
 Route::get('/subject/count', [SubjectController::class, 'count']);
+
+// In routes/api.php
+
+Route::get('/teacher/profile/{index}', [TeacherController::class, 'getProfileByIndex']);
+
 
 //Other Controller Api Routes
 Route::post('/lookup', [Controller::class, 'lookup']);
@@ -255,5 +266,7 @@ Route::prefix('exam')->group(function () {
     Route::delete('/{id}', [ExamController::class, 'destroy']);
 
 });
+
+
 
 ?>

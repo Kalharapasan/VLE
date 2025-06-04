@@ -85,6 +85,7 @@ export default function StudentTable() {
           <thead>
           <tr>
             <th>#</th>
+            <th>Student Index</th>
             <th>Full Name</th>
             <th>Email</th>
             <th>NIC</th>
@@ -97,6 +98,7 @@ export default function StudentTable() {
           {filteredStudents.map((student, idx) => (
               <tr key={student.student_id}>
                 <td>{idx + 1}</td>
+                <td>{student.student_index}</td>
                 <td>{student.student_fname} {student.student_lname}</td>
                 <td>{student.student_email}</td>
                 <td>{student.student_nic}</td>
@@ -126,7 +128,7 @@ export default function StudentTable() {
           </tbody>
         </Table>
 
-        <h4 className="mt-5">Student Cards</h4>
+        <h4 className="mt-5">Student </h4>
         <div className="row">
           {filteredStudents.map((student) => (
               <div className="col-md-4" key={student.student_id}>

@@ -124,7 +124,7 @@ export default function AdminTable() {
           </tbody>
         </Table>
 
-        <h4 className="mt-5">Admin Cards</h4>
+        <h4 className="mt-5">Admin </h4>
         <div className="row">
           {filteredAdmins.map((admin) => (
               <div className="col-md-4" key={admin.admin_id}>

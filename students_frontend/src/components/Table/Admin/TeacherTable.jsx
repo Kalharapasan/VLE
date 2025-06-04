@@ -124,7 +124,7 @@ export default function TeacherTable() {
           </tbody>
         </Table>
 
-        <h4 className="mt-5">Teacher Cards</h4>
+        <h4 className="mt-5">Teacher</h4>
         <div className="row">
           {filteredTeachers.map((teacher) => (
               <div className="col-md-4" key={teacher.teacher_id}>

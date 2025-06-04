@@ -95,7 +95,7 @@ export default function TimeTableTable() {
           </tbody>
         </Table>
 
-        <h4 className="mt-5">Cards View</h4>
+        <h4 className="mt-5">Time Table</h4>
         <div className="row">
           {filtered.map(tt => (
               <div className="col-md-4" key={tt.timetable_id}>

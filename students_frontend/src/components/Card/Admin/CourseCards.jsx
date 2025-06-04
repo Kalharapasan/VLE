@@ -47,7 +47,7 @@ export default function CourseCard() {
 
     return (
         <div className="container mt-4">
-            <h2>Course Cards</h2>
+            
 
             <Row xs={1} sm={2} md={3} lg={4} className="g-4">
                 {courses.map((course) => (

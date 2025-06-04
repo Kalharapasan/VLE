@@ -121,7 +121,7 @@ export default function SubjectTable() {
           </tbody>
         </Table>
 
-        <h4 className="mt-5">Subject Cards</h4>
+        <h4 className="mt-5">Subject</h4>
         <div className="row">
           {filteredSubjects.map((subject) => (
               <div className="col-md-4" key={subject.subject_id}>

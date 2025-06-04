@@ -124,7 +124,7 @@ export default function CourseTable() {
                 </tbody>
             </Table>
 
-            <h4 className="mt-5">Course Cards</h4>
+            <h4 className="mt-5">Course </h4>
             <CourseCards courses={filteredCourses} />
 
             <CourseForm

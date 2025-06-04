@@ -1,0 +1,45 @@
+/* Sidebar.css */
+
+.sidebar {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-right: 1px solid #dee2e6;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar.dark {
+    background-color: #1f1f1f;
+    color: white;
+}
+
+.sidebar .nav-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.sidebar .nav-link.active {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.sidebar .nav-link.dark {
+    color: #ddd;
+}
+
+.sidebar .nav-link.dark:hover {
+    background-color: #0d6efd;
+    color: white;
+}

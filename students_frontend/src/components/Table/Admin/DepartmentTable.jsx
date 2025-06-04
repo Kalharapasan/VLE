@@ -120,6 +120,7 @@ export default function DepartmentTable() {
             </Table>
 
             <div className="row mt-4">
+                <h4 className="mt-5">Department </h4>
                 {filtered.map((dept) => (
                     <div className="col-md-4" key={dept.department_id}>
                         <DepartmentCard
