@@ -121,8 +121,8 @@ Make sure you have the following installed:
 ```
 university-management-system/
 │
-├── backend/     # Laravel app
-└── frontend/    # React app
+├── students_backend/     # Laravel app
+└── students_frontend/    # React app
 ```
 
 ---
