@@ -8,6 +8,16 @@
   transition: background-color 0.3s ease;
 }
 
+.dashboard-layout.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
+.dashboard-layout.light-mode {
+  background-color: #f8f9fa;
+  color: black;
+}
+
 /* Sidebar styling */
 .sidebar {
   width: 220px;
@@ -51,11 +61,13 @@
 /* Main content area */
 .main-content {
   flex-grow: 1;
-  background-color: #f5f7fa;
+  background-color: white;
   padding: 2rem 3rem;
   overflow-y: auto;
   height: 100vh;
   box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 /* Header */
@@ -124,7 +136,7 @@
   opacity: 0.85;
 }
 
-/* Different card background gradients */
+/* Card background gradients */
 .admin-card {
   background: linear-gradient(135deg, #ff4b5c, #ff8966);
 }

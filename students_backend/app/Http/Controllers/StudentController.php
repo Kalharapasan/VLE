@@ -56,4 +56,15 @@ class StudentController extends Controller
         $count = Student::count();
         return response()->json(['student_count' => $count]);
     }
+    public function getName($id)
+{
+    $student = Student::findOrFail($id);
+    return response()->json([
+        'student' => $student,
+        'full_name' => $student->full_name,
+    ]);
+}
+
+
+
 }

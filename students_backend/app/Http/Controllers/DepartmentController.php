@@ -58,4 +58,8 @@ class DepartmentController extends Controller
         $count = Department::count();
         return response()->json(['department_count' => $count]);
     }
+     public function getNames()
+    {
+        return Department::select('department_id', 'department_name')->get();
+    }
 }

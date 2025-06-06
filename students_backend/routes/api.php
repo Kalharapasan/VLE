@@ -23,6 +23,19 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\StudentCourseController;
 
+
+Route::get('/teacher-students', [TeacherStudentController::class, 'index']);
+Route::post('/teacher-students', [TeacherStudentController::class, 'store']);
+Route::put('/teacher-students/{id}', [TeacherStudentController::class, 'update']);
+Route::delete('/teacher-students/{id}', [TeacherStudentController::class, 'destroy']);
+
+Route::get('/student-name/{id}', [StudentController::class, 'getName']);
+
+Route::post('/teacher/update/{id}', [TeacherController::class, 'update']);
+
+Route::get('/faculties/names', [FacultyController::class, 'getNames']);
+Route::get('/department/names', [DepartmentController::class, 'getNames']);
+
 // Count Routes (keep one valid route per endpoint)
 Route::get('/admin/count', [AdminController::class, 'count']);
 Route::get('/student/count', [StudentController::class, 'count']);
@@ -112,7 +125,6 @@ Route::prefix('teacher')->group(function () {
     Route::get('/{id}', [TeacherController::class, 'show']);
     Route::put('/update/{id}', [TeacherController::class, 'update']);
     Route::delete('/{id}', [TeacherController::class, 'destroy']);
-    Route::get('/count', [TeacherController::class, 'count']);
 });
 
 

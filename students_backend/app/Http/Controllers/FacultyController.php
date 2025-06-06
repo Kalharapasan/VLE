@@ -63,4 +63,9 @@ class FacultyController extends Controller
         $count = Faculty::count();
         return response()->json(['faculty_count' => $count]);
     }
+    public function getNames()
+    {
+        return Faculty::select('faculties_id', 'faculties_name')->get();
+    }
+
 }

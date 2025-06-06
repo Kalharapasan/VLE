@@ -14,21 +14,21 @@ class TeacherRequests extends FormRequest
         return true;
     }
 
-
-    public function rules(): array
-    {
-        return [
-            'teacher_fname'     => 'required|string|max:255',
-            'teacher_lname'     => 'required|string|max:255',
-            'teacher_birthday'  => 'required|date',
-            'teacher_email'     => 'required|email',
-            'teacher_nic'       => 'required|string|max:20',
-            'teacher_gender'    => 'required|in:male,female,other',
-            'faculties_id'      => 'required|exists:faculties,faculties_id',
-            'department_id'     => 'required|exists:departments,department_id',
-            'teacher_img'        => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    public function rules()
+        {
+            return [
+            'teacher_fname' => 'required|string|max:255',
+            'teacher_lname' => 'required|string|max:255',
+            'teacher_email' => 'required|email',
+            'teacher_nic' => 'required|string',
+            'teacher_gender' => 'required|in:Male,Female',
+            'teacher_birthday' => 'required|date',
+            'faculties_id' => 'required|exists:faculties,id',
+            'department_id' => 'required|exists:departments,id',
+            'teacher_img' => 'nullable|image|max:2048',
         ];
     }
+
     public function faculties()
     {
         return $this->belongsTo(Faculty::class, 'faculties_id', 'faculties_id');

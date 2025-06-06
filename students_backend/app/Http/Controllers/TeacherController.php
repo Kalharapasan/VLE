@@ -33,13 +33,22 @@ class TeacherController extends Controller
      }
 
      // UPDATE
-     public function update(TeacherRequests $request, $id)
-     {
-         $teacher = Teacher::findOrFail($id);
-         $teacher->update($request->validated());
+    public function update(TeacherRequests $request, $id)
+    {
+        $teacher = Teacher::findOrFail($id);
+        $data = $request->validated();
 
-         return response()->json(['message' => 'Teacher updated successfully', 'studentsGPA' => $teacher]);
-     }
+        // Handle image upload
+        if ($request->hasFile('teacher_img')) {
+            $image = $request->file('teacher_img');
+            $imagePath = $image->store('teachers', 'public');
+            $data['teacher_img'] = $imagePath;
+        }
+
+        $teacher->update($data);
+        return response()->json(['message' => 'Teacher updated successfully']);
+    }
+
 
      // DELETE
      public function destroy($id)
