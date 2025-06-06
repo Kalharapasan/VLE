@@ -139,6 +139,11 @@ composer install
 # Copy and configure .env file
 cp .env.example .env
 
+OR
+
+copy .env.example .env
+
+
 # Set your DB credentials in .env
 # DB_DATABASE=vle
 # DB_USERNAME=root
