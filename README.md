@@ -131,7 +131,7 @@ university-management-system/
 
 ```bash
 # Go to backend folder
-cd backend
+cd students_backend
 
 # Install PHP dependencies
 composer install
@@ -163,13 +163,13 @@ php artisan serve
 
 ```bash
 # Go to frontend folder
-cd ../frontend
+cd ../students_frontend
 
 # Install JavaScript dependencies
 npm install
 
 # Start React development server
-npm start
+npm run dev
 ```
 
 ---
