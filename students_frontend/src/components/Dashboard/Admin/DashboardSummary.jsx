@@ -58,15 +58,6 @@ export default function DashboardSummary() {
   }, []);
 
   const cards = [
-    { title: 'Admins', key: 'admins', text: 'System admins', icon: '👥', bg: 'bg-white text-dark' },
-    { title: 'Faculties', key: 'faculties', text: 'Faculty list', icon: '🏛️', bg: 'bg-light text-dark' },
-    { title: 'Departments', key: 'departments', text: 'Departments listed', icon: '🏢', bg: 'bg-warning-subtle text-dark' },
-    { title: 'Courses', key: 'courses', text: 'Available courses', icon: '📚', bg: 'bg-info-subtle text-dark' },
-    { title: 'Students', key: 'students', text: 'Registered students', icon: '🎓', bg: 'bg-success-subtle text-dark' },
-    { title: 'Subjects', key: 'subjects', text: 'Subjects offered', icon: '📘', bg: 'bg-light text-dark' },
-    { title: 'Exams', key: 'exams', text: 'Scheduled exams', icon: '📝', bg: 'bg-danger-subtle text-dark' },
-    { title: 'Teachers', key: 'teachers', text: 'Active teachers', icon: '👩‍🏫', bg: 'bg-secondary-subtle text-dark' },
-    { title: 'Timetables', key: 'timetables', text: 'Class schedules', icon: '🗓️', bg: 'bg-light text-dark' }
   ];
 
   return (
