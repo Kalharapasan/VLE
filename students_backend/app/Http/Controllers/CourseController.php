@@ -13,9 +13,14 @@ class CourseController extends Controller
         try {
             $course = Course::create($request->validated());
 
-            return response()->json(['message' => 'Course added successfully', 'course' => $course]);
+            return response()->json([
+                'message' => 'Course added successfully',
+                'course' => $course
+            ]);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
+            return response()->json([
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
         }
     }
 
@@ -38,7 +43,10 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
         $course->update($request->validated());
 
-        return response()->json(['message' => 'Course updated successfully', 'faculty' => $course]);
+        return response()->json([
+            'message' => 'Course updated successfully',
+            'course' => $course
+        ]);
     }
 
     // DELETE
@@ -50,9 +58,51 @@ class CourseController extends Controller
         return response()->json(['message' => 'Course deleted successfully']);
     }
 
-      public function count()
+    // COUNT
+    public function count()
     {
         $count = Course::count();
         return response()->json(['course_count' => $count]);
+    }
+
+    // ✅ Get Course ID by Name
+    public function getCourseIdByName($name)
+    {
+        $course = Course::where('course_name', $name)->first();
+
+        if (!$course) {
+            return response()->json(['message' => 'Course not found'], 404);
+        }
+
+        return response()->json([
+            'course_id' => $course->course_id
+        ]);
+    }
+
+    // ✅ Get Course Name by ID
+    public function getCourseNameById($id)
+    {
+        $course = Course::find($id);
+
+        if (!$course) {
+            return response()->json(['message' => 'Course not found'], 404);
+        }
+
+        return response()->json([
+            'course_name' => $course->course_name
+        ]);
+    }
+   // ✅ Get Admin Index by ID (if you really need it here)
+    public function getIndexById($id)
+    {
+        $course = Course::find($id);
+
+        if (!$course) {
+            return response()->json(['message' => 'Course not found'], 404);
+        }
+
+        return response()->json([
+            'course_Index' => $course->course_Index
+        ]);
     }
 }

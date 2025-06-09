@@ -54,4 +54,18 @@ class TimeTableController extends Controller
         $count = TimeTable::count();
         return response()->json(['timeTable_count' => $count]);
     }
+
+    public function getIndexById($id)
+{
+    $timeTable = TimeTable::find($id);
+
+    if (!$timeTable) {
+        return response()->json(['message' => 'TimeTable not found'], 404);
+    }
+
+    return response()->json([
+        'timetable_Index' => $timeTable->timetable_Index // ← adjust this column name if needed
+    ]);
+}
+
 }

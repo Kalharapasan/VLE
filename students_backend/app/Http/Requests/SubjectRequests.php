@@ -23,6 +23,7 @@ class SubjectRequests extends FormRequest
     {
         return [
             'subject_name' => 'required|string|max:255|unique:subjects,subject_name',
+            'credite'=> 'required|integer|min:1|max:10', // Assuming credit range is 1-10
             'description'  => 'required|string',
             'img'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Max 2MB
         ];

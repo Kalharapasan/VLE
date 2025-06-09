@@ -23,6 +23,35 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\StudentCourseController;
 
+// API Routes
+
+
+Route::get('/teacher/index-by-id/{id}', [TeacherController::class, 'getIndexById']);
+Route::get('/subject/index-by-id/{id}', [SubjectController::class, 'getIndexById']);
+Route::get('/student/index-by-id/{id}', [StudentController::class, 'getIndexById']);
+Route::get('/faculty/index-by-id/{id}', [FacultyController::class, 'getIndexById']);
+Route::get('/department/index-by-id/{id}', [DepartmentController::class, 'getIndexById']);
+Route::get('/course/index-by-id/{id}', [CourseController::class, 'getIndexById']);
+Route::get('/admin/index-by-id/{id}', [AdminController::class, 'getIndexById']);
+Route::get('/timetables/index/{id}', [TimeTableController::class, 'getIndexById']);
+Route::get('/admins/id-by-name/{fname}/{lname}', [AdminController::class, 'getAdminIdByName']);
+Route::get('/admins/full-name-by-id/{id}', [AdminController::class, 'getAdminFullNameById']);
+Route::get('/courses/id-by-name/{name}', [CourseController::class, 'getCourseIdByName']);
+Route::get('/courses/name-by-id/{id}', [CourseController::class, 'getCourseNameById']);
+Route::get('/subjects/id-by-name/{name}', [SubjectController::class, 'getSubjectIdByName']);
+Route::get('/subjects/name-by-id/{id}', [SubjectController::class, 'getSubjectNameById']);
+Route::get('/teachers/id-by-name/{name}', [TeacherController::class, 'getTeacherIdByName']);
+Route::get('/teachers/name-by-id/{id}', [TeacherController::class, 'getTeacherNameById']);
+Route::get('/departments/name/{id}', [DepartmentController::class, 'getDepartmentNameById']);
+Route::get('/departments/id-by-name/{name}', [DepartmentController::class, 'getDepartmentIdByName']);
+Route::get('/faculties/id-by-name/{name}', [FacultyController::class, 'getFacultyIdByName']);
+Route::get('/faculties/name-by-id/{id}', [FacultyController::class, 'getFacultyNameById']);
+Route::get('/faculties/id-index', [FacultyController::class, 'get_id']);
+Route::get('/students/id-by-name/{name}', [StudentController::class, 'getStudentIdByName']);
+Route::get('/students/name-by-id/{id}', [StudentController::class, 'getStudentNameById']);
+
+
+
 // Count Routes (keep one valid route per endpoint)
 Route::get('/admin/count', [AdminController::class, 'count']);
 Route::get('/student/count', [StudentController::class, 'count']);

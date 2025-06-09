@@ -12,6 +12,7 @@ return new class extends Migration
             $table->bigIncrements('subject_id');
             $table->string('subject_Index');
             $table->string('subject_name');
+            $table->integer('credite');
             $table->text('description');
             $table->string('img')->nullable();
             $table->timestamps();

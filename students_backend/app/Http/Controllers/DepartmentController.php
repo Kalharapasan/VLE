@@ -58,4 +58,44 @@ class DepartmentController extends Controller
         $count = Department::count();
         return response()->json(['department_count' => $count]);
     }
+
+    // Get department name by ID
+    public function getDepartmentNameById($id)
+    {
+        $department = Department::find($id);
+
+        if (!$department) {
+            return response()->json(['message' => 'Department not found'], 404);
+        }
+
+        return response()->json(['department_name' => $department->department_name]);
+    }
+
+    public function getDepartmentIdByName($name)
+    {
+        $department = Department::where('department_name', $name)->first();
+
+        if (!$department) {
+            return response()->json(['message' => 'Department not found'], 404);
+        }
+
+        return response()->json([
+            'department_id' => $department->department_id
+        ]);
+    }
+    // ✅ Get Admin Index by ID (if you really need it here)
+    public function getIndexById($id)
+    {
+        $department = Department::find($id);
+
+        if (!$department) {
+            return response()->json(['message' => 'department not found'], 404);
+        }
+
+        return response()->json([
+            'department_Index' => $department->department_Index
+        ]);
+    }
+
+
 }
