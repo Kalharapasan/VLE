@@ -1,7 +1,6 @@
 // src/components/Dashboard/DashboardSummary.jsx
 import React, { useEffect, useState } from 'react';
 import {
-  getAdminCount,
   getStudents,
   getCourses,
   getDepartments,
@@ -20,7 +19,7 @@ import './DashboardSummary.css';
 
 export default function DashboardSummary() {
   const [summary, setSummary] = useState({
-    admins: 0, students: 0, courses: 0, departments: 0,
+     students: 0, courses: 0, departments: 0,
     exams: 0, faculties: 0, teachers: 0, timetables: 0, subjects: 0
   });
 
@@ -28,10 +27,9 @@ export default function DashboardSummary() {
     const fetchSummary = async () => {
       try {
         const [
-          admins, students, courses, departments,
+           students, courses, departments,
           exams, faculties, teachers, timetables, subjects
         ] = await Promise.all([
-          getAdminCount(),
           getStudents(),
           getCourses(),
           getDepartments(),
@@ -43,7 +41,7 @@ export default function DashboardSummary() {
         ]);
 
         setSummary({
-          admins: admins.data.admin_count,
+          
           students: students.data.student_count,
           courses: courses.data.course_count,
           departments: departments.data.department_count,
@@ -62,23 +60,17 @@ export default function DashboardSummary() {
   }, []);
 
   const cards = [
-    {
-      icon: <FaUserShield />,
-      title: 'Admins',
-      key: 'admins',
-      text: 'Total Admins in the system',
-      bg: 'admin-card'
-    },
+   
     {
       icon: <FaUserGraduate />,
-      title: 'Students',
+      title: 'Teachers Students',
       key: 'students',
       text: 'Total Registered Students',
       bg: 'student-card'
     },
     {
       icon: <FaBook />,
-      title: 'Courses',
+      title: 'Teachers Courses',
       key: 'courses',
       text: 'Available Courses',
       bg: 'courses-card'
@@ -106,14 +98,14 @@ export default function DashboardSummary() {
     },
     {
       icon: <FaClipboardList />,
-      title: 'Subjects',
+      title: 'Teachers Subjects',
       key: 'subjects',
       text: 'Subjects Offered',
       bg: 'admin-card'
     },
     {
       icon: <FaClock />,
-      title: 'Exams',
+      title: 'Teachers Subjects Mark',
       key: 'exams',
       text: 'Scheduled Exams',
       bg: 'student-card'
