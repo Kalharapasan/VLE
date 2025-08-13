@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TeacherRequests;
 use App\Models\Teacher;
+use Illuminate\Support\Facades\Storage;
 
 class TeacherController extends Controller
 {
@@ -36,7 +37,24 @@ class TeacherController extends Controller
     public function update(TeacherRequests $request, $id)
     {
         $teacher = Teacher::findOrFail($id);
-        $teacher->update($request->validated());
+
+        // Get validated data, but exclude the image for now
+        $validatedData = $request->safe()->except('teacher_img');
+
+        // Handle image upload separately
+        if ($request->hasFile('teacher_img')) {
+            // Optional: Delete the old image to save space
+            if ($teacher->teacher_img) {
+                Storage::disk('public')->delete($teacher->teacher_img);
+            }
+            // Store the new image and get the path
+            $path = $request->file('teacher_img')->store('teacher_images', 'public');
+            // Add the new image path to our data
+            $validatedData['teacher_img'] = $path;
+        }
+
+        // Update the teacher with the new data
+        $teacher->update($validatedData);
 
         return response()->json(['message' => 'Teacher updated successfully', 'teacher' => $teacher]);
     }

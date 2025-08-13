@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('teacher_Index');
             $table->string('teacher_fname');
             $table->string('teacher_lname');
-            $table->dateTime('teacher_birthday');
+            $table->date('teacher_birthday');
             $table->string('teacher_email');
             $table->string('teacher_nic');
             $table->string('teacher_gender');

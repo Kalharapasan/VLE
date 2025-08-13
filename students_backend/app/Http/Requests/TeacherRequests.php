@@ -26,7 +26,8 @@ class TeacherRequests extends FormRequest
             'teacher_gender'    => 'required|in:male,female,other',
             'faculties_id'      => 'required|exists:faculties,faculties_id',
             'department_id'     => 'required|exists:departments,department_id',
-            'teacher_img'        => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'teacher_img'       => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description'       => 'nullable|string|max:1000',
         ];
     }
     public function faculties()

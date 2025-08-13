@@ -67,7 +67,12 @@ export default function TeacherForm({ show, handleClose, onSubmit, initialData }
         e.preventDefault();
         const data = new FormData();
         Object.entries(form).forEach(([key, value]) => {
-            if (value !== null) data.append(key, value);
+            if (key === "teacher_birthday" && value) {
+                // Convert to full datetime string
+                data.append(key, value + " 00:00:00");
+            } else if (value !== null) {
+                data.append(key, value);
+            }
         });
         onSubmit(data);
         handleClose();
