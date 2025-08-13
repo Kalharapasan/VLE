@@ -134,12 +134,14 @@ Route::prefix('student')->group(function () {
     Route::get('/count', [StudentController::class, 'count']);
 });
 
+
 // Teacher API Routes
 Route::prefix('teacher')->group(function () {
     Route::get('/', [TeacherController::class, 'index']);
     Route::post('/', [TeacherController::class, 'store']);
     Route::get('/{id}', [TeacherController::class, 'show']);
-    Route::put('/update/{id}', [TeacherController::class, 'update']);
+    // Route::put('/update/{id}', [TeacherController::class, 'update']); // <-- Change this
+    Route::post('/update/{id}', [TeacherController::class, 'update']); // <-- To this
     Route::delete('/{id}', [TeacherController::class, 'destroy']);
     Route::get('/count', [TeacherController::class, 'count']);
 });

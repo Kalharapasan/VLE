@@ -1,4 +1,3 @@
-// src/components/Dashboard/DashboardSummary.jsx
 import React, { useEffect, useState } from 'react';
 import {
   getAdminCount,
@@ -18,7 +17,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './DashboardSummary.css';
 
-export default function DashboardSummary() {
+export default function DashboardSummary({ setView }) {
   const [summary, setSummary] = useState({
     admins: 0, students: 0, courses: 0, departments: 0,
     exams: 0, faculties: 0, teachers: 0, timetables: 0, subjects: 0
@@ -62,76 +61,27 @@ export default function DashboardSummary() {
   }, []);
 
   const cards = [
-    {
-      icon: <FaUserShield />,
-      title: 'Admins',
-      key: 'admins',
-      text: 'Total Admins in the system',
-      bg: 'admin-card'
-    },
-    {
-      icon: <FaUserGraduate />,
-      title: 'Students',
-      key: 'students',
-      text: 'Total Registered Students',
-      bg: 'student-card'
-    },
-    {
-      icon: <FaBook />,
-      title: 'Courses',
-      key: 'courses',
-      text: 'Available Courses',
-      bg: 'courses-card'
-    },
-    {
-      icon: <FaBuilding />,
-      title: 'Departments',
-      key: 'departments',
-      text: 'Academic Departments',
-      bg: 'admin-card'
-    },
-    {
-      icon: <FaUniversity />,
-      title: 'Faculties',
-      key: 'faculties',
-      text: 'Total Faculties',
-      bg: 'student-card'
-    },
-    {
-      icon: <FaChalkboardTeacher />,
-      title: 'Teachers',
-      key: 'teachers',
-      text: 'Total Teachers',
-      bg: 'courses-card'
-    },
-    {
-      icon: <FaClipboardList />,
-      title: 'Subjects',
-      key: 'subjects',
-      text: 'Subjects Offered',
-      bg: 'admin-card'
-    },
-    {
-      icon: <FaClock />,
-      title: 'Exams',
-      key: 'exams',
-      text: 'Scheduled Exams',
-      bg: 'student-card'
-    },
-    {
-      icon: <FaTable />,
-      title: 'Timetables',
-      key: 'timetables',
-      text: 'Class Timetables',
-      bg: 'courses-card'
-    }
+    { icon: <FaUserShield />, title: 'Admins', key: 'admins', text: 'Total Admins in the system', bg: 'admin-card', view: 'admin' },
+    { icon: <FaUserGraduate />, title: 'Students', key: 'students', text: 'Total Registered Students', bg: 'student-card', view: 'student' },
+    { icon: <FaBook />, title: 'Courses', key: 'courses', text: 'Available Courses', bg: 'courses-card', view: 'course' },
+    { icon: <FaBuilding />, title: 'Departments', key: 'departments', text: 'Academic Departments', bg: 'admin-card', view: 'department' },
+    { icon: <FaUniversity />, title: 'Faculties', key: 'faculties', text: 'Total Faculties', bg: 'student-card', view: 'faculty' },
+    { icon: <FaChalkboardTeacher />, title: 'Teachers', key: 'teachers', text: 'Total Teachers', bg: 'courses-card', view: 'teacher' },
+    { icon: <FaClipboardList />, title: 'Subjects', key: 'subjects', text: 'Subjects Offered', bg: 'admin-card', view: 'subject' },
+    { icon: <FaClock />, title: 'Exams', key: 'exams', text: 'Scheduled Exams', bg: 'student-card', view: 'exam' },
+    { icon: <FaTable />, title: 'Timetables', key: 'timetables', text: 'Class Timetables', bg: 'courses-card', view: 'timetable' }
   ];
 
   return (
     <div className="container-fluid dashboard-summary">
       <div className="row g-4">
         {cards.map((card, index) => (
-          <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={index}>
+          <div
+            className="col-12 col-sm-6 col-md-4 col-lg-3"
+            key={index}
+            onClick={() => setView(card.view)}
+            style={{ cursor: 'pointer' }}
+          >
             <div
               className={`card text-center border-0 shadow-sm rounded-4 p-3 ${card.bg} hover-card`}
               style={{ minHeight: '180px' }}

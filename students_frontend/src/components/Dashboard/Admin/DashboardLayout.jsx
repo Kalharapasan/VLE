@@ -1,4 +1,3 @@
-// src/components/Dashboard/DashboardLayout.jsx
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import DashboardSummary from './DashboardSummary';
@@ -38,7 +37,7 @@ export default function DashboardLayout() {
           </h2>
         </div>
 
-        {view === 'dashboard' && <DashboardSummary />}
+        {view === 'dashboard' && <DashboardSummary setView={setView} />}
         {view === 'admin' && <AdminTable />}
         {view === 'faculty' && <FacultyTable />}
         {view === 'department' && <DepartmentTable />}

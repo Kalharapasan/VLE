@@ -22,6 +22,7 @@ class Teacher extends Model
         'faculties_id',
         'department_id',
         'teacher_img',
+        'description',
     ];
 
     protected static function boot()
@@ -29,16 +30,16 @@ class Teacher extends Model
         parent::boot();
 
         self::creating(function ($model) {
-            $getTeacher = self::orderBy('teacher_id', 'desc')->first(); 
+            $getTeacher = self::orderBy('teacher_id', 'desc')->first();
             if ($getTeacher) {
-                $latestID = intval(substr($getTeacher->teacher_Index, 4)); 
+                $latestID = intval(substr($getTeacher->teacher_Index, 4));
                 $nextID = $latestID + 1;
             } else {
                 $nextID = 1;
             }
 
-            $model->teacher_Index = 'TEAC' . str_pad($nextID, 4, '0', STR_PAD_LEFT); 
-            while (self::where('teacher_Index', $model->teacher_Index)->exists()) { 
+            $model->teacher_Index = 'TEAC' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
+            while (self::where('teacher_Index', $model->teacher_Index)->exists()) {
                 $nextID++;
                 $model->teacher_Index = 'TEAC' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
             }
