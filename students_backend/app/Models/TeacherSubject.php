@@ -13,4 +13,15 @@ class TeacherSubject extends Model
         'subject_id',
         'teacher_id',
     ];
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class, 'teacher_id', 'teacher_id')
+            ->select(['teacher_id', 'teacher_Index', 'teacher_fname']);
+    }
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class, 'subject_id', 'subject_id')
+            ->select(['subject_id', 'subject_name']);
+    }
 }
