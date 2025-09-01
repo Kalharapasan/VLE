@@ -13,4 +13,17 @@ class TeacherCourse extends Model
         'course_id',
         'teacher_id',
     ];
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class, 'teacher_id', 'teacher_id')
+            ->select(['teacher_id', 'teacher_Index', 'teacher_fname']);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id', 'course_id')
+            ->select(['course_id', 'course_name']);
+    }
+    
 }
