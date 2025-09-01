@@ -11,22 +11,27 @@ export default function Sidebar({ view, setView }) {
     <div className="sidebar-wrapper">
       <div className="sidebar-title">Teacher Dashboard</div>
       <Nav className="flex-column">
-        <Nav.Link onClick={() => setView('dashboard')} className={linkClass('dashboard')}>
-          <FaChalkboardTeacher /> Dashboard
-        </Nav.Link>
         <Nav.Link onClick={() => setView('teacher-profile')} className={linkClass('teacher-profile')}>
           <FaChalkboardTeacher /> My Profile
         </Nav.Link>
-        <Nav.Link onClick={() => setView('students')} className={linkClass('students')}>
+      </Nav>
+      <Nav className="flex-column">
+        <Nav.Link onClick={() => setView('teacher-profile')} className={linkClass('teacher-profile')}>
           <FaChalkboardTeacher /> My Students
         </Nav.Link>
-        <Nav.Link onClick={() => setView('courses')} className={linkClass('courses')}>
+      </Nav>
+      <Nav className="flex-column">
+        <Nav.Link onClick={() => setView('teacher-profile')} className={linkClass('teacher-profile')}>
           <FaChalkboardTeacher /> My Course
         </Nav.Link>
-        <Nav.Link onClick={() => setView('subjects')} className={linkClass('subjects')}>
+      </Nav>
+      <Nav className="flex-column">
+        <Nav.Link onClick={() => setView('teacher-profile')} className={linkClass('teacher-profile')}>
           <FaChalkboardTeacher /> My Subject
         </Nav.Link>
-        <Nav.Link onClick={() => setView('timetable')} className={linkClass('timetable')}>
+      </Nav>
+      <Nav className="flex-column">
+        <Nav.Link onClick={() => setView('teacher-profile')} className={linkClass('teacher-profile')}>
           <FaChalkboardTeacher /> My TimeTable
         </Nav.Link>
       </Nav>
