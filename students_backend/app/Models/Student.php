@@ -3,60 +3,51 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
-class Student extends Authenticatable
+class Student extends Model
 {
-    use HasFactory, HasApiTokens, Notifiable;
+    use HasFactory;
+
+    protected $primaryKey = 'student_id';
 
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'nic',
-        'gender',
-        'address',
-        'img',
-        'description',
-        'password',
+        'student_Index',
+        'student_fname',
+        'student_lname',
+        'student_birthday',
+        'student_email',
+        'student_nic',
+        'student_gender',
+        'faculties_id',
+        'department_id',
+        'studen_img',
     ];
 
-    protected $hidden = [
-        'password',
-    ];
-
-    // Get full name
-    public function getFullNameAttribute()
+    protected static function boot()
     {
-        return "{$this->first_name} {$this->last_name}";
-    }
+        parent::boot();
 
-    // Relationships
-    public function subjects()
-    {
-        return $this->belongsToMany(Subject::class, 'student_subjects');
-    }
+        static::creating(function ($model) {
+            $latestStudent = self::orderBy('student_id', 'desc')->first();
 
-    public function courses()
-    {
-        return $this->belongsToMany(Course::class, 'student_courses');
-    }
+            if ($latestStudent && !empty($latestStudent->student_Index)) {
+                $latestID = intval(substr($latestStudent->student_Index, 4));
+                $nextID = $latestID + 1;
+            } else {
+                $nextID = 1;
+            }
 
-    public function attendance()
-    {
-        return $this->hasMany(StudentAttendance::class);
-    }
+            $newIndex = 'STUD' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
 
-    public function examMarks()
-    {
-        return $this->hasMany(StudentExamMarks::class);
-    }
+            // Ensure uniqueness of student_Index
+            while (self::where('student_Index', $newIndex)->exists()) {
+                $nextID++;
+                $newIndex = 'STUD' . str_pad($nextID, 4, '0', STR_PAD_LEFT);
+            }
 
-    public function gpa()
-    {
-        return $this->hasMany(StudentsGPA::class);
+            $model->student_Index = $newIndex;
+        });
     }
 }
 

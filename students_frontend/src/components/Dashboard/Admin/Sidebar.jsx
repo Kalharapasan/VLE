@@ -21,7 +21,7 @@ export default function Sidebar({ view, setView }) {
 
   return (
     <div className="sidebar-wrapper">
-      <div className="sidebar-title">Dashboard</div>
+      <div className="sidebar-title">Admin Dashboard</div>
       <Nav className="flex-column">
         <Nav.Link onClick={() => setView('dashboard')} className={linkClass('dashboard')}>
           <FaTachometerAlt /> Dashboard
