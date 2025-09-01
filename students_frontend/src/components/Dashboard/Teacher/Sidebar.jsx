@@ -47,6 +47,26 @@ export default function Sidebar({ view, setView }) {
           <FaRegCalendarAlt /> My TimeTable
         </Nav.Link>
       </Nav>
+      <Nav className="flex-column">
+        <Nav.Link onClick={() => setView('teacher-profile')} className={linkClass('teacher-profile')}>
+          <FaChalkboardTeacher /> My Students
+        </Nav.Link>
+      </Nav>
+      <Nav className="flex-column">
+        <Nav.Link onClick={() => setView('teacher-profile')} className={linkClass('teacher-profile')}>
+          <FaChalkboardTeacher /> My Course
+        </Nav.Link>
+      </Nav>
+      <Nav className="flex-column">
+        <Nav.Link onClick={() => setView('teacher-profile')} className={linkClass('teacher-profile')}>
+          <FaChalkboardTeacher /> My Subject
+        </Nav.Link>
+      </Nav>
+      <Nav className="flex-column">
+        <Nav.Link onClick={() => setView('teacher-profile')} className={linkClass('teacher-profile')}>
+          <FaChalkboardTeacher /> My TimeTable
+        </Nav.Link>
+      </Nav>
     </div>
   );
 }
