@@ -6,6 +6,9 @@ export const getBooks = () => api.get('/books');
 // Get available books
 export const getAvailableBooks = () => api.get('/books/available');
 
+// Get single book
+export const getBook = (id) => api.get(`/books/${id}`);
+
 // Borrow a book
 export const borrowBook = (bookId, dueDate) => {
     return api.post('/books/borrow', {

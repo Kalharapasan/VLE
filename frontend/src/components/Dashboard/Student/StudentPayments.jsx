@@ -18,6 +18,7 @@ export default function StudentPayments() {
       const data = res.data || [];
       setPayments(data);
 
+      // Calculate totals
       let paid = 0;
       let pending = 0;
       data.forEach(p => {
@@ -33,13 +34,7 @@ export default function StudentPayments() {
     }
   };
 
-  if (loading) return (
-    <div className="text-center p-4">
-      <div className="spinner-border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  );
+  if (loading) return <div className="text-center p-4">Loading payments...</div>;
 
   return (
     <div className="container mt-4">
