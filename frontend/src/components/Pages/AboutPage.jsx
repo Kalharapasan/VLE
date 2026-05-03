@@ -1,102 +1,91 @@
-import React from 'react';
-import './AboutPage.css'; // <-- Import the CSS file
+import React, { useEffect, useState } from 'react';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import { getPageContents } from '../Service/pageContentService';
 
-const AboutPage = () => {
+export default function AboutPage() {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchContent();
+  }, []);
+
+  const fetchContent = async () => {
+    try {
+      const res = await getPageContents('about');
+      setContent(res.data || []);
+    } catch (err) {
+      console.error('Error fetching about content:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getSection = (key) => {
+    if (!Array.isArray(content)) return null;
+    const section = content.find(c => c.section_key === key);
+    return section ? section.content : null;
+  };
+
+  const getImage = (key) => {
+    if (!Array.isArray(content)) return null;
+    const section = content.find(c => c.section_key === key);
+    return section ? section.image_path : null;
+  };
+
+  if (loading) return <div className="text-center p-5"><div className="spinner-border" /></div>;
+
   return (
-    <div className="about-container">
+    <div className="about-page">
       {/* Header */}
-      <header className="about-header">
-        <h1>About South Eastern University of Sri Lanka</h1>
-      </header>
-
-      {/* Main Content */}
-      <div className="about-content">
-        {/* Top Section with image + three columns */}
-        <div className="about-top-section">
-          <div className="about-image">
-            <img src="/images/university-building.jpg" alt="SEUSL"/>
-          </div>
-
-          <div className="about-links">
-            <h2>About SEUSL</h2>
-            <ul>
-              <li><a href="#">History</a></li>
-              <li><a href="#">Corporate Direction</a></li>
-              <li><a href="#">Vision Mission</a></li>
-              <li><a href="#">Corporate & Action Plan</a></li>
-            </ul>
-          </div>
-
-          <div className="about-columns">
-            <div>
-              <h2>Governance</h2>
-              <ul>
-                <li><a href="#">Council</a></li>
-                <li><a href="#">Senate</a></li>
-                <li><a href="#">Code of Conduct</a></li>
-              </ul>
-            </div>
-            <div>
-              <h2>People</h2>
-              <ul>
-                <li><a href="#">Chancellor</a></li>
-                <li><a href="#">Vice Chancellor</a></li>
-                <li><a href="#">Past Chancellors</a></li>
-                <li><a href="#">Past Vice-Chancellors</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Vision & Mission */}
-        <div className="about-row">
-          <div className="about-box vision">
-            <h2>Our Vision</h2>
-            <p>
-              To be a centre of excellence in teaching, learning and research with a commitment to serve the society.
-            </p>
-          </div>
-          <div className="about-box mission">
-            <h2>Our Mission</h2>
-            <p>
-              To pursue education, research, and scholarship and enhance community engagement to meet national and global needs.
-            </p>
-          </div>
-        </div>
-
-        {/* Contact & History */}
-        <div className="about-box contact">
-          <h2>Contact Information</h2>
-          <p><strong>Address:</strong> South Eastern University of Sri Lanka, University Park, Oluvil</p>
-          <p><strong>Phone:</strong> +94 67 2255062</p>
-          <p><strong>Email:</strong> info@seu.ac.lk</p>
-        </div>
-
-        <div className="about-box history">
-          <h2>History</h2>
-          <p>
-            The South Eastern University of Sri Lanka (SEUSL) was established in 1995 and has since become a key institution in the Eastern Province.
-            It offers numerous undergraduate and postgraduate programs while embracing diversity and academic excellence.
-          </p>
-        </div>
-
-        {/* Events */}
-        <div className="about-box events">
-          <h2>Events and Academic Programs</h2>
-          <ul>
-            <li>Annual Convocation Ceremony</li>
-            <li>Research Symposium</li>
-            <li>Orientation Week</li>
-            <li>Academic Conferences</li>
-            <li>Undergraduate & Postgraduate Studies</li>
-          </ul>
-        </div>
+      <div className="bg-secondary text-white py-5 text-center">
+        <Container>
+          <h1>{getSection('header_title') || 'About South Eastern University'}</h1>
+        </Container>
       </div>
+
+      <Container className="py-5">
+        {/* Vision & Mission */}
+        <Row className="mb-5">
+          <Col md={6}>
+            <Card className="h-100 shadow-sm">
+              <Card.Body>
+                <Card.Title>{getSection('vision_title') || 'Our Vision'}</Card.Title>
+                <Card.Text>{getSection('vision') || 'Vision statement here...'}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={6}>
+            <Card className="h-100 shadow-sm">
+              <Card.Body>
+                <Card.Title>{getSection('mission_title') || 'Our Mission'}</Card.Title>
+                <Card.Text>{getSection('mission') || 'Mission statement here...'}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+
+        {/* History */}
+        <section className="mb-5">
+          <h2>{getSection('history_title') || 'History'}</h2>
+          <p>{getSection('history') || 'University history...'}</p>
+        </section>
+
+        {/* Contact Info */}
+        <section className="mb-5">
+          <h2>{getSection('contact_title') || 'Contact Information'}</h2>
+          <p><strong>Address:</strong> {getSection('address') || 'University Park, Oluvil'}</p>
+          <p><strong>Phone:</strong> {getSection('phone') || '+94 67 2255062'}</p>
+          <p><strong>Email:</strong> {getSection('email') || 'info@seu.ac.lk'}</p>
+        </section>
+
+        {/* Image */}
+        {getImage('about_image') && (
+          <div className="text-center mb-5">
+            <img src={getImage('about_image')} alt="University" className="img-fluid rounded" />
+          </div>
+        )}
+      </Container>
     </div>
   );
-};
-
-export default AboutPage;
-
-
-
+}

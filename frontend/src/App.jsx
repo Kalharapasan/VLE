@@ -6,6 +6,7 @@ import RequireAuth from './components/Auth/RequireAuth';
 import Home from './components/Pages/HomePage';
 import About from './components/Pages/AboutPage';
 import Contact from './components/Pages/ContactPage';
+import Academic from './components/Pages/AcademicPage';
 import AdminDashboard from './components/Dashboard/Admin/DashboardLayout.jsx';
 import StudentDashboard from './components/Dashboard/Student/DashboardLayoutStudent.jsx';
 import TeacherDashboard from './components/Dashboard/Teacher/DashboardLayout.jsx';
@@ -28,6 +29,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
+                    <Route path="/academic" element={<Academic />} />
                     <Route path="/unauthorized" element={<Unauthorized />} />
                     <Route
                         path="/admin"

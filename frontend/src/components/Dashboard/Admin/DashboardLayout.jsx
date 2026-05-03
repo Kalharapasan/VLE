@@ -11,6 +11,7 @@ import SubjectTable from '../../Table/Admin/SubjectTable';
 import StudentTable from '../../Table/Admin/StudentTable';
 import ExamTable from '../../Table/Admin/ExamTable';
 import TimeTable from '../../Table/Admin/TimeTable';
+import PageEditor from './PageEditor';
 import './DashboardLayout.css';
 
 export default function DashboardLayout() {
@@ -33,7 +34,8 @@ export default function DashboardLayout() {
               subject: 'Subject Management',
               student: 'Student Management',
               exam: 'Exam Management',
-              timetable: 'Timetable Management'
+              timetable: 'Timetable Management',
+              'page-editor': 'Page Editor'
             }[view]}
           </h2>
         </div>
@@ -53,6 +55,7 @@ export default function DashboardLayout() {
         {view === 'student' && <StudentTable />}
         {view === 'exam' && <ExamTable />}
         {view === 'timetable' && <TimeTable />}
+        {view === 'page-editor' && <PageEditor />}
       </div>
     </div>
   );

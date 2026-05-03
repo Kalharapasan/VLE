@@ -289,3 +289,26 @@ Route::prefix('exam')->group(function () {
 });
 
 ?>
+
+// Book/Library API Routes
+Route::prefix('books')->group(function () {
+    Route::get('/', [BookController::class, 'index']);
+    Route::post('/', [BookController::class, 'store']);
+    Route::get('/available', [BookController::class, 'available']);
+    Route::get('/{id}', [BookController::class, 'show']);
+    Route::put('/update/{id}', [BookController::class, 'update']);
+    Route::delete('/{id}', [BookController::class, 'destroy']);
+    Route::post('/borrow', [BookController::class, 'borrowBook']);
+    Route::post('/return/{id}', [BookController::class, 'returnBook']);
+});
+
+// Page Content API Routes
+Route::prefix('page-content')->group(function () {
+    Route::get('/', [PageContentController::class, 'index']);
+    Route::post('/', [PageContentController::class, 'store']);
+    Route::get('/{id}', [PageContentController::class, 'show']);
+    Route::put('/update/{id}', [PageContentController::class, 'update']);
+    Route::delete('/{id}', [PageContentController::class, 'destroy']);
+    Route::get('/by-page/{page_slug}', [PageContentController::class, 'byPage']);
+    Route::post('/update-section', [PageContentController::class, 'updateSection']);
+});
