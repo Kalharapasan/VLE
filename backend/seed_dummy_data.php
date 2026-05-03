@@ -42,7 +42,7 @@ Book::truncate();
 StudentsGPA::truncate();
 StudenPayment::truncate();
 StudentAttendance::truncate();
-StudentExamMark::truncate();
+StudentExamMarks::truncate();
 StudentExam::truncate();
 Exam::truncate();
 StudentSubject::truncate();
@@ -383,12 +383,12 @@ foreach ($students as $student) {
     $studentSubjects = StudentSubject::where('student_id', $student->student_id)->get();
     foreach ($studentSubjects as $ss) {
         $hasExam = StudentExam::where('student_id', $student->student_id)->exists();
-        if ($hasExam && !StudentExamMark::where('student_id', $student->student_id)
+        if ($hasExam && !StudentExamMarks::where('student_id', $student->student_id)
             ->where('subject_id', $ss->subject_id)
             ->exists()) {
             $mark = rand(40, 95);
             $grade = $mark >= 75 ? 'A' : ($mark >= 65 ? 'B' : ($mark >= 55 ? 'C' : ($mark >= 45 ? 'D' : 'F')));
-            StudentExamMark::create([
+            StudentExamMarks::create([
                 'student_id' => $student->student_id,
                 'subject_id' => $ss->subject_id,
                 'mark' => $mark,
@@ -448,7 +448,7 @@ echo "Created $paymentsCreated payment records.\n";
 echo "Creating Student GPAs...\n";
 $gpasCreated = 0;
 foreach ($students as $student) {
-    $marks = StudentExamMark::where('student_id', $student->student_id)->get();
+    $marks = StudentExamMarks::where('student_id', $student->student_id)->get();
     if ($marks->count() > 0) {
         $totalPoints = 0;
         $gradePoints = ['A' => 4.0, 'B' => 3.0, 'C' => 2.0, 'D' => 1.0, 'F' => 0.0];
@@ -537,7 +537,7 @@ echo "- Teachers: " . Teacher::count() . "\n";
 echo "- Students: " . Student::count() . "\n";
 echo "- Exams: " . Exam::count() . "\n";
 echo "- Student Exams: " . StudentExam::count() . "\n";
-echo "- Exam Marks: " . StudentExamMark::count() . "\n";
+echo "- Exam Marks: " . StudentExamMarks::count() . "\n";
 echo "- Student Courses: " . StudentCourse::count() . "\n";
 echo "- Student Subjects: " . StudentSubject::count() . "\n";
 echo "- Teacher Courses: " . TeacherCourse::count() . "\n";
