@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './header.css';
 import axios from 'axios';
+import { API_URL } from '../Service/api';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api';
+
 
 const Header = () => {
   const navigate = useNavigate();
