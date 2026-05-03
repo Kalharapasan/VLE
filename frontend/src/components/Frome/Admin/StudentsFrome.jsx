@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
-import { getFaculties, getDepartment } from '../../Service/Admin/StudentService.js';
+import { getFaculties, getDepartments } from '../../Service/Admin/StudentService.js';
 
 export default function StudentForm({ show, handleClose, onSubmit, initialData }) {
   const emptyForm = {
@@ -26,7 +26,7 @@ export default function StudentForm({ show, handleClose, onSubmit, initialData }
         .then((res) => setFaculties(res.data))
         .catch((err) => console.error('Failed to fetch faculties:', err));
 
-    getDepartment()
+    getDepartments()
         .then((res) => setDepartments(res.data))
         .catch((err) => console.error('Failed to fetch departments:', err));
   }, []);

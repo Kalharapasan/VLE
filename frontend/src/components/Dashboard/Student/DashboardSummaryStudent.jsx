@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getStudentProfile } from '../../Service/Student/studentService';
+import {
+  getStudentCount,
+  getCourseCount,
+  getExamCount,
+  getTimetableCount,
+} from '../../Service/Admin/DashbordService.js';
 import {
   FaUserGraduate, FaBook, FaClipboardList, FaClock,
   FaBell, FaCertificate, FaTable
@@ -21,26 +26,17 @@ export default function DashboardSummaryStudent() {
   useEffect(() => {
     const fetchSummary = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
-        const studentId = user?.id;
-
-        if (!studentId) {
-          console.error('No student ID found');
-          return;
-        }
-
-        const [profileRes, coursesRes, examsRes, timetableRes] = await Promise.all([
-          getStudentProfile(studentId),
-          getStudentCourses(),
-          getStudentExams(),
-          getTimeTable(),
+        const [coursesRes, examsRes, timetablesRes] = await Promise.all([
+          getCourseCount(),
+          getExamCount(),
+          getTimetableCount(),
         ]);
 
         setSummary({
-          profile: profileRes.data || {},
-          courses: coursesRes.data?.length || 0,
-          exams: examsRes.data?.length || 0,
-          timetables: timetableRes.data?.length || 0,
+          profile: { student_fname: 'Student' },
+          courses: coursesRes.data?.course_count || 0,
+          exams: examsRes.data?.exam_count || 0,
+          timetables: timetablesRes.data?.timeTable_count || 0,
           notifications: 0,
           certificates: 0,
         });
@@ -62,7 +58,7 @@ export default function DashboardSummaryStudent() {
     {
       icon: <FaUserGraduate />,
       title: 'My Profile',
-      value: summary.profile.student_fname || 'Student',
+      value: summary.profile?.student_fname || 'Student',
       text: 'View personal details',
       bg: 'profile-card',
     },
@@ -128,15 +124,4 @@ export default function DashboardSummaryStudent() {
       </div>
     </div>
   );
-}
-
-// Helper functions (imported from service)
-function getStudentCourses() {
-  return import('../../Service/Student/studentCourseService').then(m => m.getStudentCourses());
-}
-function getStudentExams() {
-  return import('../../Service/Student/studentService').then(m => m.getStudentExams());
-}
-function getTimeTable() {
-  return import('../../Service/Student/studentService').then(m => m.getTimeTable());
 }

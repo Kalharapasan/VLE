@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {
   getAdminCount,
-  getStudents,
-  getCourses,
-  getDepartments,
-  getExams,
-  getFaculties,
-  getTeachers,
-  getTimetables,
-  getSubjects
+  getStudentCount,
+  getCourseCount,
+  getDepartmentCount,
+  getExamCount,
+  getFacultyCount,
+  getTeacherCount,
+  getTimetableCount,
+  getSubjectCount
 } from '../../Service/Admin/DashbordService.js';
 import {
   FaUserShield, FaUserGraduate, FaBook, FaBuilding, FaUniversity,
@@ -31,14 +31,14 @@ export default function DashboardSummary({ setView }) {
           exams, faculties, teachers, timetables, subjects
         ] = await Promise.all([
           getAdminCount(),
-          getStudents(),
-          getCourses(),
-          getDepartments(),
-          getExams(),
-          getFaculties(),
-          getTeachers(),
-          getTimetables(),
-          getSubjects()
+          getStudentCount(),
+          getCourseCount(),
+          getDepartmentCount(),
+          getExamCount(),
+          getFacultyCount(),
+          getTeacherCount(),
+          getTimetableCount(),
+          getSubjectCount()
         ]);
 
         setSummary({

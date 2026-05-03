@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
-import { getFaculties, getDepartment } from '../../Service/Admin/CourseServic';
+import { getFaculties, getDepartments } from '../../Service/Admin/CourseServic';
 
 export default function CourseForm({ show, handleClose, onSubmit, initialData }) {
     const [form, setForm] = useState({
@@ -47,7 +47,7 @@ export default function CourseForm({ show, handleClose, onSubmit, initialData })
 
     const fetchDepartments = async () => {
         try {
-            const res = await getDepartment();
+            const res = await getDepartments();
             setDepartments(res.data);
         } catch (err) {
             console.error('Failed to load departments', err);

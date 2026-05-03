@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
-import { getDepartment, getFaculties } from '../../Service/Admin/TeacherService';
+import { getDepartments, getFaculties } from '../../Service/Admin/TeacherService';
 
 export default function TeacherForm({ show, handleClose, onSubmit, initialData }) {
     const emptyForm = {
