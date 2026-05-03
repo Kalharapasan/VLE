@@ -88,6 +88,13 @@ const Header = () => {
 
   const profileImg = getProfileImage();
 
+  const handleUserClick = () => {
+    if (!isLoggedIn || !user) return;
+    if (user.role === 'admin') navigate('/admin');
+    else if (user.role === 'student') navigate('/student');
+    else if (user.role === 'teacher') navigate('/teacher');
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-blue">
       <div className="container-fluid">
@@ -149,7 +156,7 @@ const Header = () => {
             ) : (
               <>
                 <li className="nav-item d-flex align-items-center">
-                  <div className="user-info d-flex align-items-center gap-2">
+                  <div className="user-info d-flex align-items-center gap-2" onClick={handleUserClick} role="button" title="Go to dashboard">
                     <div className="user-avatar">
                       {profileImg ? (
                         <img
