@@ -7,6 +7,7 @@ import StudentAttendance from './StudentAttendance';
 import StudentMarks from './StudentMarks';
 import TeacherTimetable from './TeacherTimetable';
 import TeacherDashboardCharts from './TeacherDashboardCharts';
+import OtherTeachers from './OtherTeachers';
 import './DashboardLayout.css';
 
 export default function DashboardLayout() {
@@ -27,6 +28,7 @@ export default function DashboardLayout() {
               'student-attendance': 'Student Attendance',
               'student-marks': 'Student Marks',
               'teacher-timetable': 'My Timetable',
+              'other-teachers': 'Other Teachers',
             }[view]}
           </h2>
         </div>
@@ -42,6 +44,7 @@ export default function DashboardLayout() {
         {view === 'student-attendance' && <StudentAttendance />}
         {view === 'student-marks' && <StudentMarks />}
         {view === 'teacher-timetable' && <TeacherTimetable />}
+        {view === 'other-teachers' && <OtherTeachers currentTeacherId={selectedTeacherId} />}
       </div>
     </div>
   );

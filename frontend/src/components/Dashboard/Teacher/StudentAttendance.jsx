@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Form, Button } from 'react-bootstrap';
+import { Table, Spinner, Badge } from 'react-bootstrap';
 import { getStudentAttendance } from '../../Service/Teacher/teacherService';
 
 export default function StudentAttendance() {
@@ -21,15 +21,27 @@ export default function StudentAttendance() {
     }
   };
 
-  if (loading) return <div className="text-center p-4">Loading attendance...</div>;
+  const getBadgeVariant = (status) => {
+    switch (status) {
+      case 'present': return 'success';
+      case 'absent': return 'danger';
+      case 'late': return 'warning';
+      default: return 'secondary';
+    }
+  };
+
+  if (loading) return <div className="text-center p-5"><Spinner animation="border" /></div>;
 
   return (
-    <div className="container mt-4">
-      <h3>Student Attendance</h3>
+    <div className="container-fluid mt-4">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h3 className="mb-0">Student Attendance</h3>
+        <Badge bg="info" pill>{attendance.length} Records</Badge>
+      </div>
       {attendance.length === 0 ? (
-        <p className="text-muted">No attendance records found.</p>
+        <p className="text-muted text-center p-4">No attendance records found.</p>
       ) : (
-        <Table striped bordered hover>
+        <Table className="modern-table" striped hover responsive>
           <thead>
             <tr>
               <th>#</th>
@@ -43,10 +55,14 @@ export default function StudentAttendance() {
             {attendance.map((record, idx) => (
               <tr key={record.id || idx}>
                 <td>{idx + 1}</td>
-                <td>{record.student_name || 'N/A'}</td>
+                <td className="fw-bold">{record.student_name || 'N/A'}</td>
                 <td>{record.date}</td>
-                <td>{record.status}</td>
-                <td>{record.remarks || '-'}</td>
+                <td>
+                  <Badge bg={getBadgeVariant(record.status)} className="badge-pill text-capitalize">
+                    {record.status}
+                  </Badge>
+                </td>
+                <td className="text-muted">{record.remarks || '-'}</td>
               </tr>
             ))}
           </tbody>
