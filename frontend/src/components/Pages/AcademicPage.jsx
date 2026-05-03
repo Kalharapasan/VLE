@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Accordion } from 'react-bootstrap';
-import { getPageContents } from '../../Service/pageContentService';
+import { getPageContents } from '../Service/pageContentService';
 
 export default function AcademicPage() {
   const [content, setContent] = useState(null);
