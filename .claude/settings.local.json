@@ -13,7 +13,10 @@
       "Bash(taskkill //F //PID 6912 //T)",
       "Bash(taskkill //F //PID 10268 //T)",
       "Bash(taskkill //F //PID 12932 //T)",
-      "Bash(composer dump-autoload *)"
+      "Bash(composer dump-autoload *)",
+      "Bash(curl -s http://127.0.0.1:8000/api/page-content/by-page/about)",
+      "Bash(curl -s http://127.0.0.1:8000/api/page-content/by-page/contact)",
+      "Bash(curl -s http://127.0.0.1:8000/api/page-content/by-page/academic)"
     ]
   }
 }

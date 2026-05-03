@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentsGPAController;
+use App\Http\Controllers\PageContentController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\StudentSubjectController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\SubjectCourseController;
