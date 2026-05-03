@@ -32,7 +32,8 @@ export default function SidebarStudent({ view, setView, darkMode }) {
         <Nav.Link onClick={() => setView('payments')} className={linkClass('payments')}>
           Payments
         </Nav.Link>
-          GPA
+        <Nav.Link onClick={() => setView('library')} className={linkClass('library')}>
+          Library
         </Nav.Link>
         <Nav.Link onClick={() => setView('timetable')} className={linkClass('timetable')}>
           Exam Timetable

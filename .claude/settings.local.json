@@ -6,7 +6,8 @@
       "Bash(curl -s http://127.0.0.1:8000/api/admin/count)",
       "Bash(curl -s http://127.0.0.1:5173)",
       "Bash(npm list *)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Bash(mysql -u root -e \"CREATE DATABASE IF NOT EXISTS vle;\")"
     ]
   }
 }
