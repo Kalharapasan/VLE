@@ -62,7 +62,7 @@ const Header = () => {
     const imgField = profile._type === 'student' ? profile.student_img
       : profile._type === 'teacher' ? profile.teacher_img
       : null;
-    return imgField ? `http://127.0.0.1:8000/storage/${imgField}` : null;
+    return imgField ? `${API_URL.replace('/api', '')}/storage/${imgField}` : null;
   };
 
   const getFullName = () => {

@@ -68,7 +68,7 @@ export default function TeacherProfile({ teacherId }) {
         faculty_name: facultyName,
         department_id: t.department_id || "",
         department_name: departmentName,
-        teacher_img: t.teacher_img ? `http://localhost:8000/storage/${t.teacher_img}` : "",
+        teacher_img: t.teacher_img ? `http://127.0.0.1:8000/storage/${t.teacher_img}` : "",
       });
     } catch (err) {
       alert("Error fetching teacher data");
