@@ -107,6 +107,20 @@
   font-weight: 600;
 }
 
+/* Dashboard Summary */
+.dashboard-summary {
+  margin-bottom: 2rem;
+}
+
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .dashboard-layout {
