@@ -6,6 +6,7 @@ import StudentCourses from './StudentCourses';
 import StudentResults from './StudentResults';
 import StudentTimetable from './StudentTimetable';
 import StudentGPA from './StudentGPA';
+import StudentPayments from './StudentPayments';
 import StudentNotifications from './StudentNotifications';
 import StudentCertificates from './StudentCertificates';
 import StudentDashboardCharts from './StudentDashboardCharts';
@@ -37,6 +38,7 @@ export default function DashboardLayoutStudent() {
               courses: 'My Courses',
               results: 'Results',
               gpa: 'My GPA',
+              payments: 'My Payments',
               timetable: 'Exam Timetable',
               notifications: 'Notifications',
               certificates: 'Certificates'
@@ -60,6 +62,7 @@ export default function DashboardLayoutStudent() {
         {view === 'courses' && <StudentCourses />}
         {view === 'results' && <StudentResults />}
         {view === 'gpa' && <StudentGPA />}
+        {view === 'payments' && <StudentPayments />}
         {view === 'timetable' && <StudentTimetable />}
         {view === 'notifications' && <StudentNotifications />}
         {view === 'certificates' && <StudentCertificates />}
