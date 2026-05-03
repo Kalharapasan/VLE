@@ -15,5 +15,6 @@ export const updateStudent = (id, data) => {
 };
 
 export const deleteStudent = (id) => api.delete(`/student/${id}`);
-export const getFaculties = () => api.get('/faculties/index');
-export const getDepartments = () => api.get('/department/index');
+// Student form needs full records (name + mapping ids), not only index fields.
+export const getFaculties = () => api.get('/faculty');
+export const getDepartments = () => api.get('/department');
