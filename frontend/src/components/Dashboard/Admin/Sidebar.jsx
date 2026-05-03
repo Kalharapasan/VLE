@@ -13,7 +13,8 @@ import {
   FaClipboardList,
   FaUserGraduate,
   FaClock,
-  FaTable
+  FaTable,
+  FaEdit
 } from 'react-icons/fa';
 
 export default function Sidebar({ view, setView }) {
