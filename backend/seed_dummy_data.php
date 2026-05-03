@@ -248,8 +248,8 @@ $subjectCourseMap = [
     $courses[3]->course_id => [6, 13, 14],
     $courses[4]->course_id => [7, 8],
     $courses[5]->course_id => [8, 9],
-    $courses[6]->course_id => [10, 14, 15],
-    $courses[7]->course_id => [10, 11, 15],
+    $courses[6]->course_id => [10, 13, 14],
+    $courses[7]->course_id => [10, 11, 14],
 ];
 foreach ($subjectCourseMap as $courseId => $subjectIndexes) {
     foreach ($subjectIndexes as $idx) {
@@ -321,7 +321,7 @@ $teacherSubjectMap = [
     $teachers[3]->teacher_id => [$subjects[7]->subject_id, $subjects[8]->subject_id],
     $teachers[4]->teacher_id => [$subjects[8]->subject_id, $subjects[9]->subject_id],
     $teachers[5]->teacher_id => [$subjects[10]->subject_id, $subjects[14]->subject_id],
-    $teachers[6]->teacher_id => [$subjects[11]->subject_id, $subjects[15]->subject_id],
+    $teachers[6]->teacher_id => [$subjects[11]->subject_id, $subjects[14]->subject_id],
     $teachers[7]->teacher_id => [$subjects[2]->subject_id, $subjects[4]->subject_id, $subjects[12]->subject_id],
 ];
 foreach ($teacherSubjectMap as $teacherId => $subjectIds) {
