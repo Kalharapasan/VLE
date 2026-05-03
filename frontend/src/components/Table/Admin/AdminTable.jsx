@@ -128,7 +128,14 @@ export default function AdminTable() {
         <div className="row">
           {filteredAdmins.map((admin) => (
               <div className="col-md-4" key={admin.admin_id}>
-                <AdminCard admin={admin} />
+                <AdminCard
+                    admin={admin}
+                    onEdit={() => {
+                      setSelectedAdmin(admin);
+                      setShowForm(true);
+                    }}
+                    onDelete={() => handleDelete(admin.admin_id)}
+                />
               </div>
           ))}
         </div>

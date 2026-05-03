@@ -23,34 +23,34 @@ export default function Sidebar({ view, setView }) {
     <div className="sidebar-wrapper">
       <div className="sidebar-title">Admin Dashboard</div>
       <Nav className="flex-column">
-        <Nav.Link onClick={() => setView('dashboard')} className={linkClass('dashboard')}>
+        <Nav.Link as="button" type="button" onClick={() => setView('dashboard')} className={linkClass('dashboard')}>
           <FaTachometerAlt /> Dashboard
         </Nav.Link>
-        <Nav.Link onClick={() => setView('admin')} className={linkClass('admin')}>
+        <Nav.Link as="button" type="button" onClick={() => setView('admin')} className={linkClass('admin')}>
           <FaUserShield /> Admins
         </Nav.Link>
-        <Nav.Link onClick={() => setView('faculty')} className={linkClass('faculty')}>
+        <Nav.Link as="button" type="button" onClick={() => setView('faculty')} className={linkClass('faculty')}>
           <FaUniversity /> Faculties
         </Nav.Link>
-        <Nav.Link onClick={() => setView('department')} className={linkClass('department')}>
+        <Nav.Link as="button" type="button" onClick={() => setView('department')} className={linkClass('department')}>
           <FaBuilding /> Departments
         </Nav.Link>
-        <Nav.Link onClick={() => setView('course')} className={linkClass('course')}>
+        <Nav.Link as="button" type="button" onClick={() => setView('course')} className={linkClass('course')}>
           <FaBook /> Courses
         </Nav.Link>
-        <Nav.Link onClick={() => setView('teacher')} className={linkClass('teacher')}>
+        <Nav.Link as="button" type="button" onClick={() => setView('teacher')} className={linkClass('teacher')}>
           <FaChalkboardTeacher /> Teachers
         </Nav.Link>
-        <Nav.Link onClick={() => setView('subject')} className={linkClass('subject')}>
+        <Nav.Link as="button" type="button" onClick={() => setView('subject')} className={linkClass('subject')}>
           <FaClipboardList /> Subjects
         </Nav.Link>
-        <Nav.Link onClick={() => setView('student')} className={linkClass('student')}>
+        <Nav.Link as="button" type="button" onClick={() => setView('student')} className={linkClass('student')}>
           <FaUserGraduate /> Students
         </Nav.Link>
-        <Nav.Link onClick={() => setView('exam')} className={linkClass('exam')}>
+        <Nav.Link as="button" type="button" onClick={() => setView('exam')} className={linkClass('exam')}>
           <FaClock /> Exams
         </Nav.Link>
-        <Nav.Link onClick={() => setView('timetable')} className={linkClass('timetable')}>
+        <Nav.Link as="button" type="button" onClick={() => setView('timetable')} className={linkClass('timetable')}>
           <FaTable /> TimeTable
         </Nav.Link>
       </Nav>

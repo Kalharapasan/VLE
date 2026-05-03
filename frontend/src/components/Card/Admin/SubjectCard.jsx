@@ -1,4 +1,5 @@
 import { Card, Button } from 'react-bootstrap';
+import { resolveStorageUrl } from '../../../utils/storageUrl';
 
 export default function SubjectCard({ subject, onEdit, onDelete }) {
   const {
@@ -7,14 +8,19 @@ export default function SubjectCard({ subject, onEdit, onDelete }) {
     img,
   } = subject;
 
-  return (
+    const imageUrl = resolveStorageUrl(img);
+
+    return (
       <Card className="mb-4 shadow-sm">
-        {img ? (
+      {imageUrl ? (
             <Card.Img
                 variant="top"
-                src={`http://localhost:8000/storage/${img}`}
+          src={imageUrl}
                 alt={subject_name}
                 style={{ height: '200px', objectFit: 'cover' }}
+          onError={(event) => {
+            event.currentTarget.style.display = 'none';
+          }}
             />
         ) : (
             <div style={{ height: '200px', backgroundColor: '#eee' }} />

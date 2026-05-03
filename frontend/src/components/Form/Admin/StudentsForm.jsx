@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { getDepartments, getFaculties } from '../../Service/Admin/StudentService';
+import { resolveStorageUrl } from '../../../utils/storageUrl';
 
 export default function StudentForm({ show, handleClose, onSubmit, initialData }) {
     const emptyForm = {
@@ -37,7 +38,7 @@ export default function StudentForm({ show, handleClose, onSubmit, initialData }
                 student_birthday: initialData.student_birthday?.split('T')[0] || '',
                 studen_img: null,
             });
-            setPreview(initialData.studen_img_url || null);
+            setPreview(resolveStorageUrl(initialData.studen_img));
         } else {
             setForm(emptyForm);
             setPreview(null);
@@ -60,7 +61,7 @@ export default function StudentForm({ show, handleClose, onSubmit, initialData }
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
         Object.entries(form).forEach(([key, value]) => {
@@ -70,7 +71,7 @@ export default function StudentForm({ show, handleClose, onSubmit, initialData }
                 data.append(key, value);
             }
         });
-        onSubmit(data);
+        await onSubmit(data);
         handleClose();
     };
 
@@ -110,9 +111,9 @@ export default function StudentForm({ show, handleClose, onSubmit, initialData }
                         <Form.Label>Gender</Form.Label>
                         <Form.Select name="student_gender" value={form.student_gender} onChange={handleChange} required>
                             <option value="">Select Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
                         </Form.Select>
                     </Form.Group>
 

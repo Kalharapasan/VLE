@@ -1,7 +1,9 @@
 import { Card, Button } from 'react-bootstrap';
+import { resolveStorageUrl } from '../../../utils/storageUrl';
 
 export default function StudentCard({ student, onEdit, onDelete }) {
     const {
+        student_Index,
         student_fname,
         student_lname,
         student_email,
@@ -13,16 +15,17 @@ export default function StudentCard({ student, onEdit, onDelete }) {
         department,
     } = student;
 
+    const imageUrl = resolveStorageUrl(student_img);
+
     return (
         <Card className="mb-4 shadow-sm">
-            {student_img ? (
+            {imageUrl ? (
                 <Card.Img
                     variant="top"
-                    src={`http://localhost:8000/storage/${student_img}`}
+                    src={imageUrl}
                     alt={`${student_fname} ${student_lname}`}
-                    onError={(e) => {
-                        e.target.onerror = null; // Prevents looping
-                        e.target.style.display = 'none';
+                    onError={(event) => {
+                        event.currentTarget.style.display = 'none';
                     }}
                     style={{ height: '200px', objectFit: 'cover' }}
                 />
