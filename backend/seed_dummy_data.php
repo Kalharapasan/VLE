@@ -10,7 +10,6 @@ $app = require_once __DIR__ . '/bootstrap/app.php';
 $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
 
-use App\Models\Admin;
 use App\Models\Faculty;
 use App\Models\Department;
 use App\Models\Course;
@@ -158,7 +157,7 @@ echo "Creating Teachers...\n";
 $teachers = [];
 $teacherData = [
     ['TCH001', 'Ahmed', 'Hassan', '1975-05-15', 'ahmed.hassan@seu.ac.lk', '752345678v', 'Male', $faculties[0]->faculties_id, $departments[0]->department_id, 'Senior lecturer in Computer Science'],
-    ['TCH002', 'Fatima', 'Zahra', '1980-08-22', 'fatima.zahra@seu.ac.lk', '801234567v', 'Female', $faculties[0]->faculties_id, $departments[1]->department_id, 'Professor of Physics'],
+    ['TCH002', 'Fatima', 'Zahra', '1980-08-22', 'fatima.zahra@seu.ac.lk', '802345678v', 'Female', $faculties[0]->faculties_id, $departments[1]->department_id, 'Professor of Physics'],
     ['TCH003', 'Mohamed', 'Rashid', '1978-12-10', 'mohamed.rashid@seu.ac.lk', '782345678v', 'Male', $faculties[0]->faculties_id, $departments[2]->department_id, 'Senior lecturer in Mathematics'],
     ['TCH004', 'Aisha', 'Khan', '1985-03-18', 'aisha.khan@seu.ac.lk', '852345678v', 'Female', $faculties[1]->faculties_id, $departments[3]->department_id, 'Lecturer in English'],
     ['TCH005', 'Ibrahim', 'Malik', '1972-07-25', 'ibrahim.malik@seu.ac.lk', '722345678v', 'Male', $faculties[1]->faculties_id, $departments[4]->department_id, 'Professor of History'],
@@ -226,7 +225,6 @@ echo "Created " . count($students) . " students.\n";
 echo "Assigning courses to students...\n";
 $assignments = 0;
 foreach ($students as $student) {
-    // Find courses in the same department
     $deptCourses = array_filter($courses, function($c) use ($student) {
         return $c->department_id == $student->department_id;
     });
@@ -244,20 +242,13 @@ echo "Assigned $assignments course-student relationships.\n";
 echo "Assigning subjects to courses...\n";
 $assignments = 0;
 $subjectCourseMap = [
-    // Computer Science courses get CS subjects
     $courses[0]->course_id => [0, 1, 2, 3, 4, 11, 12, 13],
     $courses[1]->course_id => [0, 2, 3, 4, 11, 12, 13],
-    // Physics course
     $courses[2]->course_id => [5, 6, 13],
-    // Mathematics course
     $courses[3]->course_id => [6, 13, 14],
-    // Languages course
     $courses[4]->course_id => [7, 8],
-    // History course
     $courses[5]->course_id => [8, 9],
-    // Management course
     $courses[6]->course_id => [10, 14, 15],
-    // Finance course
     $courses[7]->course_id => [10, 11, 15],
 ];
 foreach ($subjectCourseMap as $courseId => $subjectIndexes) {
@@ -277,13 +268,10 @@ echo "Assigned $assignments subject-course relationships.\n";
 echo "Assigning subjects to students...\n";
 $assignments = 0;
 foreach ($students as $student) {
-    // Get courses for this student
     $studentCourses = StudentCourse::where('student_id', $student->student_id)->get();
     foreach ($studentCourses as $sc) {
-        // Get subjects for this course
         $courseSubjects = SubjectCourse::where('course_id', $sc->course_id)->get();
         foreach ($courseSubjects as $cs) {
-            // Check if already assigned
             $exists = StudentSubject::where('student_id', $student->student_id)
                 ->where('subject_id', $cs->subject_id)
                 ->exists();
@@ -374,7 +362,6 @@ echo "Creating Student Exams...\n";
 $studentExams = [];
 $assignments = 0;
 foreach ($exams as $exam) {
-    // Get students from the same department
     $deptStudents = array_filter($students, function($s) use ($exam) {
         return $s->department_id == $exam->department_id;
     });
@@ -393,16 +380,14 @@ echo "Created $assignments student exam records.\n";
 echo "Creating Student Exam Marks...\n";
 $marksCreated = 0;
 foreach ($students as $student) {
-    // Get subjects for this student
     $studentSubjects = StudentSubject::where('student_id', $student->student_id)->get();
     foreach ($studentSubjects as $ss) {
-        // Check if student has exams
         $hasExam = StudentExam::where('student_id', $student->student_id)->exists();
         if ($hasExam && !StudentExamMark::where('student_id', $student->student_id)
             ->where('subject_id', $ss->subject_id)
             ->exists()) {
             $mark = rand(40, 95);
-            $grade = $mark >= 75 ? 'A' : ($mark >= 65 ? 'B' : ($mark >= 55 ? 'C' : ($mark >= 45 ? 'D' : 'F'));
+            $grade = $mark >= 75 ? 'A' : ($mark >= 65 ? 'B' : ($mark >= 55 ? 'C' : ($mark >= 45 ? 'D' : 'F')));
             StudentExamMark::create([
                 'student_id' => $student->student_id,
                 'subject_id' => $ss->subject_id,
@@ -423,12 +408,11 @@ for ($i = 0; $i < 60; $i++) {
     $date = clone $startDate;
     $date->add(new DateInterval('P' . $i . 'D'));
     $dayOfWeek = $date->format('N');
-    if ($dayOfWeek > 5) continue; // Skip weekends
+    if ($dayOfWeek > 5) continue;
 
     foreach ($students as $student) {
         $studentSubjects = StudentSubject::where('student_id', $student->student_id)->get();
         foreach ($studentSubjects as $ss) {
-            // 85% attendance rate
             $attended = rand(1, 100) <= 85;
             StudentAttendance::create([
                 'student_id' => $student->student_id,
@@ -447,7 +431,6 @@ echo "Creating Student Payments...\n";
 $paymentsCreated = 0;
 $paymentReasons = ['Tuition Fee', 'Library Fee', 'Laboratory Fee', 'Sports Fee', 'Examination Fee'];
 foreach ($students as $student) {
-    // Create 2-4 payments per student
     $numPayments = rand(2, 4);
     for ($i = 0; $i < $numPayments; $i++) {
         StudenPayment::create([
@@ -465,7 +448,6 @@ echo "Created $paymentsCreated payment records.\n";
 echo "Creating Student GPAs...\n";
 $gpasCreated = 0;
 foreach ($students as $student) {
-    // Calculate GPA from exam marks
     $marks = StudentExamMark::where('student_id', $student->student_id)->get();
     if ($marks->count() > 0) {
         $totalPoints = 0;
