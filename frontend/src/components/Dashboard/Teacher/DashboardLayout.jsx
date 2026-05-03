@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
+import TeacherDashboardSummary from './TeacherDashboardSummary';
 import TeacherProfile from '../../Pages/Teacher/TeacherProfile';
 import TeacherCourses from './TeacherCourses';
 import TeacherSubjects from './TeacherSubjects';
@@ -11,7 +12,7 @@ import OtherTeachers from './OtherTeachers';
 import './DashboardLayout.css';
 
 export default function DashboardLayout() {
-  const [view, setView] = useState('teacher-profile');
+  const [view, setView] = useState('dashboard');
   const [selectedTeacherId] = useState(1); // default teacher ID - should come from logged in user
 
   return (
@@ -22,6 +23,7 @@ export default function DashboardLayout() {
         <div className="header">
           <h2>
             {{
+              'dashboard': 'Teacher Dashboard',
               'teacher-profile': 'Teacher Profile',
               'teacher-courses': 'My Courses',
               'teacher-subjects': 'My Subjects',
@@ -33,6 +35,12 @@ export default function DashboardLayout() {
           </h2>
         </div>
 
+        {view === 'dashboard' && (
+          <>
+            <TeacherDashboardSummary />
+            <TeacherDashboardCharts />
+          </>
+        )}
         {view === 'teacher-profile' && (
           <>
             <TeacherProfile teacherId={selectedTeacherId} />
