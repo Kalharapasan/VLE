@@ -18,7 +18,7 @@ use App\Models\Teacher;
 use App\Models\Student;
 use App\Models\Exam;
 use App\Models\StudentExam;
-use App\Models\StudentExamMark;
+use App\Models\StudentExamMarks;
 use App\Models\StudentCourse;
 use App\Models\StudentSubject;
 use App\Models\TeacherCourse;
