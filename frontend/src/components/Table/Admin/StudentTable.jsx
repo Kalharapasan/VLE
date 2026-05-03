@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Table, Form } from 'react-bootstrap';
-import StudentForm from '../../Frome/Admin/StudentsFrome.jsx';
+import StudentForm from '../../Form/Admin/StudentsForm';
 import StudentCard from '../../Card/Admin/StudentCard.jsx';
 import {
   getStudents,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Table, Form } from 'react-bootstrap';
-import AdminForm from '../../Frome/Admin/AdminForm';
+import AdminForm from '../../Form/Admin/AdminForm';
 import AdminCard from '../../Card/Admin/AdminCard';
 import {
   getAdmins,

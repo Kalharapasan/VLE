@@ -23,7 +23,10 @@
       "Bash(curl -s http://127.0.0.1:8000/api/teacher)",
       "Bash(curl -s http://127.0.0.1:8000/api/courses)",
       "Bash(curl -s http://127.0.0.1:8000/api/faculties)",
-      "Bash(curl -s http://127.0.0.1:8000/api/faculty)"
+      "Bash(curl -s http://127.0.0.1:8000/api/faculty)",
+      "Bash(curl -s http://127.0.0.1:8000/api/teacher/1)",
+      "Bash(curl -s http://127.0.0.1:8000/api/attendance)",
+      "Bash(curl -s http://127.0.0.1:8000/api/studentExamMarks)"
     ]
   }
 }
