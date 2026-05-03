@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentRequests;
 use App\Models\Student;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -11,7 +12,14 @@ class StudentController extends Controller
     public function store(StudentRequests $request)
     {
         try {
-            $student = Student::create($request->validated());
+            $data = $request->validated();
+            unset($data['studen_img']);
+
+            if ($request->hasFile('studen_img')) {
+                $data['studen_img'] = $request->file('studen_img')->store('student_images', 'public');
+            }
+
+            $student = Student::create($data);
 
             return response()->json([
                 'message' => 'Student added successfully',
@@ -27,13 +35,13 @@ class StudentController extends Controller
     // READ ALL
     public function index()
     {
-        return response()->json(Student::all());
+        return response()->json(Student::with(['faculty', 'department'])->get());
     }
 
     // READ ONE
     public function show($id)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::with(['faculty', 'department'])->findOrFail($id);
         return response()->json($student);
     }
 
@@ -41,7 +49,18 @@ class StudentController extends Controller
     public function update(StudentRequests $request, $id)
     {
         $student = Student::findOrFail($id);
-        $student->update($request->validated());
+        $data = $request->validated();
+        unset($data['studen_img']);
+
+        if ($request->hasFile('studen_img')) {
+            if ($student->studen_img && Storage::disk('public')->exists($student->studen_img)) {
+                Storage::disk('public')->delete($student->studen_img);
+            }
+
+            $data['studen_img'] = $request->file('studen_img')->store('student_images', 'public');
+        }
+
+        $student->update($data);
 
         return response()->json([
             'message' => 'Student updated successfully',
@@ -53,6 +72,9 @@ class StudentController extends Controller
     public function destroy($id)
     {
         $student = Student::findOrFail($id);
+        if ($student->studen_img && Storage::disk('public')->exists($student->studen_img)) {
+            Storage::disk('public')->delete($student->studen_img);
+        }
         $student->delete();
 
         return response()->json([

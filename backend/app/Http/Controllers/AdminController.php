@@ -12,6 +12,7 @@ class AdminController extends Controller
     {
         try {
             $data = $request->validated();
+            unset($data['admin_img']);
 
             if ($request->hasFile('admin_img')) {
                 $data['admin_img'] = $request->file('admin_img')->store('admin_images', 'public');
@@ -39,7 +40,18 @@ class AdminController extends Controller
     public function update(AdminRequests $request, $id)
     {
         $admin = Admin::findOrFail($id);
-        $admin->update($request->validated());
+        $data = $request->validated();
+        unset($data['admin_img']);
+
+        if ($request->hasFile('admin_img')) {
+            if ($admin->admin_img && Storage::disk('public')->exists($admin->admin_img)) {
+                Storage::disk('public')->delete($admin->admin_img);
+            }
+
+            $data['admin_img'] = $request->file('admin_img')->store('admin_images', 'public');
+        }
+
+        $admin->update($data);
 
         return response()->json(['message' => 'Admin updated successfully', 'admin' => $admin]);
     }
@@ -133,7 +145,7 @@ class AdminController extends Controller
         }
 
         return response()->json([
-            'admin_index' => $admin->admin_index 
+            'admin_Index' => $admin->admin_Index
         ]);
     }
 
