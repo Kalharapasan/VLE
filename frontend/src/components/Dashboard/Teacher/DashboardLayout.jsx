@@ -6,6 +6,7 @@ import TeacherSubjects from './TeacherSubjects';
 import StudentAttendance from './StudentAttendance';
 import StudentMarks from './StudentMarks';
 import TeacherTimetable from './TeacherTimetable';
+import TeacherDashboardCharts from './TeacherDashboardCharts';
 import './DashboardLayout.css';
 
 export default function DashboardLayout() {
@@ -30,7 +31,12 @@ export default function DashboardLayout() {
           </h2>
         </div>
 
-        {view === 'teacher-profile' && <TeacherProfile teacherId={selectedTeacherId} />}
+        {view === 'teacher-profile' && (
+          <>
+            <TeacherProfile teacherId={selectedTeacherId} />
+            <TeacherDashboardCharts />
+          </>
+        )}
         {view === 'teacher-courses' && <TeacherCourses />}
         {view === 'teacher-subjects' && <TeacherSubjects />}
         {view === 'student-attendance' && <StudentAttendance />}

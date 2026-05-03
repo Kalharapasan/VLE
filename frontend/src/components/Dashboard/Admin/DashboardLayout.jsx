@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import DashboardSummary from './DashboardSummary';
+import DashboardCharts from './DashboardCharts';
 import AdminTable from '../../Table/Admin/AdminTable';
 import FacultyTable from '../../Table/Admin/FacultyTable';
 import DepartmentTable from '../../Table/Admin/DepartmentTable';
@@ -37,7 +38,12 @@ export default function DashboardLayout() {
           </h2>
         </div>
 
-        {view === 'dashboard' && <DashboardSummary setView={setView} />}
+        {view === 'dashboard' && (
+          <>
+            <DashboardSummary setView={setView} />
+            <DashboardCharts />
+          </>
+        )}
         {view === 'admin' && <AdminTable />}
         {view === 'faculty' && <FacultyTable />}
         {view === 'department' && <DepartmentTable />}

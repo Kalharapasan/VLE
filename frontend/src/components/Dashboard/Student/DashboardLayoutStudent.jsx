@@ -7,6 +7,7 @@ import StudentResults from './StudentResults';
 import StudentTimetable from './StudentTimetable';
 import StudentNotifications from './StudentNotifications';
 import StudentCertificates from './StudentCertificates';
+import StudentDashboardCharts from './StudentDashboardCharts';
 import './DashboardLayoutStudent.css';
 import { Button } from 'react-bootstrap';
 
@@ -47,7 +48,12 @@ export default function DashboardLayoutStudent() {
         </div>
 
         {/* Render views */}
-        {view === 'dashboard' && <DashboardSummaryStudent />}
+        {view === 'dashboard' && (
+          <>
+            <DashboardSummaryStudent />
+            <StudentDashboardCharts />
+          </>
+        )}
         {view === 'profile' && <StudentProfile />}
         {view === 'courses' && <StudentCourses />}
         {view === 'results' && <StudentResults />}
