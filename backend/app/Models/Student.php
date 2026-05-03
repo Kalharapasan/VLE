@@ -49,5 +49,15 @@ class Student extends Model
             $model->student_Index = $newIndex;
         });
     }
+
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class, 'faculties_id', 'faculties_id');
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id', 'department_id');
+    }
 }
 

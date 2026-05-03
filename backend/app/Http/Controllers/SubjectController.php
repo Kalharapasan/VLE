@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SubjectRequests;
 use App\Models\Subject;
+use Illuminate\Support\Facades\Storage;
 
 class SubjectController extends Controller
 {
@@ -11,7 +12,14 @@ class SubjectController extends Controller
     public function store(SubjectRequests $request)
     {
         try {
-            $subject = Subject::create($request->validated());
+            $data = $request->validated();
+            unset($data['img']);
+
+            if ($request->hasFile('img')) {
+                $data['img'] = $request->file('img')->store('subject_images', 'public');
+            }
+
+            $subject = Subject::create($data);
 
             return response()->json([
                 'message' => 'Subject added successfully',
@@ -41,7 +49,18 @@ class SubjectController extends Controller
     public function update(SubjectRequests $request, $id)
     {
         $subject = Subject::findOrFail($id);
-        $subject->update($request->validated());
+        $data = $request->validated();
+        unset($data['img']);
+
+        if ($request->hasFile('img')) {
+            if ($subject->img && Storage::disk('public')->exists($subject->img)) {
+                Storage::disk('public')->delete($subject->img);
+            }
+
+            $data['img'] = $request->file('img')->store('subject_images', 'public');
+        }
+
+        $subject->update($data);
 
         return response()->json([
             'message' => 'Subject updated successfully',
@@ -53,6 +72,9 @@ class SubjectController extends Controller
     public function destroy($id)
     {
         $subject = Subject::findOrFail($id);
+        if ($subject->img && Storage::disk('public')->exists($subject->img)) {
+            Storage::disk('public')->delete($subject->img);
+        }
         $subject->delete();
 
         return response()->json(['message' => 'Subject deleted successfully']);
