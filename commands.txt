@@ -1,0 +1,284 @@
+================================================================================
+UNIVERSITY MANAGEMENT SYSTEM (UMS) - COMPLETE SETUP COMMANDS
+================================================================================
+
+PREREQUISITES:
+- PHP >= 8.1
+- Composer
+- Node.js (v16+)
+- NPM
+- MySQL (XAMPP/WAMP/Laragon)
+- Git
+
+================================================================================
+STEP 1: DATABASE SETUP (MySQL)
+================================================================================
+
+Open your MySQL client (phpMyAdmin or MySQL CLI) and run:
+
+CREATE DATABASE IF NOT EXISTS vle;
+CREATE DATABASE IF NOT EXISTS vle_test;
+
+Or via XAMPP MySQL:
+/c/xampp/mysql/bin/mysql.exe -u root -e "CREATE DATABASE IF NOT EXISTS vle;"
+
+================================================================================
+STEP 2: BACKEND SETUP (Laravel)
+================================================================================
+
+cd students_backend
+
+# Install PHP dependencies
+composer install
+
+# Create .env file from example
+copy .env.example .env
+(On Linux/Mac: cp .env.example .env)
+
+# Edit .env file and set:
+# DB_DATABASE=vle
+# DB_USERNAME=root
+# DB_PASSWORD= (leave empty if no password)
+
+# Generate application key
+php artisan key:generate
+
+# Run database migrations
+php artisan migrate --force
+
+# (Optional) Seed dummy data
+php artisan db:seed
+
+# Start Laravel development server (port 8000)
+php artisan serve --port=8000
+
+# Server will start at: http://127.0.0.1:8000
+
+================================================================================
+STEP 3: FRONTEND SETUP (React + Vite)
+================================================================================
+
+# Open a NEW terminal window and navigate to frontend folder
+cd students_frontend
+
+# Install JavaScript dependencies
+npm install
+
+# Create .env file for frontend (if not exists)
+# The .env file should contain:
+# VITE_API_URL=http://127.0.0.1:8000/api
+
+# Start React development server
+npm run dev
+
+# Frontend will start at: http://localhost:5173 (or similar port)
+
+================================================================================
+STEP 4: TEST THE CONNECTION
+================================================================================
+
+# Test backend API (in a separate terminal):
+curl http://127.0.0.1:8000/api/admin/count
+
+# Expected response: {"admin_count":0}
+
+# Test frontend is accessible:
+# Open http://localhost:5173 in your browser
+
+================================================================================
+STEP 5: AVAILABLE API ENDPOINTS
+================================================================================
+
+AUTH:
+  POST /api/authController/register
+  POST /api/authController/login
+  POST /api/authController/logout (requires auth:sanctum)
+
+ADMIN:
+  GET    /api/admin
+  POST   /api/admin
+  GET    /api/admin/{id}
+  PUT    /api/admin/update/{id}
+  DELETE /api/admin/{id}
+  GET    /api/admin/count
+  GET    /api/admin/names
+  GET    /api/admin/emails
+
+STUDENTS:
+  GET    /api/student
+  POST   /api/student
+  GET    /api/student/{id}
+  PUT    /api/student/update/{id}
+  DELETE /api/student/{id}
+  GET    /api/student/count
+
+FACULTY:
+  GET    /api/faculty
+  POST   /api/faculty
+  GET    /api/faculty/{id}
+  PUT    /api/faculty/update/{id}
+  DELETE /api/faculty/{id}
+  GET    /api/faculty/count
+
+COURSES:
+  GET    /api/courses
+  POST   /api/courses
+  GET    /api/courses/{id}
+  PUT    /api/courses/update/{id}
+  DELETE /api/courses/{id}
+  GET    /api/courses/count
+
+DEPARTMENTS:
+  GET    /api/department
+  POST   /api/department
+  GET    /api/department/{id}
+  PUT    /api/department/update/{id}
+  DELETE /api/department/{id}
+  GET    /api/department/count
+
+EXAMS:
+  GET    /api/exam
+  POST   /api/exam
+  GET    /api/exam/{id}
+  PUT    /api/exam/update/{id}
+  DELETE /api/exam/{id}
+  GET    /api/exam/count
+
+TEACHERS:
+  GET    /api/teacher
+  POST   /api/teacher
+  GET    /api/teacher/{id}
+  POST   /api/teacher/update/{id}
+  DELETE /api/teacher/{id}
+  GET    /api/teacher/count
+
+SUBJECTS:
+  GET    /api/subject
+  POST   /api/subject
+  GET    /api/subject/{id}
+  PUT    /api/subject/update/{id}
+  DELETE /api/subject/{id}
+  GET    /api/subject/count
+
+TIME TABLES:
+  GET    /api/timeTable
+  POST   /api/timeTable
+  GET    /api/timeTable/{id}
+  PUT    /api/timeTable/update/{id}
+  DELETE /api/timeTable/{id}
+  GET    /api/timeTable/count
+
+STUDENT COURSES:
+  GET    /api/student/course
+  POST   /api/student/course
+  GET    /api/student/course/{id}
+  PUT    /api/student/course/update/{id}
+  DELETE /api/student/course/{id}
+
+STUDENT SUBJECTS:
+  GET    /api/studentSubject
+  POST   /api/studentSubject
+  GET    /api/studentSubject/{id}
+  PUT    /api/studentSubject/update/{id}
+  DELETE /api/studentSubject/{id}
+
+TEACHER COURSES:
+  GET    /api/teacherCourse
+  POST   /api/teacherCourse
+  GET    /api/teacherCourse/{id}
+  PUT    /api/teacherCourse/update/{id}
+  DELETE /api/teacherCourse/{id}
+
+TEACHER SUBJECTS:
+  GET    /api/teacherSubject
+  POST   /api/teacherSubject
+  GET    /api/teacherSubject/{id}
+  PUT    /api/teacherSubject/update/{id}
+  DELETE /api/teacherSubject/{id}
+
+STUDENT EXAM MARKS:
+  GET    /api/studentExamMarks
+  POST   /api/studentExamMarks
+  GET    /api/studentExamMarks/{id}
+  PUT    /api/studentExamMarks/update/{id}
+  DELETE /api/studentExamMarks/{id}
+
+STUDENT EXAMS:
+  GET    /api/studentExam
+  POST   /api/studentExam
+  GET    /api/studentExam/{id}
+  PUT    /api/studentExam/update/{id}
+  DELETE /api/studentExam/{id}
+
+ATTENDANCE:
+  GET    /api/attendance
+  POST   /api/attendance
+  GET    /api/attendance/{id}
+  PUT    /api/attendance/update/{id}
+  DELETE /api/attendance/{id}
+
+STUDENT PAYMENTS:
+  GET    /api/studenPayment
+  POST   /api/studenPayment
+  GET    /api/studenPayment/{id}
+  PUT    /api/studenPayment/update/{id}
+  DELETE /api/studenPayment/{id}
+
+STUDENTS GPA:
+  GET    /api/studentsGPA
+  POST   /api/studentsGPA
+  GET    /api/studentsGPA/{id}
+  PUT    /api/studentsGPA/update/{id}
+  DELETE /api/studentsGPA/{id}
+
+================================================================================
+STEP 6: QUICK START (SUMMARY)
+================================================================================
+
+Terminal 1 (Backend):
+  cd students_backend
+  composer install
+  copy .env.example .env
+  php artisan key:generate
+  php artisan migrate
+  php artisan serve --port=8000
+
+Terminal 2 (Frontend):
+  cd students_frontend
+  npm install
+  npm run dev
+
+================================================================================
+NOTES:
+================================================================================
+
+1. Make sure MySQL is running before starting the backend
+2. The frontend .env file should have: VITE_API_URL=http://127.0.0.1:8000/api
+3. CORS is already configured in backend to accept requests from any origin
+4. All API endpoints return JSON format
+5. For file uploads, use multipart/form-data
+6. To update resources, use POST with _method=PUT (for form-data)
+7. Sanctum is used for API authentication
+
+================================================================================
+TROUBLESHOOTING:
+================================================================================
+
+1. If "vendor folder not found":
+   Run: composer install
+
+2. If "database does not exist":
+   Create the database in MySQL: CREATE DATABASE vle;
+
+3. If CORS errors:
+   Check that backend cors.php has: 'allowed_origins' => ['*']
+
+4. If frontend can't connect to backend:
+   - Check backend is running on port 8000
+   - Check frontend .env has correct VITE_API_URL
+   - Restart both servers after changing .env files
+
+5. If "Artisan command not found":
+   Make sure you're in the students_backend directory
+
+================================================================================
