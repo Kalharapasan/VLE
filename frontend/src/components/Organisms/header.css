@@ -1,9 +1,10 @@
 /* Blue Navbar Styles */
 .navbar-blue {
-    background-color: #0d6efd !important; /* Bootstrap primary blue */
+    background-color: #0d6efd !important;
     border-bottom: 1px solid #084298;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: background-color 0.3s ease;
+    padding: 0.5rem 1rem;
 }
 
 /* Brand Styling */
@@ -14,6 +15,7 @@
     font-weight: bold;
     font-size: 1.25rem;
     transition: color 0.3s ease;
+    cursor: pointer;
 }
 
 /* Nav Link Styling */
@@ -38,7 +40,6 @@
     border: 1px solid #dee2e6;
 }
 
-/* Dropdown item hover */
 .dropdown-item:hover {
     background-color: #e9ecef;
     color: #0d6efd;
@@ -63,9 +64,72 @@
 .btn-light:hover {
     background-color: #e2e6ea;
 }
+
 .nav-link-custom {
     font-weight: 500;
 }
+
 .navbar-dark .navbar-nav .nav-link:hover {
     color: #f1c40f;
+}
+
+/* User Info Styles */
+.user-info {
+    color: #ffffff;
+}
+
+.user-avatar img {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    transition: border-color 0.2s ease;
+}
+
+.user-avatar img:hover {
+    border-color: #ffffff;
+}
+
+.avatar-placeholder {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.user-details {
+    line-height: 1.2;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+
+.user-index {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.role-badge .badge {
+    font-size: 0.7rem;
+    vertical-align: middle;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .user-details {
+        display: none !important;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
 }
