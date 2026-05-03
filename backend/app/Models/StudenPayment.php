@@ -13,7 +13,8 @@ class StudenPayment extends Model
 
     protected $fillable = [
         'student_id',
-        'payment_reason',
+        'payment_Index',
+        'payment_reson',
         'description',
     ];
 
