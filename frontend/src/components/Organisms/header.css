@@ -76,6 +76,12 @@
 /* User Info Styles */
 .user-info {
     color: #ffffff;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.user-info:hover {
+    opacity: 0.85;
 }
 
 .user-avatar img {
