@@ -2,7 +2,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import './Sidebar.css';
-import { FaChalkboardTeacher, FaBook, FaClipboardList, FaCalendarAlt, FaUserGraduate } from 'react-icons/fa';
+import { FaChalkboardTeacher, FaBook, FaClipboardList, FaCalendarAlt, FaUserGraduate, FaUsers } from 'react-icons/fa';
 
 export default function Sidebar({ view, setView }) {
   const linkClass = (name) => `sidebar-link nav-link ${view === name ? 'active' : ''}`;
@@ -38,6 +38,11 @@ export default function Sidebar({ view, setView }) {
       <Nav className="flex-column">
         <Nav.Link onClick={() => setView('teacher-timetable')} className={linkClass('teacher-timetable')}>
           <FaCalendarAlt /> Timetable
+        </Nav.Link>
+      </Nav>
+      <Nav className="flex-column">
+        <Nav.Link onClick={() => setView('other-teachers')} className={linkClass('other-teachers')}>
+          <FaUsers /> Other Teachers
         </Nav.Link>
       </Nav>
     </div>
