@@ -288,8 +288,6 @@ Route::prefix('exam')->group(function () {
 
 });
 
-?>
-
 // Book/Library API Routes
 Route::prefix('books')->group(function () {
     Route::get('/', [BookController::class, 'index']);

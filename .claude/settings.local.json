@@ -7,7 +7,13 @@
       "Bash(curl -s http://127.0.0.1:5173)",
       "Bash(npm list *)",
       "Bash(npm install *)",
-      "Bash(mysql -u root -e \"CREATE DATABASE IF NOT EXISTS vle;\")"
+      "Bash(mysql -u root -e \"CREATE DATABASE IF NOT EXISTS vle;\")",
+      "Bash(curl -s http://127.0.0.1:8000/api/page-content/by-page/home)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill //F //PID 6912 //T)",
+      "Bash(taskkill //F //PID 10268 //T)",
+      "Bash(taskkill //F //PID 12932 //T)",
+      "Bash(composer dump-autoload *)"
     ]
   }
 }
