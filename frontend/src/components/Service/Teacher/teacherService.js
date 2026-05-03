@@ -15,6 +15,9 @@ export const getTeacher = (teacherId) => {
   return api.get(`/teacher/${teacherId}`);
 };
 
+// Get all teachers (for Other Teachers feature)
+export const getTeachers = () => api.get('/teacher');
+
 export const updateTeacher = (teacherId, data) => {
   data.append('_method', 'PUT');
   return api.post(`/teacher/update/${teacherId}`, data, {
@@ -60,3 +63,9 @@ export const deleteStudentMarks = (id) => api.delete(`/studentExamMarks/${id}`);
 
 // Timetable Services
 export const getTimeTable = () => api.get('/timeTable');
+export const createTimeTable = (data) => api.post('/timeTable', data);
+export const updateTimeTable = (id, data) => {
+    data.append('_method', 'PUT');
+    return api.post(`/timeTable/update/${id}`, data);
+};
+export const deleteTimeTable = (id) => api.delete(`/timeTable/${id}`);

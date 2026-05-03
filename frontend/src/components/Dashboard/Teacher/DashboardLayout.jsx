@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
+import TeacherDashboardSummary from './TeacherDashboardSummary';
 import TeacherProfile from '../../Pages/Teacher/TeacherProfile';
 import TeacherCourses from './TeacherCourses';
 import TeacherSubjects from './TeacherSubjects';
@@ -7,10 +8,11 @@ import StudentAttendance from './StudentAttendance';
 import StudentMarks from './StudentMarks';
 import TeacherTimetable from './TeacherTimetable';
 import TeacherDashboardCharts from './TeacherDashboardCharts';
+import OtherTeachers from './OtherTeachers';
 import './DashboardLayout.css';
 
 export default function DashboardLayout() {
-  const [view, setView] = useState('teacher-profile');
+  const [view, setView] = useState('dashboard');
   const [selectedTeacherId] = useState(1); // default teacher ID - should come from logged in user
 
   return (
@@ -21,16 +23,24 @@ export default function DashboardLayout() {
         <div className="header">
           <h2>
             {{
+              'dashboard': 'Teacher Dashboard',
               'teacher-profile': 'Teacher Profile',
               'teacher-courses': 'My Courses',
               'teacher-subjects': 'My Subjects',
               'student-attendance': 'Student Attendance',
               'student-marks': 'Student Marks',
               'teacher-timetable': 'My Timetable',
+              'other-teachers': 'Other Teachers',
             }[view]}
           </h2>
         </div>
 
+        {view === 'dashboard' && (
+          <>
+            <TeacherDashboardSummary />
+            <TeacherDashboardCharts />
+          </>
+        )}
         {view === 'teacher-profile' && (
           <>
             <TeacherProfile teacherId={selectedTeacherId} />
@@ -42,6 +52,7 @@ export default function DashboardLayout() {
         {view === 'student-attendance' && <StudentAttendance />}
         {view === 'student-marks' && <StudentMarks />}
         {view === 'teacher-timetable' && <TeacherTimetable />}
+        {view === 'other-teachers' && <OtherTeachers currentTeacherId={selectedTeacherId} />}
       </div>
     </div>
   );

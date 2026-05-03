@@ -13,7 +13,8 @@ import {
   FaClipboardList,
   FaUserGraduate,
   FaClock,
-  FaTable
+  FaTable,
+  FaEdit
 } from 'react-icons/fa';
 
 export default function Sidebar({ view, setView }) {
@@ -52,6 +53,9 @@ export default function Sidebar({ view, setView }) {
         </Nav.Link>
         <Nav.Link as="button" type="button" onClick={() => setView('timetable')} className={linkClass('timetable')}>
           <FaTable /> TimeTable
+        </Nav.Link>
+        <Nav.Link as="button" type="button" onClick={() => setView('page-editor')} className={linkClass('page-editor')}>
+          <FaEdit /> Page Editor
         </Nav.Link>
       </Nav>
     </div>
