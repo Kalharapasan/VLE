@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CourseRequests;
 use App\Models\Course;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -11,7 +12,14 @@ class CourseController extends Controller
     public function store(CourseRequests $request)
     {
         try {
-            $course = Course::create($request->validated());
+            $data = $request->validated();
+            unset($data['img']);
+
+            if ($request->hasFile('img')) {
+                $data['img'] = $request->file('img')->store('course_images', 'public');
+            }
+
+            $course = Course::create($data);
 
             return response()->json([
                 'message' => 'Course added successfully',
@@ -41,7 +49,18 @@ class CourseController extends Controller
     public function update(CourseRequests $request, $id)
     {
         $course = Course::findOrFail($id);
-        $course->update($request->validated());
+        $data = $request->validated();
+        unset($data['img']);
+
+        if ($request->hasFile('img')) {
+            if ($course->img && Storage::disk('public')->exists($course->img)) {
+                Storage::disk('public')->delete($course->img);
+            }
+
+            $data['img'] = $request->file('img')->store('course_images', 'public');
+        }
+
+        $course->update($data);
 
         return response()->json([
             'message' => 'Course updated successfully',
@@ -53,6 +72,9 @@ class CourseController extends Controller
     public function destroy($id)
     {
         $course = Course::findOrFail($id);
+        if ($course->img && Storage::disk('public')->exists($course->img)) {
+            Storage::disk('public')->delete($course->img);
+        }
         $course->delete();
 
         return response()->json(['message' => 'Course deleted successfully']);

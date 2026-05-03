@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import CourseForm from '../../Form/Admin/CourseForm';
 import { getCourses, updateCourse, deleteCourse } from '../../Service/Admin/CourseServic';
+import { resolveStorageUrl } from '../../../utils/storageUrl';
 
 export default function CourseCard() {
     const [courses, setCourses] = useState([]);
@@ -53,12 +54,15 @@ export default function CourseCard() {
                 {courses.map((course) => (
                     <Col key={course.course_id}>
                         <Card className="mb-4 shadow-sm">
-                            {course.img ? (
+                            {resolveStorageUrl(course.img) ? (
                                 <Card.Img
                                     variant="top"
-                                    src={`http://localhost:8000/storage/${course.img}`}
+                                    src={resolveStorageUrl(course.img)}
                                     alt={course.course_name}
                                     style={{ height: '200px', objectFit: 'cover' }}
+                                    onError={(event) => {
+                                        event.currentTarget.style.display = 'none';
+                                    }}
                                 />
                             ) : (
                                 <div style={{ height: '200px', backgroundColor: '#eee' }} />

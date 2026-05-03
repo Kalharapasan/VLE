@@ -12,7 +12,14 @@ class TeacherController extends Controller
     public function store(TeacherRequests $request)
     {
         try {
-            $teacher = Teacher::create($request->validated());
+            $data = $request->validated();
+            unset($data['teacher_img']);
+
+            if ($request->hasFile('teacher_img')) {
+                $data['teacher_img'] = $request->file('teacher_img')->store('teacher_images', 'public');
+            }
+
+            $teacher = Teacher::create($data);
 
             return response()->json(['message' => 'Teacher added successfully', 'teacher' => $teacher]);
         } catch (\Exception $e) {
@@ -38,8 +45,8 @@ class TeacherController extends Controller
     {
         $teacher = Teacher::findOrFail($id);
 
-        // Get validated data, but exclude the image for now
-        $validatedData = $request->safe()->except('teacher_img');
+        $validatedData = $request->validated();
+        unset($validatedData['teacher_img']);
 
         // Handle image upload separately
         if ($request->hasFile('teacher_img')) {
@@ -63,6 +70,9 @@ class TeacherController extends Controller
     public function destroy($id)
     {
         $teacher = Teacher::findOrFail($id);
+        if ($teacher->teacher_img) {
+            Storage::disk('public')->delete($teacher->teacher_img);
+        }
         $teacher->delete();
 
         return response()->json(['message' => 'Teacher deleted successfully']);

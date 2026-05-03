@@ -125,7 +125,14 @@ export default function SubjectTable() {
         <div className="row">
           {filteredSubjects.map((subject) => (
               <div className="col-md-4" key={subject.subject_id}>
-                <SubjectCard subject={subject} />
+                <SubjectCard
+                    subject={subject}
+                    onEdit={() => {
+                      setSelectedSubject(subject);
+                      setShowForm(true);
+                    }}
+                    onDelete={() => handleDelete(subject.subject_id)}
+                />
               </div>
           ))}
         </div>

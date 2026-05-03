@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FacultyRequests;
 use App\Models\Faculty;
+use Illuminate\Support\Facades\Storage;
 
 class FacultyController extends Controller
 {
@@ -11,7 +12,14 @@ class FacultyController extends Controller
     public function store(FacultyRequests $request)
     {
         try {
-            $faculty = Faculty::create($request->validated());
+            $data = $request->validated();
+            unset($data['img']);
+
+            if ($request->hasFile('img')) {
+                $data['img'] = $request->file('img')->store('faculty_images', 'public');
+            }
+
+            $faculty = Faculty::create($data);
 
             return response()->json([
                 'message' => 'Faculty added successfully',
@@ -41,7 +49,18 @@ class FacultyController extends Controller
     public function update(FacultyRequests $request, $id)
     {
         $faculty = Faculty::findOrFail($id);
-        $faculty->update($request->validated());
+        $data = $request->validated();
+        unset($data['img']);
+
+        if ($request->hasFile('img')) {
+            if ($faculty->img && Storage::disk('public')->exists($faculty->img)) {
+                Storage::disk('public')->delete($faculty->img);
+            }
+
+            $data['img'] = $request->file('img')->store('faculty_images', 'public');
+        }
+
+        $faculty->update($data);
 
         return response()->json([
             'message' => 'Faculty updated successfully',
@@ -53,6 +72,9 @@ class FacultyController extends Controller
     public function destroy($id)
     {
         $faculty = Faculty::findOrFail($id);
+        if ($faculty->img && Storage::disk('public')->exists($faculty->img)) {
+            Storage::disk('public')->delete($faculty->img);
+        }
         $faculty->delete();
 
         return response()->json([

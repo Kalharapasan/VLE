@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 
 export default function SubjectForm({ show, handleClose, onSubmit, initialData }) {
@@ -29,9 +29,9 @@ export default function SubjectForm({ show, handleClose, onSubmit, initialData }
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onSubmit(form);
+        await onSubmit(form);
         handleClose();
     };
 

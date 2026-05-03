@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
+import { resolveStorageUrl } from '../../../utils/storageUrl';
 
 export default function AdminForm({ show, handleClose, onSubmit, initialData }) {
     const emptyForm = {
@@ -21,7 +22,7 @@ export default function AdminForm({ show, handleClose, onSubmit, initialData }) 
                 ...initialData,
                 admin_img: null,
             });
-            setPreview(initialData.admin_img_url || null);
+            setPreview(resolveStorageUrl(initialData.admin_img));
         } else {
             setForm(emptyForm);
             setPreview(null);
@@ -44,7 +45,7 @@ export default function AdminForm({ show, handleClose, onSubmit, initialData }) 
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
         Object.entries(form).forEach(([key, value]) => {
@@ -52,7 +53,7 @@ export default function AdminForm({ show, handleClose, onSubmit, initialData }) 
                 data.append(key, value);
             }
         });
-        onSubmit(data);
+        await onSubmit(data);
         handleClose();
     };
 
@@ -87,9 +88,9 @@ export default function AdminForm({ show, handleClose, onSubmit, initialData }) 
                         <Form.Label>Gender</Form.Label>
                         <Form.Select name="admin_gender" value={form.admin_gender} onChange={handleChange} required>
                             <option value="">Select Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
                         </Form.Select>
                     </Form.Group>
 

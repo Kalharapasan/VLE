@@ -20,7 +20,7 @@ class DepartmentRequests extends FormRequest
         return [
             'department_name' => 'required|string|max:255',
             'description'     => 'required|string',
-            'admin_img'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Max 2MB
+            'img'            => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'faculties_id'    => 'required|exists:faculties,faculties_id',
         ];
     }

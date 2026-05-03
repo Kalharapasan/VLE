@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { getDepartments } from '../../Service/Admin/DepartmentService';
 import { getFaculties } from '../../Service/Admin/FacultyService';
+import { resolveStorageUrl } from '../../../utils/storageUrl';
 
 export default function TeacherForm({ show, handleClose, onSubmit, initialData }) {
     const emptyForm = {
@@ -40,7 +41,7 @@ export default function TeacherForm({ show, handleClose, onSubmit, initialData }
                 teacher_birthday: initialData.teacher_birthday?.split('T')[0] || '',
                 teacher_img: null,
             });
-            setPreview(initialData.teacher_img_url || null);
+            setPreview(resolveStorageUrl(initialData.teacher_img));
         } else {
             setForm(emptyForm);
             setPreview(null);
@@ -64,7 +65,7 @@ export default function TeacherForm({ show, handleClose, onSubmit, initialData }
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
         Object.entries(form).forEach(([key, value]) => {
@@ -74,7 +75,7 @@ export default function TeacherForm({ show, handleClose, onSubmit, initialData }
                 data.append(key, value);
             }
         });
-        onSubmit(data);
+        await onSubmit(data);
         handleClose();
     };
 

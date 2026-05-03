@@ -1,16 +1,22 @@
 import { Card, Button } from 'react-bootstrap';
+import { resolveStorageUrl } from '../../../utils/storageUrl';
 
 export default function FacultyCard({ faculty, onEdit, onDelete }) {
     const { faculties_name, description, img } = faculty;
 
+    const imageUrl = resolveStorageUrl(img);
+
     return (
         <Card className="mb-4 shadow-sm">
-            {img ? (
+            {imageUrl ? (
                 <Card.Img
                     variant="top"
-                    src={`http://localhost:8000/storage/${img}`}
+                    src={imageUrl}
                     alt={faculties_name}
                     style={{ height: '200px', objectFit: 'cover' }}
+                    onError={(event) => {
+                        event.currentTarget.style.display = 'none';
+                    }}
                 />
             ) : (
                 <div style={{ height: '200px', backgroundColor: '#eee' }} />

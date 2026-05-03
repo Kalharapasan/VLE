@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DepartmentRequests;
 use App\Models\Department;
+use Illuminate\Support\Facades\Storage;
 
 class DepartmentController extends Controller
 {
@@ -11,7 +12,14 @@ class DepartmentController extends Controller
     public function store(DepartmentRequests $request)
     {
         try {
-            $department = Department::create($request->validated());
+            $data = $request->validated();
+            unset($data['img']);
+
+            if ($request->hasFile('img')) {
+                $data['img'] = $request->file('img')->store('department_images', 'public');
+            }
+
+            $department = Department::create($data);
 
             return response()->json(['message' => 'Department added successfully', 'department' => $department]);
         } catch (\Exception $e) {
@@ -35,7 +43,18 @@ class DepartmentController extends Controller
     public function update(DepartmentRequests $request, $id)
     {
         $department = Department::findOrFail($id);
-        $department->update($request->validated());
+        $data = $request->validated();
+        unset($data['img']);
+
+        if ($request->hasFile('img')) {
+            if ($department->img && Storage::disk('public')->exists($department->img)) {
+                Storage::disk('public')->delete($department->img);
+            }
+
+            $data['img'] = $request->file('img')->store('department_images', 'public');
+        }
+
+        $department->update($data);
 
         return response()->json(['message' => 'Department updated successfully', 'faculty' => $department]);
     }
@@ -44,6 +63,9 @@ class DepartmentController extends Controller
     public function destroy($id)
     {
         $department = Department::findOrFail($id);
+        if ($department->img && Storage::disk('public')->exists($department->img)) {
+            Storage::disk('public')->delete($department->img);
+        }
         $department->delete();
 
         return response()->json(['message' => 'Department deleted successfully']);
