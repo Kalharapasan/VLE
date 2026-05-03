@@ -4,7 +4,7 @@ import {
   getCourseCount,
   getExamCount,
   getTimetableCount,
-} from '../../Service/Admin/DashbordService.js';
+} from '../../Service/Admin/DashboardService.js';
 import {
   FaUserGraduate, FaBook, FaClipboardList, FaClock,
   FaBell, FaCertificate, FaTable

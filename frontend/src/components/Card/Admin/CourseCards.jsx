@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Card, Button, Row, Col } from 'react-bootstrap';
-import CourseForm from '../../Frome/Admin/CourseFrome';
+import CourseForm from '../../Form/Admin/CourseForm';
 import { getCourses, updateCourse, deleteCourse } from '../../Service/Admin/CourseServic';
 
 export default function CourseCard() {

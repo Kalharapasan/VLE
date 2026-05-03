@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Table, Form } from 'react-bootstrap';
-import TeacherForm from '../../Frome/Admin/TeacherFrome';
+import TeacherForm from '../../Form/Admin/TeacherForm';
 import TeacherCard from '../../Card/Admin/TeacherCard';
 import {
   getTeachers,

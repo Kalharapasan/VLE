@@ -143,7 +143,7 @@ export default function PageEditor() {
               <tr key={section.id || idx}>
                 <td>{idx + 1}</td>
                 <td><code>{section.section_key}</code></td>
-                <td>{section.title || '-'}}</td>
+                <td>{section.title || '-'}</td>
                 <td>
                   {section.content ? (
                     <span>

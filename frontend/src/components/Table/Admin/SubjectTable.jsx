@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Table, Form } from 'react-bootstrap';
-import SubjectForm from '../../Frome/Admin/SubjectFrome';
+import SubjectForm from '../../Form/Admin/SubjectForm';
 import SubjectCard from '../../Card/Admin/SubjectCard';
 
 import {

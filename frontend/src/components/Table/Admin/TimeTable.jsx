@@ -1,7 +1,7 @@
 // src/Table/Admin/TimeTableTable.jsx
 import { useEffect, useState } from 'react';
 import { Button, Table, Form } from 'react-bootstrap';
-import TimeTableForm from '../../Frome/Admin/TimeTableFrome.jsx';
+import TimeTableForm from '../../Form/Admin/TimeTableForm';
 import TimeTableCard from '../../Card/Admin/TitmeTableCard.jsx';
 import {
   getTimeTables,

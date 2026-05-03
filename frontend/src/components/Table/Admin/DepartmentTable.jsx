@@ -6,7 +6,7 @@ import {
     updateDepartment,
     deleteDepartment
 } from '../../Service/Admin/DepartmentService';
-import DepartmentForm from '../../Frome/Admin/DepartmentFrome';
+import DepartmentForm from '../../Form/Admin/DepartmentForm';
 import DepartmentCard from '../../Card/Admin/DepartmentCard';
 
 export default function DepartmentTable() {

@@ -8,7 +8,7 @@ import {
   getExamCount,
   getSubjectCount,
   getTimetableCount,
-} from '../../Service/Admin/DashbordService';
+} from '../../Service/Admin/DashboardService';
 import {
   PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
