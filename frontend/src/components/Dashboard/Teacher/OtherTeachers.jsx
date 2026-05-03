@@ -81,7 +81,7 @@ export default function OtherTeachers({ currentTeacherId }) {
                   {teacher.teacher_img ? (
                     <Card.Img
                       variant="top"
-                      src={`http://localhost:8000/storage/${teacher.teacher_img}`}
+                      src={`http://127.0.0.1:8000/storage/${teacher.teacher_img}`}
                       alt="Profile"
                       className="rounded-circle mx-auto mt-3"
                       style={{ width: '100px', height: '100px', objectFit: 'cover' }}
