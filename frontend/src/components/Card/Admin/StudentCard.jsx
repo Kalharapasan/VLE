@@ -36,6 +36,7 @@ export default function StudentCard({ student, onEdit, onDelete }) {
             <Card.Body>
                 <Card.Title>{student_fname} {student_lname}</Card.Title>
                 <Card.Text>
+                    <strong>Index:</strong> {student_Index}<br />
                     <strong>Email:</strong> {student_email}<br />
                     <strong>NIC:</strong> {student_nic}<br />
                     <strong>Birthday:</strong> {student_birthday}<br />
