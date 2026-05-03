@@ -1,19 +1,91 @@
+/* Footer Styles */
+footer {
+    background-color: #1a1a2e !important;
+    color: #ffffff;
+    padding-top: 3rem;
+    margin-top: auto;
+}
+
+footer h5, footer h6 {
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
 footer ul {
     padding-left: 0;
     list-style: none;
 }
 
 footer ul li {
-    padding: 4px 0;
+    padding: 6px 0;
     font-size: 14px;
-    border-bottom: 1px dotted #555;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
 }
 
-footer h6 {
+.footer-links li {
+    transition: padding-left 0.3s ease;
+}
+
+.footer-links li:hover {
+    padding-left: 8px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #ffffff !important;
+}
+
+.footer-logo {
+    filter: brightness(1.2);
+}
+
+.tamil-text {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+}
+
+.social-links {
+    gap: 1rem;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
     font-size: 16px;
-    margin-bottom: 10px;
+}
+
+.social-icon:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+footer hr {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    margin: 2rem 0 1rem;
+}
+
+footer p {
+    color: rgba(255, 255, 255, 0.6);
 }
 
 footer i {
-    font-size: 16px;
+    font-size: 14px;
+    width: 20px;
+    text-align: center;
 }
