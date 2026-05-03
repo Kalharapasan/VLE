@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npx -y acorn-loose --ecma2020 src/components/Organisms/Header.jsx)",
-      "Bash(node -e \"try { require\\('fs'\\).readFileSync\\('src/components/Organisms/Header.jsx', 'utf8'\\); console.log\\('File read OK'\\); } catch\\(e\\) { console.log\\('Error:', e.message\\); }\")"
+      "Bash(node -e \"try { require\\('fs'\\).readFileSync\\('src/components/Organisms/Header.jsx', 'utf8'\\); console.log\\('File read OK'\\); } catch\\(e\\) { console.log\\('Error:', e.message\\); }\")",
+      "Bash(node -e ' *)"
     ]
   }
 }
