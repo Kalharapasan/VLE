@@ -9,7 +9,7 @@ import {
   getTeacherCount,
   getTimetableCount,
   getSubjectCount
-} from '../../Service/Admin/DashbordService.js';
+} from '../../Service/Admin/DashboardService.js';
 import {
   FaUserShield, FaUserGraduate, FaBook, FaBuilding, FaUniversity,
   FaChalkboardTeacher, FaClipboardList, FaClock, FaTable
