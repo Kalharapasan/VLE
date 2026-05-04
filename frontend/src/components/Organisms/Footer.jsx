@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { getPageContents } from '../../Service/pageContentService';
+import { getPageContents } from '../Service/pageContentService';
 import './footer.css';
 
 const Footer = () => {
